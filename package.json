@@ -1,5 +1,4 @@
 {
-  "cacheDirectories": [".next/cache"],
   "name": "promo-faster",
   "version": "0.1.0",
   "private": true,
