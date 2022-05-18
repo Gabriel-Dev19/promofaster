@@ -1,11 +1,11 @@
 {
+  "cacheDirectories": [".next/cache"],
   "name": "promo-faster",
   "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "16.x"
   },
-  "cacheDirectories": [".next/cache"],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
