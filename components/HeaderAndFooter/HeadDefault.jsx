@@ -5,6 +5,7 @@ export default function HeadDefault(props) {
   return(
     <Head>
       <title>{(props.title || 'Home') + ' | Promo faster'}</title>
+      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
       <meta name="description" content="Descrição" />
       <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
