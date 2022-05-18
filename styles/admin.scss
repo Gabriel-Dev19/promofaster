@@ -1,0 +1,49 @@
+#admin{
+  padding: 30px;
+
+  .content-full-screen{
+    height: 100%;
+    padding: 60px 15px;
+    overflow: auto;
+
+    form{
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      background-color: gainsboro;
+      
+      input{
+        margin-bottom: 9px;
+      }
+    }
+  }
+
+  table{
+    tr{
+      td{
+        vertical-align: middle;
+
+        &:last-child{
+          margin-bottom: -1px;
+        }
+      }
+    }
+  }
+}
+
+#login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 60px 15px;
+
+  form{
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}
