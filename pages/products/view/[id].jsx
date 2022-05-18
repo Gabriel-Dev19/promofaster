@@ -34,7 +34,7 @@ export const getStaticProps = async ({ params }) => {
 
 export const getStaticPaths = async () => {
   const { data } = await axios.get("http://apipromoshop-env.eba-jzpjzwfe.us-east-1.elasticbeanstalk.com/api/products/");
-  const paths = data.map((product) => ({ params: { id: product.id.toString() } }));
+  const paths = data.map((product) => ({ params: { id: product.id.toString(), name: product.name } }));
   return {
     paths,
     fallback: true,
