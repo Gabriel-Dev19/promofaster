@@ -70,14 +70,8 @@ export default function Index() {
       precoParcelas: precoParcelasInput,
       semJuros: semJurosInput
     }
-    axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
-      }
-    }).then((res) => {
+    axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product))
+    .then((res) => {
       setDataBase(res.data)
       setShowModal(false)
       setImagesInput([])
@@ -104,14 +98,8 @@ export default function Index() {
   }
 
   function deleteProduct (id) {
-    axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {}, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
-      }
-    }).then((response) => {
+    axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {})
+    .then((response) => {
       setDataBase(response.data)
       message.error({
         content: 'Produto removido',
