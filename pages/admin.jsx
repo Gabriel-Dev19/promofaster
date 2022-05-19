@@ -72,7 +72,9 @@ export default function Index() {
     }
     axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product), {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     }).then((res) => {
       setDataBase(res.data)
@@ -103,7 +105,9 @@ export default function Index() {
   function deleteProduct (id) {
     axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {}, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     }).then((response) => {
       setDataBase(response.data)
