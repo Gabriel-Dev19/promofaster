@@ -74,7 +74,7 @@ export default function Index() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Headers': 'X-Custom-Header, Upgrade-Insecure-Requests',
+        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     }).then((res) => {
@@ -108,7 +108,7 @@ export default function Index() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Headers': 'X-Custom-Header, Upgrade-Insecure-Requests',
+        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     }).then((response) => {
