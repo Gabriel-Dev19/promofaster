@@ -27,7 +27,7 @@ export default function Index() {
   const [dataBase, setDataBase] = useState([])
 
   function getProducts() {
-    axios.get('http://apipromoshop-env.eba-jzpjzwfe.us-east-1.elasticbeanstalk.com/api/products')
+    axios.get('https://apipromofaster.vercel.app/api/products')
       .then((res) => {
         setDataBase(res.data)
       })
@@ -70,7 +70,7 @@ export default function Index() {
       precoParcelas: precoParcelasInput,
       semJuros: semJurosInput
     }
-    axios.post('http://apipromoshop-env.eba-jzpjzwfe.us-east-1.elasticbeanstalk.com/api/products/create', JSON.stringify(product), {
+    axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product), {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -101,7 +101,7 @@ export default function Index() {
   }
 
   function deleteProduct (id) {
-    axios.delete('http://apipromoshop-env.eba-jzpjzwfe.us-east-1.elasticbeanstalk.com/api/products/delete/' + id, {}, {
+    axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {}, {
       headers: {
         'Content-Type': 'application/json'
       }

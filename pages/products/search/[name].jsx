@@ -51,7 +51,7 @@ function SearchPage(props) {
   }
 
   function getProducts() {
-    axios.get('http://apipromoshop-env.eba-jzpjzwfe.us-east-1.elasticbeanstalk.com/api/products')
+    axios.get('https://apipromofaster.vercel.app/api/products')
       .then((res) => {
         setDataBase(res.data)
       })
