@@ -5,8 +5,9 @@ import classNames from 'classnames'
 import LayoutDefault from '../../../layouts/LayoutDefault'
 import {SwiperSlide} from 'swiper/react'
 import Product from '../../../components/Product'
+import {connectToDatabase} from '../../../lib/mongodb'
 
-function SearchPage(props) {
+function SearchPage({ products }) {
   const [dataBase, setDataBase] = useState([])
   const router = useRouter()
   const routerQueryName = router.query.name
@@ -50,8 +51,10 @@ function SearchPage(props) {
     setOrderLabel('maior relevância')
   }
 
-  function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
+  async function getProducts() {
+    let dev = process.env.NODE_ENV !== 'production';
+    let { DEV_URL, PROD_URL } = process.env;
+    await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
       .then((res) => {
         setDataBase(res.data)
       })
@@ -61,7 +64,6 @@ function SearchPage(props) {
   }
 
   useEffect(() => {
-    getProducts()
     orderByRelevance()
     setQueryName(routerQueryName)
   }, [routerQueryName])
@@ -104,7 +106,7 @@ function SearchPage(props) {
           </div>
           <ul className="mt-4 list-products">
             {/* Filter Array search */}
-            {dataBase.filter((item) => {
+            {products.filter((item) => {
               return (
                 item.categorySearch.includes('')
               ) &&
@@ -155,3 +157,17 @@ function SearchPage(props) {
 }
 
 export default SearchPage;
+
+export async function getServerSideProps(ctx) {
+  let { db } = await connectToDatabase();
+  const products = await db
+  .collection('products')
+  .find({})
+  .sort({})
+  .toArray();
+  return {
+      props: {
+          products: JSON.parse(JSON.stringify(products)),
+      },
+  };
+}

@@ -7,8 +7,9 @@ import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
 import { message, Popconfirm } from 'antd'
 import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone } from '@ant-design/icons'
+import {connectToDatabase} from '../lib/mongodb'
 
-export default function Index() {
+export default function Index({ products }) {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
@@ -26,20 +27,19 @@ export default function Index() {
   const [semJurosInput, setSemJurosInput] = useState(false)
   const [dataBase, setDataBase] = useState([])
 
-  function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // function getProducts() {
+  //   axios.get('https://apipromofaster.vercel.app/api/products')
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
-      getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
@@ -52,9 +52,10 @@ export default function Index() {
     // }
   }, []);
 
-  function itemPush(e) {
+  async function itemPush(e) {
     e.preventDefault()
     const product = {
+      id: Date.now(),
       name: nameInput,
       description: descriptionInput,
       preco: precoInput,
@@ -68,27 +69,32 @@ export default function Index() {
       porcentagemDesconto: porcentagemDescontoInput,
       numeroParcelas: numeroParcelasInput,
       precoParcelas: precoParcelasInput,
-      semJuros: semJurosInput
+      semJuros: semJurosInput,
+      createdAt: new Date().toISOString(),
     }
-    axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product), {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      setDataBase(res.data)
-      setShowModal(false)
-      setImagesInput([])
-      setNameInput('')
-      setDescriptionInput('')
-      setPrecoInput('')
-      setPopularityInput('')
-      setCategorySearchInput('')
-      setLinkInput('')
-      setPrecoAntigoInput('')
-      setPorcentagemDescontoInput('')
-      setNumeroParcelasInput('')
-      setPrecoParcelasInput('')
-      setSemJurosInput(false)
+
+    let response = await fetch('/api/products', {
+      method: 'POST',
+      body: JSON.stringify(product),
+    });
+
+    // get the data
+    let data = await response.json();
+
+    if (data.success) {
+      // setShowModal(false)
+      // setImagesInput([])
+      // setNameInput('')
+      // setDescriptionInput('')
+      // setPrecoInput('')
+      // setPopularityInput('')
+      // setCategorySearchInput('')
+      // setLinkInput('')
+      // setPrecoAntigoInput('')
+      // setPorcentagemDescontoInput('')
+      // setNumeroParcelasInput('')
+      // setPrecoParcelasInput('')
+      // setSemJurosInput(false)
 
       message.success({
         content: 'Produto adicionado com sucesso',
@@ -97,16 +103,21 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-    })
+
+      return router.push(router.asPath);
+    } else {
+        // set the error
+        return console.log(data.message);
+    }
   }
 
-  function deleteProduct (id) {
-    axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {}, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      setDataBase(response.data)
+  async function deleteProduct (id) {
+    try {
+      // Delete post
+      await fetch('/api/products', {
+          method: 'DELETE',
+          body: id,
+      });
       message.error({
         content: 'Produto removido',
         duration: 2,
@@ -114,8 +125,9 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-    }, (response) => {
-    })
+      return router.push(router.asPath);
+    } catch (error) {
+    }
   }
 
   return (
@@ -135,53 +147,59 @@ export default function Index() {
               </thead>
               <tbody>
                 {
-                  dataBase.map((item, index) => {
+                  products.map((item, index) => {
                     return(
                       <tr key={index}>
                         <td>
                           {
                             item.images.length > 0 ?
-                            <img src={item.images[0].url} style={{ height: '80px', width: '80px', objectFit: 'cover' }} height={100} width={100} alt={item.images[0].alt} /> :
+                            <img 
+                              src={item.images[0].url}
+                              style={{ 
+                                height: '60px',
+                                width: '60px',
+                                objectFit: 'cover'
+                              }}
+                              height={100}
+                              width={100}
+                              alt={item.images[0].alt}
+                            /> :
                             null
                           }
                         </td>
-                        {/*<td>{ item.images.map((subitem, subindex) => {
-                                return(
-                                  <div key={subindex}>
-                                    {subitem.url}
-                                  </div>
-                                )
-                        })}</td>*/}
                         <td>#{ item.id }</td>
                         <td>{ item.name }</td>
                         <td>{ item.porcentagemDesconto }</td>
                         <td>{ item.preco }</td>
-                        <td className="d-flex align-items-center">
-                          <Popconfirm
-                            icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
-                            title="Deseja excluir esse produto?"
-                            placement="left"
-                            onConfirm={() => deleteProduct(item.id)}
-                            okText="Excluir"
-                            cancelText="Cancelar"
-                            onVisibleChange={() => console.log('visible change')}
-                          >
-                            <DeleteTwoTone style={{ fontSize: '22px' }} twoToneColor="red" />
-                          </Popconfirm>
-                          <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
-                            <a
-                              style={{
-                                height: '40px',
-                                width: '40px',
-                                borderRadius: '50%', 
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <Popconfirm
+                              icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
+                              title="Deseja excluir esse produto?"
+                              placement="left"
+                              onConfirm={() => deleteProduct(item._id)}
+                              okText="Excluir"
+                              cancelText="Cancelar"
+                              onVisibleChange={() => console.log('visible change')}
                             >
-                              <EyeTwoTone style={{ fontSize: '22px' }} />
-                            </a>
-                          </Link>
+                              <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
+                            </Popconfirm>
+                            <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
+                              <a
+                                style={{
+                                  height: '40px',
+                                  width: '40px',
+                                  borderRadius: '50%', 
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  marginLeft: '3px'
+                                }}
+                              >
+                                <EyeTwoTone style={{ fontSize: '24px' }} />
+                              </a>
+                            </Link>
+                          </div>
                         </td>
                       </tr>
                     )
@@ -295,4 +313,18 @@ export default function Index() {
       </LayoutDefault>
     </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  let { db } = await connectToDatabase();
+  const products = await db
+  .collection('products')
+  .find({})
+  .sort({})
+  .toArray();
+  return {
+      props: {
+          products: JSON.parse(JSON.stringify(products)),
+      },
+  };
 }
