@@ -12,7 +12,10 @@ export default function ViewPage ({ data }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(`https://apipromofaster.vercel.app/api/product/${params.id}`);
+  const dev = process.env.NODE_ENV !== "production"
+  const DEV_URL = 'http://localhost:8877'
+  const PROD_URL = 'https://promofaster.vercel.app'
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/product/${params.id}`);
   return {
     props: {
       data
@@ -21,7 +24,10 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get("https://apipromofaster.vercel.app/api/products/");
+  const dev = process.env.NODE_ENV !== "production"
+  const DEV_URL = 'http://localhost:8877'
+  const PROD_URL = 'https://promofaster.vercel.app'
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/`);
   const paths = data.map((product) => ({ params: { id: product.id.toString() } }));
   return {
     paths,

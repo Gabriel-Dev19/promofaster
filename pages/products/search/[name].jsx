@@ -51,7 +51,10 @@ function SearchPage(props) {
   }
 
   function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
+    const dev = process.env.NODE_ENV !== "production"
+    const DEV_URL = 'http://localhost:8877'
+    const PROD_URL = 'https://promofaster.vercel.app'
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
       .then((res) => {
         setDataBase(res.data)
       })

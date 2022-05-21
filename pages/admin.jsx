@@ -27,7 +27,10 @@ export default function Index() {
   const [dataBase, setDataBase] = useState([])
 
   function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
+    const dev = process.env.NODE_ENV !== "production"
+    const DEV_URL = 'http://localhost:8877'
+    const PROD_URL = 'https://promofaster.vercel.app'
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
       .then((res) => {
         setDataBase(res.data)
       })
@@ -70,7 +73,11 @@ export default function Index() {
       precoParcelas: precoParcelasInput,
       semJuros: semJurosInput
     }
-    axios.post('https://apipromofaster.vercel.app/api/products/create', JSON.stringify(product), {
+
+    const dev = process.env.NODE_ENV !== "production"
+    const DEV_URL = 'http://localhost:8877'
+    const PROD_URL = 'https://promofaster.vercel.app'
+    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create`, JSON.stringify(product), {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -101,7 +108,10 @@ export default function Index() {
   }
 
   function deleteProduct (id) {
-    axios.delete('https://apipromofaster.vercel.app/api/products/delete/' + id, {}, {
+    const dev = process.env.NODE_ENV !== "production"
+    const DEV_URL = 'http://localhost:8877'
+    const PROD_URL = 'https://promofaster.vercel.app'
+    axios.delete(`${dev ? DEV_URL : PROD_URL}/api/products/delete/` + id, {}, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -141,7 +151,7 @@ export default function Index() {
                         <td>
                           {
                             item.images.length > 0 ?
-                            <img src={item.images[0].url} style={{ height: '80px', width: '80px', objectFit: 'cover' }} height={100} width={100} alt={item.images[0].alt} /> :
+                            <img src={item.images[0].url} style={{ height: '50px', width: '50px', objectFit: 'cover' }} height={100} width={100} alt={item.images[0].alt} /> :
                             null
                           }
                         </td>
@@ -156,32 +166,35 @@ export default function Index() {
                         <td>{ item.name }</td>
                         <td>{ item.porcentagemDesconto }</td>
                         <td>{ item.preco }</td>
-                        <td className="d-flex align-items-center">
-                          <Popconfirm
-                            icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
-                            title="Deseja excluir esse produto?"
-                            placement="left"
-                            onConfirm={() => deleteProduct(item.id)}
-                            okText="Excluir"
-                            cancelText="Cancelar"
-                            onVisibleChange={() => console.log('visible change')}
-                          >
-                            <DeleteTwoTone style={{ fontSize: '22px' }} twoToneColor="red" />
-                          </Popconfirm>
-                          <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
-                            <a
-                              style={{
-                                height: '40px',
-                                width: '40px',
-                                borderRadius: '50%', 
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <Popconfirm
+                              icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
+                              title="Deseja excluir esse produto?"
+                              placement="left"
+                              onConfirm={() => deleteProduct(item.id)}
+                              okText="Excluir"
+                              cancelText="Cancelar"
+                              onVisibleChange={() => console.log('visible change')}
                             >
-                              <EyeTwoTone style={{ fontSize: '22px' }} />
-                            </a>
-                          </Link>
+                              <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
+                            </Popconfirm>
+                            <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
+                              <a
+                                style={{
+                                  height: '40px',
+                                  width: '40px',
+                                  borderRadius: '50%', 
+                                  display: 'flex',
+                                  marginRight: '3px',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <EyeTwoTone style={{ fontSize: '24px' }} />
+                              </a>
+                            </Link>
+                          </div>
                         </td>
                       </tr>
                     )
