@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import classNames from 'classnames'
 import LayoutDefault from '../../../layouts/LayoutDefault'
 import {SwiperSlide} from 'swiper/react'
@@ -51,22 +50,21 @@ export default function SearchPage({ products }) {
     setOrderLabel('maior relevância')
   }
 
-  function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000/'
-    const PROD_URL = 'https://promofaster.vercel.app/'
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // function getProducts() {
+  //   const dev = process.env.NODE_ENV !== 'production'
+  //   const DEV_URL = 'http://localhost:3000/'
+  //   const PROD_URL = 'https://promofaster.vercel.app/'
+  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect(() => {
     orderByRelevance()
-    getProducts()
     setQueryName(routerQueryName)
   }, [routerQueryName])
 
@@ -108,7 +106,7 @@ export default function SearchPage({ products }) {
           </div>
           <ul className="mt-4 list-products">
             {/* Filter Array search */}
-            {dataBase.filter((item) => {
+            {products.filter((item) => {
               return (
                 item.categorySearch.includes('')
               ) &&
@@ -156,6 +154,24 @@ export default function SearchPage({ products }) {
       </section>
     </LayoutDefault>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  // get the current environment
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = 'http://localhost:3000/'
+  const PROD_URL = 'https://promofaster.vercel.app/'
+
+  // request posts from api
+  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
+  // extract the data
+  let data = await response.json();
+
+  return {
+      props: {
+        products: data,
+      },
+  };
 }
 
 // export async function getStaticProps(ctx) {

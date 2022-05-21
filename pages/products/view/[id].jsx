@@ -3,31 +3,31 @@ import { useRouter } from "next/router";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 
-export default function ViewPage () {
+export default function ViewPage ({ products }) {
   const router = useRouter()
   const [dataBase, setDataBase] = useState([])
 
-  function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000/'
-    const PROD_URL = 'https://promofaster.vercel.app/'
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  useEffect(() => {
-    getProducts()
-  })
+  // function getProducts() {
+  //   const dev = process.env.NODE_ENV !== 'production'
+  //   const DEV_URL = 'http://localhost:3000/'
+  //   const PROD_URL = 'https://promofaster.vercel.app/'
+  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
+// 
+  // useEffect(() => {
+  //   getProducts()
+  // })
 
   return(
     <>
       {
-        dataBase.filter((item) => {
+        products.filter((item) => {
           return item.id.toString().includes(router.query.id)
         }).map((item, index) => {
           return(
@@ -41,4 +41,22 @@ export default function ViewPage () {
       }
     </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  // get the current environment
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = 'http://localhost:3000/'
+  const PROD_URL = 'https://promofaster.vercel.app/'
+
+  // request posts from api
+  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
+  // extract the data
+  let data = await response.json();
+
+  return {
+      props: {
+        products: data,
+      },
+  };
 }

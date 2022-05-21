@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { message, Popconfirm } from 'antd'
 import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone } from '@ant-design/icons'
 
-export default function Index() {
+export default function Index({ products }) {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
@@ -26,23 +26,22 @@ export default function Index() {
   const [semJurosInput, setSemJurosInput] = useState(false)
   const [dataBase, setDataBase] = useState([])
 
-  function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000/'
-    const PROD_URL = 'https://promofaster.vercel.app/'
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // function getProducts() {
+  //   const dev = process.env.NODE_ENV !== 'production'
+  //   const DEV_URL = 'http://localhost:3000/'
+  //   const PROD_URL = 'https://promofaster.vercel.app/'
+  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
-      getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
@@ -106,8 +105,7 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-
-      getProducts()
+      return router.push(router.asPath)
     } else {
         // set the error
         return console.log(data.message);
@@ -128,7 +126,7 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-      getProducts()
+      return router.push(router.asPath)
     } catch (error) {
       console.log(error)
     }
@@ -151,7 +149,7 @@ export default function Index() {
               </thead>
               <tbody>
                 {
-                  dataBase.map((item, index) => {
+                  products.map((item, index) => {
                     return(
                       <tr key={index}>
                         <td>
@@ -317,4 +315,22 @@ export default function Index() {
       </LayoutDefault>
     </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  // get the current environment
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = 'http://localhost:3000/'
+  const PROD_URL = 'https://promofaster.vercel.app/'
+
+  // request posts from api
+  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
+  // extract the data
+  let data = await response.json();
+
+  return {
+      props: {
+        products: data,
+      },
+  };
 }
