@@ -7,9 +7,8 @@ import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
 import { message, Popconfirm } from 'antd'
 import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone } from '@ant-design/icons'
-import {connectToDatabase} from '../lib/mongodb'
 
-export default function Index({ products }) {
+export default function Index() {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
@@ -27,19 +26,23 @@ export default function Index({ products }) {
   const [semJurosInput, setSemJurosInput] = useState(false)
   const [dataBase, setDataBase] = useState([])
 
-  // function getProducts() {
-  //   axios.get('https://apipromofaster.vercel.app/api/products')
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  function getProducts() {
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = 'http://localhost:3000/'
+    const PROD_URL = 'https://promofaster.vercel.app/'
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
+      .then((res) => {
+        setDataBase(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
+      getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
@@ -104,7 +107,7 @@ export default function Index({ products }) {
         }
       })
 
-      return router.push(router.asPath);
+      getProducts()
     } else {
         // set the error
         return console.log(data.message);
@@ -125,8 +128,9 @@ export default function Index({ products }) {
           marginTop: '30px'
         }
       })
-      return router.push(router.asPath);
+      getProducts()
     } catch (error) {
+      console.log(error)
     }
   }
 
@@ -147,7 +151,7 @@ export default function Index({ products }) {
               </thead>
               <tbody>
                 {
-                  products.map((item, index) => {
+                  dataBase.map((item, index) => {
                     return(
                       <tr key={index}>
                         <td>
@@ -313,18 +317,4 @@ export default function Index({ products }) {
       </LayoutDefault>
     </>
   )
-}
-
-export async function getStaticProps(ctx) {
-  let { db } = await connectToDatabase();
-  const products = await db
-  .collection('products')
-  .find({})
-  .sort({})
-  .toArray();
-  return {
-      props: {
-          products: JSON.parse(JSON.stringify(products)),
-      },
-  };
 }
