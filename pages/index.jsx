@@ -13,7 +13,7 @@ export default function Index({ products }) {
   )
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   let { db } = await connectToDatabase();
   const products = await db
   .collection('products')

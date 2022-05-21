@@ -4,7 +4,6 @@ import {connectToDatabase} from '../../../lib/mongodb'
 
 export default function ViewPage ({ products }) {
   const router = useRouter()
-
   return(
     <>
       {
@@ -24,7 +23,7 @@ export default function ViewPage ({ products }) {
   )
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   let { db } = await connectToDatabase();
   const products = await db
   .collection('products')
@@ -38,3 +37,17 @@ export async function getServerSideProps(ctx) {
       },
   };
 }
+
+export const getStaticPaths = async () => {
+  let { db } = await connectToDatabase();
+  const data = await db
+  .collection('products')
+  .find({})
+  .sort({})
+  .toArray();
+  const paths = data.map((product) => ({ params: { id: product.id.toString() } }));
+  return {
+    paths,
+    fallback: true,
+  };
+};
