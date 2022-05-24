@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect } from "react";
 import LayoutDefault from "../../../layouts/LayoutDefault";
 
-export default function ViewPage ({ data }) {
+export default function ViewPage () {
   return(
     <>
       <LayoutDefault noHeader={true}>
-        <div>About us: {data.id.id} </div>
-        <div>About us: {data.name} </div>
-        <div>About us: {data.description} </div>
+        <div>About us: </div>
+        <div>About us: </div>
+        <div>About us: </div>
       </LayoutDefault>
     </>
   )
