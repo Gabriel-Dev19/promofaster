@@ -10,15 +10,15 @@ export default function HeroSrore() {
   const swiperRef = useRef(null)
   const [dataBase, setDataBase] = useState([])
 
-  function getProducts() {
-    axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // function getProducts() {
+  //   axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect(() => getProducts(), [])
 

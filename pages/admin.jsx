@@ -26,20 +26,20 @@ export default function Index() {
   const [semJurosInput, setSemJurosInput] = useState(false)
   const [dataBase, setDataBase] = useState([])
 
-  function getProducts() {
-    axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // function getProducts() {
+  //   axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
+  //     .then((res) => {
+  //       setDataBase(res.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
-      getProducts()
+      //getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
