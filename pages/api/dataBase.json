@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1653424618357,
+    "name": "aaaa",
+    "description": "",
+    "preco": "",
+    "popularity": "",
+    "categorySearch": "",
+    "precoAntigo": "",
+    "porcentagemDesconto": "",
+    "numeroParcelas": "",
+    "precoParcelas": "",
+    "semJuros": false,
+    "link": "",
+    "images": []
+  },
+  {
+    "id": 1653424746285,
+    "name": "aaaaa",
+    "description": "",
+    "preco": "",
+    "popularity": "",
+    "categorySearch": "",
+    "precoAntigo": "",
+    "porcentagemDesconto": "",
+    "numeroParcelas": "",
+    "precoParcelas": "",
+    "semJuros": false,
+    "link": "",
+    "images": [
+      {
+        "url": "https://i.imgur.com/r2NGbBe.jpg",
+        "alt": "tyntyn"
+      },
+      {
+        "url": "https://i.imgur.com/r2NGbBe.jpg",
+        "alt": "aaaaaaaaaa"
+      }
+    ]
+  },
+  {
+    "id": 1653425156760,
+    "name": "",
+    "description": "",
+    "preco": "",
+    "popularity": "",
+    "categorySearch": "",
+    "precoAntigo": "",
+    "porcentagemDesconto": "",
+    "numeroParcelas": "",
+    "precoParcelas": "",
+    "semJuros": false,
+    "link": "",
+    "images": []
+  }
+]

@@ -6,12 +6,12 @@ import { useRef, useEffect, useState } from 'react'
 import axios from 'axios'
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
-function HeroSrore() {
+export default function HeroSrore() {
   const swiperRef = useRef(null)
   const [dataBase, setDataBase] = useState([])
 
   function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
+    axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
       .then((res) => {
         setDataBase(res.data)
       })
@@ -20,7 +20,7 @@ function HeroSrore() {
       })
   }
 
-  useEffect(() => getProducts())
+  useEffect(() => getProducts(), [])
 
   return (
     <section id="hero-store">
@@ -73,5 +73,3 @@ function HeroSrore() {
     </section>
   )
 }
-
-export default HeroSrore;

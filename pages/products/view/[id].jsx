@@ -2,17 +2,19 @@ import axios from "axios";
 import LayoutDefault from "../../../layouts/LayoutDefault";
 
 export default function ViewPage ({ data }) {
-
   return(
-    <LayoutDefault title={data.name} noHeader={true}>
-      <div>About us: {data.name} </div>
-      <div>About us: {data.id} </div>
-    </LayoutDefault>
+    <>
+      <LayoutDefault noHeader={true}>
+        <div>About us: {data.id.id} </div>
+        <div>About us: {data.name} </div>
+        <div>About us: {data.description} </div>
+      </LayoutDefault>
+    </>
   )
 }
 
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(`https://apipromofaster.vercel.app/api/product/${params.id}`);
+  const { data } = await axios.get(`https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products/${params.id}`);
   return {
     props: {
       data
@@ -21,7 +23,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get("https://apipromofaster.vercel.app/api/products/");
+  const { data } = await axios.get("https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products");
   const paths = data.map((product) => ({ params: { id: product.id.toString() } }));
   return {
     paths,
