@@ -20,7 +20,7 @@ export default function HeroSrore() {
   //     })
   // }
 
-  useEffect(() => getProducts(), [])
+  //useEffect(() => getProducts(), [])
 
   return (
     <section id="hero-store">
