@@ -7,5 +7,5 @@ const dataBase = [
 ]
 
 export default function handler(req, res) {
-  res.send(JSON.parse(dataBase));
+  res.send(dataBase);
 }
