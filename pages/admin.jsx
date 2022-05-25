@@ -1,6 +1,5 @@
 import LayoutDefault from "../layouts/LayoutDefault";
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import FullScreen from "../components/FullScreen";
 import { useRouter } from 'next/router'
 import { CSSTransition } from 'react-transition-group'
@@ -26,20 +25,26 @@ export default function Index() {
   const [semJurosInput, setSemJurosInput] = useState(false)
   const [dataBase, setDataBase] = useState([])
 
-  // function getProducts() {
-  //   axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  async function getProducts() {
+    const response = await fetch(`/api/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const products = await response.json();
+    setDataBase(products)
+  }
 
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
-      //getProducts()
+      getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
@@ -52,7 +57,7 @@ export default function Index() {
     // }
   }, []);
 
-  function itemPush(e) {
+  async function itemPush(e) {
     e.preventDefault()
     const product = {
       name: nameInput,
@@ -70,12 +75,17 @@ export default function Index() {
       precoParcelas: precoParcelasInput,
       semJuros: semJurosInput
     }
-    axios.post('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products/create', JSON.stringify(product), {
+    const response = await fetch("/api/products", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      setDataBase(res.data)
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(product),
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    } else {
+      setDataBase(await response.json())
       setShowModal(false)
       setImagesInput([])
       setNameInput('')
@@ -97,16 +107,22 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-    })
+    }
   }
 
-  function deleteProduct (id) {
-    axios.delete('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products/delete/' + id, {}, {
+  async function deleteProduct (id) {
+    const response = await fetch('/api/products', {
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      setDataBase(res.data)
+        "Content-Type": "application/json"
+      },
+      body: id
+      // body: JSON.stringify({}),
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    } else {
+      setDataBase(await response.json())
       message.error({
         content: 'Produto removido',
         duration: 2,
@@ -114,8 +130,7 @@ export default function Index() {
           marginTop: '30px'
         }
       })
-    }, (response) => {
-    })
+    }
   }
 
   return (

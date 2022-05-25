@@ -50,14 +50,20 @@ function SearchPage(props) {
     setOrderLabel('maior relevância')
   }
 
-  function getProducts() {
-    axios.get('https://apipromofaster.vercel.app/api/products')
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  async function getProducts() {
+    const response = await fetch(`/api/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const products = await response.json();
+    setDataBase(products)
   }
 
   useEffect(() => {

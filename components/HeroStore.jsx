@@ -3,24 +3,10 @@ import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
 import 'swiper/css'
 import Product from './Product'
 import { useRef, useEffect, useState } from 'react'
-import axios from 'axios'
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
-export default function HeroSrore() {
+export default function HeroSrore({ products }) {
   const swiperRef = useRef(null)
-  const [dataBase, setDataBase] = useState([])
-
-  // function getProducts() {
-  //   axios.get('https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/api/products')
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
-
-  //useEffect(() => getProducts(), [])
 
   return (
     <section id="hero-store">
@@ -40,7 +26,7 @@ export default function HeroSrore() {
           className="swiper-hero"
         >
           {
-            dataBase.map((item, index) => {
+            products.map((item, index) => {
               return(
                 <SwiperSlide key={index}>
                   <Product
