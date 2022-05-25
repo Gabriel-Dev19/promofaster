@@ -1,5 +1,5 @@
 const fs = require('fs')
-const PRODUCTS_FILE = '/dataBase.json'
+const PRODUCTS_FILE = '../../dataBase.json'
 
 export default function handler(req, res) {
   fs.readFile(PRODUCTS_FILE, function(err, data) {
