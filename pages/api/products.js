@@ -86,8 +86,9 @@ const dataBase =
 }
 ]
 
-const PRODUCTS_FILE = 'dataBase.json'
 const fs = require('fs')
+const { join } = require('path')
+const PRODUCTS_FILE = join(__filename, 'dataBase.json')
 
 export default function handler(req, res) {
   switch (req.method) {
