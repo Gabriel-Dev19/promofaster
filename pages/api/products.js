@@ -86,7 +86,7 @@ const dataBase =
 }
 ]
 
-const PRODUCTS_FILE = 'https://promofaster-git-apidefora-gabrielcamurcaaa10-gmailcom.vercel.app/dataBase.json'
+const PRODUCTS_FILE = 'dataBase.json'
 const fs = require('fs')
 
 export default function handler(req, res) {
