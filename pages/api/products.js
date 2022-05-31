@@ -87,8 +87,8 @@ const dataBase =
 ]
 
 const fs = require('fs')
-const { join } = require('path')
-const PRODUCTS_FILE = join(__dirname, '../../../../', 'dataBase.json')
+const path = require('path')
+const PRODUCTS_FILE = path.join(process.cwd(), 'data.json')
 
 export default function handler(req, res) {
   switch (req.method) {
