@@ -132,7 +132,7 @@ export default function handler(req, res) {
                 console.error(err);
                 process.exit(1);
             }
-            res.json(products);
+            res.send(products);
         });
       });
       break;
@@ -153,7 +153,7 @@ export default function handler(req, res) {
                 console.error(err)
                 process.exit(1)
               }
-              res.json(products)
+              res.send(products)
             })
             break
           }
