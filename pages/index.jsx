@@ -13,10 +13,6 @@ export default function Index() {
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     const products = await response.json();
     setDataBase(products)
   }

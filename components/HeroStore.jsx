@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
 import 'swiper/css'
 import Product from './Product'
-import { useRef, useEffect, useState } from 'react'
+import { useRef } from 'react'
+import Skeleton from './Skeleton'
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
 export default function HeroSrore({ products }) {
@@ -15,6 +17,7 @@ export default function HeroSrore({ products }) {
         onMouseEnter={() => { swiperRef.current.swiper.autoplay.stop() }}
         onMouseLeave={() => { swiperRef.current.swiper.autoplay.start() }}
       >
+        <Skeleton colunms={4} elements={4} heightEls={300} />
         <Swiper
           ref={swiperRef}
           slidesPerView={4}

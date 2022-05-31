@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import LayoutDefault from "../layouts/LayoutDefault";
 import { useEffect, useState } from 'react'
 import FullScreen from "../components/FullScreen";
@@ -6,6 +7,7 @@ import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
 import { message, Popconfirm } from 'antd'
 import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone } from '@ant-design/icons'
+import Image from 'next/image'
 
 export default function Index() {
   const router = useRouter()
@@ -32,11 +34,9 @@ export default function Index() {
         "Content-Type": "application/json"
       },
     });
-
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-
     const products = await response.json();
     setDataBase(products)
   }
@@ -55,7 +55,7 @@ export default function Index() {
     //     localStorage.clear()
     //   }, 1500);
     // }
-  }, []);
+  }, [router]);
 
   async function itemPush(e) {
     e.preventDefault()
@@ -75,6 +75,7 @@ export default function Index() {
       precoParcelas: precoParcelasInput,
       semJuros: semJurosInput
     }
+
     const response = await fetch("/api/products", {
       method: "POST",
       headers: {
@@ -82,9 +83,8 @@ export default function Index() {
       },
       body: JSON.stringify(product),
     });
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    } else {
+
+    async function resetBeforePOST () {
       setDataBase(await response.json())
       setShowModal(false)
       setImagesInput([])
@@ -99,7 +99,12 @@ export default function Index() {
       setNumeroParcelasInput('')
       setPrecoParcelasInput('')
       setSemJurosInput(false)
+    }
 
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    } else {
+      resetBeforePOST()
       message.success({
         content: 'Produto adicionado com sucesso',
         duration: 2,
@@ -117,7 +122,6 @@ export default function Index() {
         "Content-Type": "application/json"
       },
       body: id
-      // body: JSON.stringify({}),
     });
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
@@ -156,17 +160,14 @@ export default function Index() {
                         <td>
                           {
                             item.images.length > 0 ?
-                            <img src={item.images[0].url} style={{ height: '50px', width: '50px', objectFit: 'cover' }} height={100} width={100} alt={item.images[0].alt} /> :
-                            null
+                            <img
+                              src={item.images[0].url}
+                              style={{ height: '50px', width: '50px', objectFit: 'cover' }}
+                              height={100} width={100}
+                              alt={item.images[0].alt}
+                            /> : null
                           }
                         </td>
-                        {/*<td>{ item.images.map((subitem, subindex) => {
-                                return(
-                                  <div key={subindex}>
-                                    {subitem.url}
-                                  </div>
-                                )
-                        })}</td>*/}
                         <td>#{ item.id }</td>
                         <td>{ item.name }</td>
                         <td>{ item.porcentagemDesconto }</td>
