@@ -86,7 +86,7 @@ const dataBase =
 }
 ]
 
-const PRODUCTS_FILE = 'public/dataBase.json'
+const PRODUCTS_FILE = '../dataBase.json'
 const fs = require('fs')
 
 export default function handler(req, res) {
