@@ -89,6 +89,7 @@ const dataBase =
 const fs = require('fs')
 const path = require('path')
 const PRODUCTS_FILE = path.join(process.cwd(), 'data.json')
+const PRODUCTS_FILE_METHODS = '/var/task/data.json'
 
 export default function handler(req, res) {
   switch (req.method) {
@@ -102,7 +103,7 @@ export default function handler(req, res) {
       });
       break;
     case 'POST':
-      fs.readFile(PRODUCTS_FILE, function(err, data) {
+      fs.readFile(PRODUCTS_FILE_METHODS, function(err, data) {
         if (err) {
             console.error(err);
             process.exit(1);
@@ -127,7 +128,7 @@ export default function handler(req, res) {
           alt: req.body.images.alt
         };
         products.push(newProduct);
-        fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), function(err) {
+        fs.writeFile(PRODUCTS_FILE_METHODS, JSON.stringify(products, null, 2), function(err) {
             if (err) {
                 console.error(err);
                 process.exit(1);
@@ -137,7 +138,7 @@ export default function handler(req, res) {
       });
       break;
     case 'DELETE':
-      fs.readFile(PRODUCTS_FILE, function (err, data) {
+      fs.readFile(PRODUCTS_FILE_METHODS, function (err, data) {
         if (err) {
           console.error(err)
           process.exit(1)
@@ -148,7 +149,7 @@ export default function handler(req, res) {
           // eslint-disable-next-line eqeqeq
           if (products[i].id == req.body) {
             products.splice(i, 1)
-            fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), function (err) {
+            fs.writeFile(PRODUCTS_FILE_METHODS, JSON.stringify(products, null, 2), function (err) {
               if (err) {
                 console.error(err)
                 process.exit(1)
