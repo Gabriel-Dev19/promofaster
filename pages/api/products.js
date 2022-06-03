@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const PRODUCTS_FILE = path.join(process.cwd(), 'data.json')
+const PRODUCTS_FILE = path.join(process.cwd(), '/static/data.json')
 
 export default function handler(req, res) {
   switch (req.method) {
