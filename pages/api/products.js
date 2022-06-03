@@ -4,6 +4,7 @@ const PRODUCTS_FILE = path.join(process.cwd(), '/database/data.json')
 
 export default function handler(req, res) {
   switch (req.method) {
+
     case 'GET':
       fs.readFile(PRODUCTS_FILE, function(err, data) {
         if (err) {
@@ -13,6 +14,7 @@ export default function handler(req, res) {
         res.send(JSON.parse(data));
       });
       break;
+
     case 'POST':
       fs.readFile(PRODUCTS_FILE, function(err, data) {
         if (err) {
@@ -48,6 +50,7 @@ export default function handler(req, res) {
         });
       });
       break;
+
     case 'DELETE':
       fs.readFile(PRODUCTS_FILE, function (err, data) {
         if (err) {
