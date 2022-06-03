@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/hello.js": {
+    "api/products.js": {
       "includeFiles": "database/**"
     }
   }
