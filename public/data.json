@@ -1,0 +1,96 @@
+[
+  {
+  "id": 1653424746285,
+  "name": "aaaaa",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false,
+  "link": "",
+  "images": [
+  {
+  "url": "https://i.imgur.com/r2NGbBe.jpg",
+  "alt": "tyntyn"
+  },
+  {
+  "url": "https://i.imgur.com/r2NGbBe.jpg",
+  "alt": "aaaaaaaaaa"
+  }
+  ]
+  },
+  {
+  "id": 1653961698409,
+  "name": "teste",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false,
+  "link": "",
+  "images": [
+  {
+  "url": "https://i.imgur.com/r2NGbBe.jpg",
+  "alt": "tyntyn"
+  }
+  ]
+  },
+  {
+  "id": 1653961911802,
+  "name": "teste 2",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false,
+  "link": "",
+  "images": [
+  {
+  "url": "https://i.imgur.com/r2NGbBe.jpg",
+  "alt": "aaaaaaaaaa"
+  }
+  ]
+  },
+  {
+  "id": 1653961933282,
+  "name": "teste 3",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false,
+  "link": "",
+  "images": []
+  },
+  {
+  "id": 1653967564555,
+  "name": "aaaaaaaa",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false,
+  "link": "",
+  "images": []
+  }
+  ]
