@@ -39,9 +39,19 @@ export default function Index({ products }) {
   //     })
   // }
 
+  async function getProducts() {
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = 'http://localhost:3000'
+    const PROD_URL = 'https://promofaster.vercel.app'
+    const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
+    const products = await response.json()
+    setDataBase(products)
+  }
+
   useEffect( () => {
     if (localStorage.getItem('acesso') === 'true') {
       localStorage.setItem('acesso', true)
+      getProducts()
     } else if (localStorage.getItem('acesso') !== 'true') {
       alert('usuário não autenticado')
       router.push('/login')
@@ -75,29 +85,24 @@ export default function Index({ products }) {
       createdAt: new Date().toISOString(),
     }
 
-    let response = await fetch('/api/products', {
-      method: 'POST',
-      body: JSON.stringify(product),
-    });
-
-    // get the data
-    let data = await response.json();
-
-    if (data.success) {
-      // setShowModal(false)
-      // setImagesInput([])
-      // setNameInput('')
-      // setDescriptionInput('')
-      // setPrecoInput('')
-      // setPopularityInput('')
-      // setCategorySearchInput('')
-      // setLinkInput('')
-      // setPrecoAntigoInput('')
-      // setPorcentagemDescontoInput('')
-      // setNumeroParcelasInput('')
-      // setPrecoParcelasInput('')
-      // setSemJurosInput(false)
-
+    axios.post('http://localhost:3000/api/products/create', JSON.stringify(product), {
+      headers:{
+        "Content-Type": "application/json"
+      }
+    }).then((res) => {
+      setShowModal(false)
+      setImagesInput([])
+      setNameInput('')
+      setDescriptionInput('')
+      setPrecoInput('')
+      setPopularityInput('')
+      setCategorySearchInput('')
+      setLinkInput('')
+      setPrecoAntigoInput('')
+      setPorcentagemDescontoInput('')
+      setNumeroParcelasInput('')
+      setPrecoParcelasInput('')
+      setSemJurosInput(false)
       message.success({
         content: 'Produto adicionado com sucesso',
         duration: 2,
@@ -105,31 +110,62 @@ export default function Index({ products }) {
           marginTop: '30px'
         }
       })
-      return router.push(router.asPath)
-    } else {
-        // set the error
-        return console.log(data.message);
-    }
+      getProducts()
+    }).catch((err) => {
+      console.log(err)
+    })
+
+    // let response = await fetch('http://localhost:3000/api/products/create', {
+    //   body: JSON.stringify(product)
+    // });
+// 
+    // // get the data
+    // let data = await response.json();
+// 
+    // if (data.success) {
+    //   setShowModal(false)
+    //   setImagesInput([])
+    //   setNameInput('')
+    //   setDescriptionInput('')
+    //   setPrecoInput('')
+    //   setPopularityInput('')
+    //   setCategorySearchInput('')
+    //   setLinkInput('')
+    //   setPrecoAntigoInput('')
+    //   setPorcentagemDescontoInput('')
+    //   setNumeroParcelasInput('')
+    //   setPrecoParcelasInput('')
+    //   setSemJurosInput(false)
+// 
+    //   message.success({
+    //     content: 'Produto adicionado com sucesso',
+    //     duration: 2,
+    //     style: {
+    //       marginTop: '30px'
+    //     }
+    //   })
+    //   return router.push(router.asPath)
+    // } else {
+    // }
   }
 
   async function deleteProduct (id) {
-    try {
-      // Delete post
-      await fetch('/api/products', {
-          method: 'DELETE',
-          body: id,
-      });
+    axios.post('http://localhost:3000/api/products/delete', JSON.stringify(id), {
+      headers:{
+        "Content-Type": "application/json"
+      }
+    }).then((res) => {
       message.error({
-        content: 'Produto removido',
+        content: 'Produto removido com sucesso',
         duration: 2,
         style: {
           marginTop: '30px'
         }
       })
-      return router.push(router.asPath)
-    } catch (error) {
-      console.log(error)
-    }
+      getProducts()
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   return (
@@ -149,7 +185,7 @@ export default function Index({ products }) {
               </thead>
               <tbody>
                 {
-                  products.map((item, index) => {
+                  dataBase.map((item, index) => {
                     return(
                       <tr key={index}>
                         <td>
@@ -179,7 +215,7 @@ export default function Index({ products }) {
                               icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
                               title="Deseja excluir esse produto?"
                               placement="left"
-                              onConfirm={() => deleteProduct(item._id)}
+                              onConfirm={() => deleteProduct(item.id)}
                               okText="Excluir"
                               cancelText="Cancelar"
                               onVisibleChange={() => console.log('visible change')}
@@ -315,22 +351,4 @@ export default function Index({ products }) {
       </LayoutDefault>
     </>
   )
-}
-
-export async function getServerSideProps(ctx) {
-  // get the current environment
-  let dev = process.env.NODE_ENV !== 'production';
-  const DEV_URL = 'http://localhost:3000/'
-  const PROD_URL = 'https://promofaster.vercel.app/'
-
-  // request posts from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-  // extract the data
-  let data = await response.json();
-
-  return {
-      props: {
-        products: data,
-      },
-  };
 }

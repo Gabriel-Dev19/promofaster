@@ -1,0 +1,52 @@
+[
+  {
+  "id": 750541470,
+  "name": "bbbbbb",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "link": "",
+  "images": [],
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false
+  },
+  {
+  "id": 750562733,
+  "name": "Relógio tecnos",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "link": "",
+  "images": [
+  {
+  "url": "https://i.imgur.com/r2NGbBe.jpg",
+  "alt": "aaaaaaaaaaaa"
+  }
+  ],
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false
+  },
+  {
+  "id": 751535440,
+  "name": "Teste durabilidade",
+  "description": "",
+  "preco": "",
+  "popularity": "",
+  "categorySearch": "",
+  "link": "",
+  "images": [],
+  "precoAntigo": "",
+  "porcentagemDesconto": "",
+  "numeroParcelas": "",
+  "precoParcelas": "",
+  "semJuros": false
+  }
+  ]
