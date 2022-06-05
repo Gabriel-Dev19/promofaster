@@ -53,7 +53,7 @@ export default function SearchPage({ products }) {
   // function getProducts() {
   //   const dev = process.env.NODE_ENV !== 'production'
   //   const DEV_URL = 'http://localhost:3000/'
-  //   const PROD_URL = 'https://promofaster.vercel.app/'
+  //   const PROD_URL = 'https://promofaster.herokuapp.com/'
   //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
   //     .then((res) => {
   //       setDataBase(res.data)
@@ -160,7 +160,7 @@ export async function getServerSideProps(ctx) {
   // get the current environment
   let dev = process.env.NODE_ENV !== 'production';
   const DEV_URL = 'http://localhost:3000/'
-  const PROD_URL = 'https://promofaster.vercel.app/'
+  const PROD_URL = 'https://promofaster.herokuapp.com/'
 
   // request posts from api
   let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);

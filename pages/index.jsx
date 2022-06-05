@@ -8,7 +8,7 @@ export default function Index({ products }) {
   async function getProducts() {
     const dev = process.env.NODE_ENV !== 'production'
     const DEV_URL = 'http://localhost:3000'
-    const PROD_URL = 'https://promofaster.vercel.app'
+    const PROD_URL = 'https://promofaster.herokuapp.com'
     const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
     const products = await response.json()
     setDataBase(products)
