@@ -84,8 +84,11 @@ export default function Index({ products }) {
       semJuros: semJurosInput,
       createdAt: new Date().toISOString(),
     }
-
-    axios.post('http://localhost:3000/api/products/create', JSON.stringify(product), {
+    
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = 'http://localhost:3000'
+    const PROD_URL = 'https://promofaster.herokuapp.com'
+    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create`, JSON.stringify(product), {
       headers:{
         "Content-Type": "application/json"
       }
@@ -150,7 +153,10 @@ export default function Index({ products }) {
   }
 
   async function deleteProduct (id) {
-    axios.post('http://localhost:3000/api/products/delete', JSON.stringify(id), {
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = 'http://localhost:3000'
+    const PROD_URL = 'https://promofaster.herokuapp.com'
+    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/delete`, JSON.stringify(id), {
       headers:{
         "Content-Type": "application/json"
       }
