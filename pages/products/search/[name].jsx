@@ -14,12 +14,25 @@ export default function SearchPage() {
   const [orderLabel, setOrderLabel] = useState('')
   const [showOptionsOrder, setShowOptionsOrder] = useState(false)
 
+  function getProducts() {
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
+      .then((res) => {
+        setDataBase(res.data)
+        orderByRelevance()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   function orderByMinusPrice() {
-    dataBase.sort((x, y) => {
+    setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return x.preco - y.preco
-    })
-    setDataBase(oldArray => [...oldArray])
-   
+    }))
+
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.add('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
@@ -27,11 +40,10 @@ export default function SearchPage() {
   }
 
   function orderByBigPrice() {
-    dataBase.sort((x, y) => {
+    setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return y.preco - x.preco
-    })
-    setDataBase(oldArray => [...oldArray])
-   
+    }))
+
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.add('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
@@ -39,33 +51,18 @@ export default function SearchPage() {
   }
 
   function orderByRelevance() {
-    dataBase.sort((x, y) => {
+    setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return y.popularity - x.popularity
-    })
-    setDataBase(oldArray => [...oldArray])
-   
+    }))
+
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.add('active')
     setOrderLabel('maior relevância')
   }
 
-  function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000'
-    const PROD_URL = 'https://promofaster.herokuapp.com'
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
-      .then((res) => {
-        setDataBase(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   useEffect(() => {
     getProducts()
-    orderByRelevance()
     setQueryName(routerQueryName)
   }, [routerQueryName])
 

@@ -1,62 +1,38 @@
 import LayoutDefault from "../../../layouts/LayoutDefault";
-import { useRouter } from "next/router";
 import axios from 'axios'
-import { useEffect, useState } from "react";
 
-export default function ViewPage ({ products }) {
-  const router = useRouter()
-  const [dataBase, setDataBase] = useState([])
-
-  // function getProducts() {
-  //   const dev = process.env.NODE_ENV !== 'production'
-  //   const DEV_URL = 'http://localhost:3000/'
-  //   const PROD_URL = 'https://promofaster.herokuapp.com/'
-  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
-// 
-  // useEffect(() => {
-  //   getProducts()
-  // })
+export default function ViewPage ({ response }) {
 
   return(
-    <>
-      {
-        products.filter((item) => {
-          return item.id.toString().includes(router.query.id)
-        }).map((item, index) => {
-          return(
-            <LayoutDefault title={item.name} key={index} noHeader={true}>
-              <div>About us: {item.name} </div>
-              <div>About us: {item.id} </div>
-              <div>About us: {item.description} </div>
-            </LayoutDefault>
-          )
-        })
-      }
-    </>
+    <LayoutDefault title={response.name} noHeader={true}>
+      <div>About us: {response.name} </div>
+      <div>About us: {response.id} </div>
+      <div>About us: {response.description} </div>
+    </LayoutDefault>
   )
 }
 
-export async function getServerSideProps(ctx) {
-  // get the current environment
+export const getStaticProps = async ({ params }) => {
   let dev = process.env.NODE_ENV !== 'production';
-  const DEV_URL = 'http://localhost:3000'
-  const PROD_URL = 'https://promofaster.herokuapp.com'
-
-  // request posts from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-  // extract the data
-  let data = await response.json();
-
+  const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+  const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/${params.id}`);
+  const response = data;
   return {
-      props: {
-        products: data,
-      },
+    props: {
+      response,
+    },
   };
-}
+};
+
+export const getStaticPaths = async () => {
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+  const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`);
+  const paths = data.map((product) => ({ params: { id: product.id.toString() } }));
+  return {
+    paths,
+    fallback: false,
+  };
+};

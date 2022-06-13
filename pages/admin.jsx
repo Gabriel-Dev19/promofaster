@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import LayoutDefault from "../layouts/LayoutDefault";
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -11,6 +12,7 @@ import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone } from '@ant-design/icon
 export default function Index({ products }) {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
+  const [dataBase, setDataBase] = useState([])
 
   const [nameInput, setNameInput] = useState('')
   const [descriptionInput, setDescriptionInput] = useState('')
@@ -24,25 +26,11 @@ export default function Index({ products }) {
   const [numeroParcelasInput, setNumeroParcelasInput] = useState('')
   const [precoParcelasInput, setPrecoParcelasInput] = useState('')
   const [semJurosInput, setSemJurosInput] = useState(false)
-  const [dataBase, setDataBase] = useState([])
-
-  // function getProducts() {
-  //   const dev = process.env.NODE_ENV !== 'production'
-  //   const DEV_URL = 'http://localhost:3000/'
-  //   const PROD_URL = 'https://promofaster.herokuapp.com/'
-  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
 
   async function getProducts() {
     const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000'
-    const PROD_URL = 'https://promofaster.herokuapp.com'
+    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
     await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`).then((res) => {
       setDataBase(res.data)
     }).catch((err) => {
@@ -68,6 +56,7 @@ export default function Index({ products }) {
 
   async function itemPush(e) {
     e.preventDefault()
+
     const product = {
       id: Date.now(),
       name: nameInput,
@@ -83,13 +72,12 @@ export default function Index({ products }) {
       porcentagemDesconto: porcentagemDescontoInput,
       numeroParcelas: numeroParcelasInput,
       precoParcelas: precoParcelasInput,
-      semJuros: semJurosInput,
-      createdAt: new Date().toISOString(),
+      semJuros: semJurosInput
     }
     
     const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000'
-    const PROD_URL = 'https://promofaster.herokuapp.com'
+    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
     axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create`, JSON.stringify(product), {
       headers:{
         "Content-Type": "application/json"
@@ -119,45 +107,12 @@ export default function Index({ products }) {
     }).catch((err) => {
       console.log(err)
     })
-
-    // let response = await fetch('http://localhost:3000/api/products/create', {
-    //   body: JSON.stringify(product)
-    // });
-// 
-    // // get the data
-    // let data = await response.json();
-// 
-    // if (data.success) {
-    //   setShowModal(false)
-    //   setImagesInput([])
-    //   setNameInput('')
-    //   setDescriptionInput('')
-    //   setPrecoInput('')
-    //   setPopularityInput('')
-    //   setCategorySearchInput('')
-    //   setLinkInput('')
-    //   setPrecoAntigoInput('')
-    //   setPorcentagemDescontoInput('')
-    //   setNumeroParcelasInput('')
-    //   setPrecoParcelasInput('')
-    //   setSemJurosInput(false)
-// 
-    //   message.success({
-    //     content: 'Produto adicionado com sucesso',
-    //     duration: 2,
-    //     style: {
-    //       marginTop: '30px'
-    //     }
-    //   })
-    //   return router.push(router.asPath)
-    // } else {
-    // }
   }
 
   async function deleteProduct (id) {
     const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = 'http://localhost:3000'
-    const PROD_URL = 'https://promofaster.herokuapp.com'
+    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
     axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/delete`, JSON.stringify(id), {
       headers:{
         "Content-Type": "application/json"
@@ -270,6 +225,7 @@ export default function Index({ products }) {
             <FullScreen>
               <div className="content-full-screen" onClick={() => { setShowModal(false) }}>
                 <form onSubmit={itemPush} action="" onClick={(e) => {e.stopPropagation()}}>
+                  { /** Inputs de texto */ }
                   <input type="text" className="form-control" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInput(e.target.value) }} />
@@ -283,8 +239,9 @@ export default function Index({ products }) {
                   <div className="d-flex align-items-center" onClick={(e) => { setSemJurosInput(!semJurosInput) }}>
                     <input type="checkbox" checked={semJurosInput} id="check-sem-juros" className="mt-2" />
                     <label htmlFor="#check-sem-juros" className="ms-2">Sem juros?</label>
-                    {semJurosInput.toString()}
                   </div>
+
+                  { /** Lista de imagens */ }
                   <span className="d-block mt-4">
                     Imagens: {imagesInput.length}
                   </span>
@@ -295,14 +252,16 @@ export default function Index({ products }) {
                           {
                             imagesInput.length > 0 &&
                             <div className="d-flex mt-4">
-                              <img src={item.url} style={{ height: '80px', width: '80px', objectFit: 'cover' }} height={100} width={100} alt={item.alt} />
-                              <div className="ms-3">
-                                <b>N° da Imagem:</b> {index + 1} <br />
+                              <img src={item.url} style={{ height: '60px', width: '60px', objectFit: 'cover' }} height={100} width={100} alt={item.alt} />
+                              <div className="mx-3 col small" style={{ wordBreak: 'break-word' }}>
+                                <b>N°:</b> {index + 1} <br />
                                 <b>Link:</b> {item.url} <br />
                                 <b>Alt:</b> {item.alt}
                               </div>
                               <button
-                                className="btn btn-danger align-self-center ms-2 p-0"
+                                className="btn focus-no-shadow align-self-center ms-auto p-0"
+                                title="Excluir"
+                                aria-label="Excluir"
                                 style={{
                                   height: '40px',
                                   width: '40px',
@@ -315,14 +274,17 @@ export default function Index({ products }) {
                                   e.preventDefault()
                                   imagesInput.splice(index, 1)
                                   setImagesInput(oldArray => [...oldArray])
-                                }}>
-                                <ion-icon name="trash-outline" style={{fontSize: '21px', minWidth: '21px'}} />
+                                }}
+                              >
+                                <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
                               </button>
                             </div>
                           }
                         </div>
                       )
                   })}
+
+                  { /** Form de imagens */ }
                   <input
                     type="text" id="input-url"
                     className="form-control mt-4"
@@ -333,17 +295,27 @@ export default function Index({ products }) {
                     className="form-control"
                     placeholder="Alt da imagem"
                   />
-                  <button className="btn btn-success" onClick={(e) => {
-                    e.preventDefault()
-                    setImagesInput(oldArray => [...oldArray, {url: document.getElementById('input-url').value, alt: document.getElementById('input-alt').value} ])
-                    setTimeout(() => {
-                      document.getElementById('input-alt').value = ''
-                      document.getElementById('input-url').value = ''
-                    }, 300);
-                  }}>
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setImagesInput(oldArray =>
+                        [ ...oldArray,
+                          {
+                            url: document.getElementById('input-url').value,
+                            alt: document.getElementById('input-alt').value
+                          }
+                        ]
+                      )
+                      setTimeout(() => {
+                        document.getElementById('input-alt').value = ''
+                        document.getElementById('input-url').value = ''
+                      }, 300);
+                    }}
+                  >
                     Add Image
                   </button>
-                  <div className="d-flex mt-4">
+                  <div className="d-flex justify-content-end mt-4">
                     <button type="submit" className="btn btn-success">
                       Adicionar
                     </button>

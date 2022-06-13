@@ -7,13 +7,14 @@
     overflow: auto;
 
     form{
-      max-width: 500px;
+      max-width: 600px;
       margin: auto;
       padding: 30px;
-      background-color: gainsboro;
+      background-color: rgb(238, 238, 238);
       
       input{
         margin-bottom: 9px;
+        border: 1px solid $blue;
       }
     }
   }

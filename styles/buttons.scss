@@ -4,6 +4,10 @@ button:focus{
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
 }
 
+button.focus-no-shadow:focus{
+  box-shadow: none !important;
+}
+
 button{
   border: 0;
   padding: 0;
@@ -18,8 +22,8 @@ a, button{
 }
 
 .btn{
-  border-radius: 100px;
-  padding: 7px 23px !important;
+  border-radius: 100px !important;
+  padding: 6px 20px !important;
   font-size: 15px;
   transition: all .1s;
   width: auto;
@@ -30,6 +34,14 @@ a, button{
   // &:hover{
   //   transform: scale3d(1.04, 1.04, 1.04);
   // }
+}
+
+.btn-sm{
+  padding: 5px 18px !important;
+  font-size: 13px;
+  width: auto;
+  display: flex;
+  align-items: center;
 }
 
 .btn-lg{

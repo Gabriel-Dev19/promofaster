@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import CategorySubmenu from './CategorySubmenu'
 
 export default function Header (props) {
-  const [stateCollapse, setStateCollapse] = useState(true)
+  const [stateCollapse, setStateCollapse] = useState(false)
   const [onShadow, setOnShadow] = useState(false)
   const [onScroll, setOnScroll] = useState(false)
   const [showCategory, setShowCategory] = useState(false)
@@ -30,9 +30,12 @@ export default function Header (props) {
     window.scrollY > 10 ? setOnScroll(true) : setOnScroll(false)
   }
   function setCollapseIfWindowWidth(param) {
-    window.innerWidth < param ? setStateCollapse(false) : setStateCollapse(true)
+    if (window.innerWidth > param - 50 && window.innerWidth < param) {
+      setStateCollapse(false)
+    } else if (window.innerWidth > param) {
+      setStateCollapse(true)
+    }
   }
-
 
   // UseEffect repeat
   useEffect(() => {
@@ -59,10 +62,10 @@ export default function Header (props) {
 
   // UseEffect no repeat
   useEffect(() => {
-    setCollapseIfWindowWidth(1199.95)
+    setCollapseIfWindowWidth(breakpointDesktop)
     // Resize event
     window.addEventListener('resize', () => {
-      setCollapseIfWindowWidth(1199.95)
+      setCollapseIfWindowWidth(breakpointDesktop)
     })
   }, [])
 
