@@ -1,7 +1,15 @@
-import { prisma } from './db'
+import prisma from './db'
 
 export async function getProductsDB() {
   return prisma.public_products.findMany()
+}
+
+export async function getUniqueProductDB(id) {
+  return prisma.public_products.findUnique({
+    where: {
+      id: id
+    }
+  })
 }
 
 export async function createProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, semJuros) {

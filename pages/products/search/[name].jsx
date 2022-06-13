@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import LayoutDefault from '../../../layouts/LayoutDefault'
 import {SwiperSlide} from 'swiper/react'
 import Product from '../../../components/Product'
-// import {connectToDatabase} from '../../../lib/mongodb'
+import axios from 'axios'
 
-export default function SearchPage({ products }) {
+export default function SearchPage() {
   const [dataBase, setDataBase] = useState([])
   const router = useRouter()
   const routerQueryName = router.query.name
@@ -50,20 +50,21 @@ export default function SearchPage({ products }) {
     setOrderLabel('maior relevância')
   }
 
-  // function getProducts() {
-  //   const dev = process.env.NODE_ENV !== 'production'
-  //   const DEV_URL = 'http://localhost:3000/'
-  //   const PROD_URL = 'https://promofaster.herokuapp.com/'
-  //   axios.get(`${dev ? DEV_URL : PROD_URL}/api/products`)
-  //     .then((res) => {
-  //       setDataBase(res.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  function getProducts() {
+    const dev = process.env.NODE_ENV !== 'production'
+    const DEV_URL = 'http://localhost:3000'
+    const PROD_URL = 'https://promofaster.herokuapp.com'
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
+      .then((res) => {
+        setDataBase(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 
   useEffect(() => {
+    getProducts()
     orderByRelevance()
     setQueryName(routerQueryName)
   }, [routerQueryName])
@@ -106,7 +107,7 @@ export default function SearchPage({ products }) {
           </div>
           <ul className="mt-4 list-products">
             {/* Filter Array search */}
-            {products.filter((item) => {
+            {dataBase.filter((item) => {
               return (
                 item.categorySearch.includes('')
               ) &&
@@ -155,49 +156,3 @@ export default function SearchPage({ products }) {
     </LayoutDefault>
   )
 }
-
-export async function getServerSideProps(ctx) {
-  // get the current environment
-  let dev = process.env.NODE_ENV !== 'production';
-  const DEV_URL = 'http://localhost:3000/'
-  const PROD_URL = 'https://promofaster.herokuapp.com/'
-
-  // request posts from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-  // extract the data
-  let data = await response.json();
-
-  return {
-      props: {
-        products: data,
-      },
-  };
-}
-
-// export async function getStaticProps(ctx) {
-//   let { db } = await connectToDatabase();
-//   const products = await db
-//   .collection('products')
-//   .find({})
-//   .sort({})
-//   .toArray();
-//   return {
-//       props: {
-//           products: JSON.parse(JSON.stringify(products)),
-//       },
-//   };
-// }
-// 
-// export const getStaticPaths = async () => {
-//   let { db } = await connectToDatabase();
-//   const data = await db
-//   .collection('products')
-//   .find({})
-//   .sort({})
-//   .toArray();
-//   const paths = data.map((product) => ({ params: { name: product.name.toString() } }));
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// };

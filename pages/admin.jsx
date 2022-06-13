@@ -43,9 +43,11 @@ export default function Index({ products }) {
     const dev = process.env.NODE_ENV !== 'production'
     const DEV_URL = 'http://localhost:3000'
     const PROD_URL = 'https://promofaster.herokuapp.com'
-    const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
-    const products = await response.json()
-    setDataBase(products)
+    await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`).then((res) => {
+      setDataBase(res.data)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   useEffect( () => {
