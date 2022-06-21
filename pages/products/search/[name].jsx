@@ -32,7 +32,6 @@ export default function SearchPage() {
     setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return x.preco - y.preco
     }))
-
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.add('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
@@ -43,7 +42,6 @@ export default function SearchPage() {
     setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return y.preco - x.preco
     }))
-
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.add('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
@@ -54,7 +52,6 @@ export default function SearchPage() {
     setDataBase(oldArray => [...oldArray].sort((x, y) => {
       return y.popularity - x.popularity
     }))
-
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
     document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.add('active')

@@ -75,7 +75,7 @@ export default function Header (props) {
         <nav className="navbar nav">
           <div className="container">
             <a href="" className='brand-logo'>
-              <img src="/img/logo.png" width={200} height={100} style={{width: !onScroll ? '180px' : '160px'}} loading="lazy" alt="Logo" />
+              <img src="/img/logo.webp" width={200} height={100} loading="lazy" alt="Logo" />
             </a>
             <button
               onClick={() => { setStateCollapse(!stateCollapse) }}

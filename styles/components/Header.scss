@@ -20,7 +20,7 @@
     .container{
       .brand-logo{
         img{
-          transition: all .3s;
+          width: 145px;
         }
       }
       .toggle-nav{
@@ -107,7 +107,7 @@
         ul.group-links{
           list-style: none;
           padding: 0;
-          margin: 17px 0 0;
+          margin: 13px 0 0;
           display: flex;
           flex-wrap: wrap;
 
@@ -143,7 +143,7 @@
               font-weight: 300;
               letter-spacing: .7px;
               text-align: left;
-              padding-bottom: 8px;
+              padding-bottom: 7px;
               cursor: pointer;
             }
 
