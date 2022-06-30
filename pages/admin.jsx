@@ -27,6 +27,45 @@ export default function Index({ products }) {
   const [precoParcelasInput, setPrecoParcelasInput] = useState('')
   const [semJurosInput, setSemJurosInput] = useState(false)
 
+  const buttonsCategory = {
+    avulsos: [
+      { title: 'Carro', category: 'carro' },
+      { title: 'Moda', category: 'moda' },
+      { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Moda', category: 'moda' },
+      { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Moda', category: 'moda' },
+      { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Carro', category: 'carro' },
+      { title: 'Moda', category: 'moda' },
+      { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
+      { title: 'Carro', category: 'carro' },
+    ],
+    lojas: [
+      { title: 'Shopee', category: 'Shopee' },
+      { title: 'Magazine luiza', category: 'magazine_luiza' },
+      { title: 'Lojas Americanas', category: 'lojas_americanas' },
+    ]
+  }
+
+  function addCategory(category, idButton) {
+    const input = document.getElementById('categoriaDeBusca')
+    input.value = input.value + category + ' '
+
+    const button = document.querySelector(`.button-add-category-${idButton}`)
+    button.style.backgroundColor = '#198754'
+    setTimeout(() => {
+      button.style.backgroundColor = '#3498db'
+    }, 300);
+
+    setCategorySearchInput(input.value)
+  }
+
   async function getProducts() {
     const dev = process.env.NODE_ENV !== 'production'
     const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
@@ -229,9 +268,45 @@ export default function Index({ products }) {
                   <input type="text" className="form-control" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Categoria de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
+                  <input type="number" defaultValue={'90'} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
+                  <textarea type="text" id="categoriaDeBusca" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
+                  <span className="d-block mt-3">
+                    <b>Avulsos:</b>
+                  </span>
+                  <hr className="mt-1 mb-2" />
+                  {
+                    buttonsCategory.avulsos.map((item, index) => {
+                      return(
+                        <button
+                          key={index}
+                          className={`button-add-category-${index} me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
+                          onClick={(e) => { e.preventDefault(); addCategory(item.category, index) }}
+                        >
+                          { item.title }
+                        </button>
+                      )
+                    })
+                  }
+                  <span className="d-block mt-3">
+                    <b>Lojas:</b>
+                  </span>
+                  <hr className="mt-1 mb-2" />
+                  {
+                    buttonsCategory.lojas.map((item, index) => {
+                      return(
+                        <button
+                          key={index}
+                          className={`button-add-category-${buttonsCategory.avulsos.length + index} me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
+                          onClick={(e) => { e.preventDefault(); addCategory(item.category, buttonsCategory.avulsos.length + index) }}
+                        >
+                          { item.title }
+                        </button>
+                      )
+                    })
+                  }
+                  <input type="text" className="form-control mt-5" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Porcentagem de desconto" onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />

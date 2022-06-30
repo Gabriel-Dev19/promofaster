@@ -5,6 +5,7 @@ import LayoutDefault from '../../../layouts/LayoutDefault'
 import {SwiperSlide} from 'swiper/react'
 import Product from '../../../components/Product'
 import axios from 'axios'
+import Skeleton from '../../../components/Skeleton'
 
 export default function SearchPage() {
   const [dataBase, setDataBase] = useState([])
@@ -13,6 +14,7 @@ export default function SearchPage() {
   const [queryName, setQueryName] = useState('')
   const [orderLabel, setOrderLabel] = useState('')
   const [showOptionsOrder, setShowOptionsOrder] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(true)
 
   function getProducts() {
     const dev = process.env.NODE_ENV !== 'production'
@@ -20,6 +22,7 @@ export default function SearchPage() {
     const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
     axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
       .then((res) => {
+        setShowSkeleton(false)
         setDataBase(res.data)
         orderByRelevance()
       })
@@ -60,12 +63,20 @@ export default function SearchPage() {
 
   useEffect(() => {
     getProducts()
-    setQueryName(routerQueryName)
+    setQueryName(String(routerQueryName))
   }, [routerQueryName])
 
   return (
     <LayoutDefault title={routerQueryName}>
       <section id="page-search">
+      {
+        showSkeleton
+        ?
+        <div className="container">
+          <Skeleton colunms={1} heightEls={30} elements={1} />
+          <Skeleton colunms={4} heightEls={350} elements={8} />
+        </div>
+        :
         <div className="container">
           <div className="row mx-0 justify-content-between align-items-end">
             <h5 className='px-0' style={{ width: '100%', maxWidth: '450px' }}>
@@ -100,7 +111,6 @@ export default function SearchPage() {
             </div>
           </div>
           <ul className="mt-4 list-products">
-            {/* Filter Array search */}
             {dataBase.filter((item) => {
               return (
                 item.categorySearch.includes('')
@@ -115,8 +125,6 @@ export default function SearchPage() {
                 // item.id.toString().toLowerCase().includes(queryName.toLowerCase())
                 // item.name.toLowerCase().includes(campoInput.toLowerCase().substr(0, 4))
               )
-
-              // Mapeia o array filtrado para retornar as listas
             }).map((item, index) => {
               return(
                 <li key={index}>
@@ -146,6 +154,7 @@ export default function SearchPage() {
             })}
           </ul>
         </div>
+      }
       </section>
     </LayoutDefault>
   )
