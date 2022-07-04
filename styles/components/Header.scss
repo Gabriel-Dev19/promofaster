@@ -12,7 +12,10 @@
   }
 
   nav{
-    @media (min-width: 1199.95px) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    @media (min-width: $xl) {
       padding-top: 0;
       padding-bottom: 0;
     }
@@ -21,6 +24,10 @@
       .brand-logo{
         img{
           width: 145px;
+
+          @media (max-width: $xl) {
+            width: 105px;
+          }
         }
       }
       .toggle-nav{
@@ -42,7 +49,7 @@
       }
 
       .collapse{
-        @media (max-width: 1199.95px) {
+        @media (max-width: $xl) {
           max-height: calc(100vh - 70px);
           overflow: auto !important;
         }
@@ -53,7 +60,7 @@
         flex-wrap: wrap;
         align-items: center;
 
-        @media (max-width: 1199.95px) {
+        @media (max-width: $xl) {
           flex-direction: column;
           align-items: flex-start;
         }
@@ -65,7 +72,7 @@
           display: flex;
           align-items: center;
 
-          @media (max-width: 1199.95px) {
+          @media (max-width: $xl) {
             margin-top: 30px;
           }
 
@@ -111,7 +118,7 @@
           display: flex;
           flex-wrap: wrap;
 
-          @media (max-width: 1199.95px) {
+          @media (max-width: $xl) {
             flex-direction: column;
             align-items: flex-start;
             margin: 30px 0 0;
@@ -120,7 +127,7 @@
           li.group-items{
             margin: 0 35px 0 0;
 
-            @media (max-width: 1199.95px) {
+            @media (max-width: $xl) {
               margin: 0 0 10px 0;
               width: 100% !important;
 
@@ -147,7 +154,7 @@
               cursor: pointer;
             }
 
-            @media (min-width: 1199.95px) {
+            @media (min-width: $xl) {
               a.links-primary:hover, .hover-categories:hover{
                 text-decoration: underline;
               }
@@ -165,7 +172,7 @@
             padding: 0;
             margin: 0;
 
-            @media (max-width: 1199.95px) {
+            @media (max-width: $xl) {
               position: static;
               margin-top: 10px;
             }

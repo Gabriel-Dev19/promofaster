@@ -148,6 +148,7 @@ export default function SearchPage() {
                     numeroParcelas={item.numeroParcelas}
                     priceParcelas={item.precoParcelas}
                     popularity={item.popularity}
+                    lojaVendedora={item.loja}
                   />
                 </li>
               )

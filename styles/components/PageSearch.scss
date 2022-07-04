@@ -1,6 +1,14 @@
 #page-search{
-  margin-top: 140px;
+  margin-top: 120px;
   min-height: 100vh;
+
+  @media (max-width: $sm) {
+    margin-top: 90px;
+  }
+
+  @media (min-width: $sm) and (max-width: $xl) {
+    margin-top: 100px;
+  }
 
   .container{
     .order-by{
@@ -54,11 +62,45 @@
       padding: 0;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
 
       li{
-        width: 23%;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
+        
+        @media (max-width: $md) {
+          width: 48.2%;
+          margin-right: 3.5%;
+
+          &:nth-child(2n+2){
+            margin-right: 0;
+          }
+        }
+
+        @media (min-width: $md) and (max-width: $lg) {
+          width: 46.2%;
+          margin-right: 7.5%;
+
+          &:nth-child(2n+2){
+            margin-right: 0;
+          }
+        }
+
+        @media (min-width: $lg) and (max-width: $xl) {
+          width: 31%;
+          margin-right: 3.5%;
+
+          &:nth-child(3n+3){
+            margin-right: 0;
+          }
+        }
+
+        @media (min-width: $xl) {
+          width: 23%;
+          margin-right: 2.6%;
+
+          &:nth-child(4n+4){
+            margin-right: 0;
+          }
+        }
       }
     }
   }

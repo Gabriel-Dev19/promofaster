@@ -12,7 +12,7 @@ export async function getUniqueProductDB(id) {
   })
 }
 
-export async function createProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, semJuros) {
+export async function createProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, semJuros) {
   return prisma.public_products.create({
     data: {
       id,
@@ -27,6 +27,7 @@ export async function createProductDB( id, name, description, preco, popularity,
       porcentagemDesconto,
       numeroParcelas,
       precoParcelas,
+      loja,
       semJuros
     }
   })

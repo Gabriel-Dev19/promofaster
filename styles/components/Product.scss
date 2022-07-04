@@ -27,6 +27,20 @@
     border-bottom: 1px solid #00000025;
     position: relative;
 
+    @media (max-width: $sm) {
+      height: 50vw;
+    }
+
+    @media (min-width: $sm) and (max-width: $md) {
+      height: 220px;
+    }
+
+    @media (max-width: $xl) {
+      .btn-prev, .btn-next{
+        display: none !important;
+      }
+    }
+
     .btn-prev, .btn-next{
       position: absolute;
       top: calc(50% - 22.5px);
@@ -40,6 +54,17 @@
       justify-content: center;
       transition: all .2s;
       opacity: 0;
+
+      @media (max-width: $xl) {
+        width: 24px;
+        height: 38px;
+
+        ion-icon{
+          font-size: 22px !important;
+          min-width: 22px !important;
+          --ionicon-stroke-width: 10px;
+        }
+      }
 
       ion-icon{
         font-size: 30px;
@@ -69,7 +94,27 @@
   }
 
   .text{
-    padding: 20px;
+    padding: 18px;
+
+    @media (max-width: $sm) {
+      padding: 10px;
+      
+      .small{
+        font-size: 10px;
+      }
+
+      ion-icon{
+        font-size: 11px;
+      }
+
+      .loja-vendedora{
+        display: -webkit-box !important;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
 
     h6{
       font-size: 14px;
@@ -80,6 +125,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 0;
+      
+      @media (max-width: $sm) {
+        font-size: 12px;
+      }
+    }
+    
+    .format-price{
+      font-size: 20px;
+      font-weight: 600;
+
+      @media (max-width: $sm) {
+        font-size: 14px;
+      }
     }
 
     .desconto{
@@ -88,11 +146,11 @@
       font-weight: 500;
       margin-top: 8px;
       margin-left: 8px;
-    }
-
-    .format-price{
-      font-size: 20px;
-      font-weight: 600;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

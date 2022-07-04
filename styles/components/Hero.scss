@@ -33,6 +33,7 @@
   }
   .container{
     position: relative;
+
     .box-text{
       width: 100%;
       max-width: 550px;
@@ -50,7 +51,22 @@
 }
 
 #hero-store{
-  margin-top: 150px;
+  margin-top: 120px;
+
+  @media (max-width: $xl) {
+    margin-top: 100px;
+    overflow: hidden;
+
+    .swiper-hero{
+      overflow: visible;
+    }
+  }
+
+  .container{
+    @media (max-width: $sm) {
+      padding: 0 !important;
+    }
+  }
 
   .swiper-hero{
     padding: 20px 16px;

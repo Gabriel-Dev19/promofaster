@@ -21,6 +21,7 @@ model public_products {
   porcentagemDesconto String?  @db.VarChar(255)
   numeroParcelas      String?  @db.VarChar(255)
   precoParcelas       String?  @db.VarChar(255)
+  loja                String?  @db.VarChar(255)
   semJuros            Boolean?
 
   @@map("public.products")

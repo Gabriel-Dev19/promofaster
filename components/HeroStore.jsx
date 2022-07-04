@@ -44,11 +44,31 @@ export default function HeroSrore() {
         >
           <Swiper
             ref={swiperRef}
-            slidesPerView={4}
-            spaceBetween={30}
             grabCursor={true}
             autoplay={{
               delay: 2000
+            }}
+            breakpoints={{
+              0: {
+                slidesPerView: 1.6,
+                spaceBetween: 15
+              },
+              399.95: {
+                slidesPerView: 1.6,
+                spaceBetween: 20
+              },
+              767.95: {
+                slidesPerView: 2.4,
+                spaceBetween: 20
+              },
+              991.95: {
+                slidesPerView: 3.4,
+                spaceBetween: 20
+              },
+              1199.95: {
+                slidesPerView: 4,
+                spaceBetween: 30
+              }
             }}
             className="swiper-hero"
           >
@@ -76,6 +96,7 @@ export default function HeroSrore() {
                       numeroParcelas={item.numeroParcelas}
                       priceParcelas={item.precoParcelas}
                       popularity={item.popularity}
+                      lojaVendedora={item.loja}
                     />
                   </SwiperSlide>
                 )

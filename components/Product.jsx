@@ -52,7 +52,7 @@ function Product(props) {
             <FormatPrice price={props.realPrice} />
           </div>
           <span className="small col-12 row mx-0 px-0">
-            em até&nbsp;
+            até&nbsp;
             <span
               className="col-auto px-0 row mx-0"
               style={{
@@ -68,8 +68,8 @@ function Product(props) {
           <div className="mt-2">
             <Stars comparator={props.popularity} />
           </div>
-          <span style={{ opacity: '.9', fontSize: '12px', fontWeight: '300' }} className="mt-2 d-block">
-            vendido por Americanas
+          <span style={{ opacity: '.9', fontWeight: '300' }} className="mt-2 small loja-vendedora d-block">
+            vendido por {props.lojaVendedora}
           </span>
         </div>
       </a>

@@ -24,11 +24,15 @@
   padding: 0 !important;
 }
 
+.small{
+  font-size: .775rem;
+}
+
 .container{
   padding: 0 15px;
 }
 
-@media (min-width: 1199.95px) {
+@media (min-width: $xl) {
   .container{
     max-width: 1180px;
   }

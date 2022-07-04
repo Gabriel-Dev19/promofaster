@@ -25,6 +25,7 @@ export default function Index({ products }) {
   const [porcentagemDescontoInput, setPorcentagemDescontoInput] = useState('')
   const [numeroParcelasInput, setNumeroParcelasInput] = useState('')
   const [precoParcelasInput, setPrecoParcelasInput] = useState('')
+  const [lojaInput, setlLojaInput] = useState('')
   const [semJurosInput, setSemJurosInput] = useState(false)
 
   const buttonsCategory = {
@@ -111,6 +112,7 @@ export default function Index({ products }) {
       porcentagemDesconto: porcentagemDescontoInput,
       numeroParcelas: numeroParcelasInput,
       precoParcelas: precoParcelasInput,
+      loja: lojaInput,
       semJuros: semJurosInput
     }
     
@@ -134,6 +136,7 @@ export default function Index({ products }) {
       setPorcentagemDescontoInput('')
       setNumeroParcelasInput('')
       setPrecoParcelasInput('')
+      setlLojaInput('')
       setSemJurosInput(false)
       message.success({
         content: 'Produto adicionado com sucesso',
@@ -262,13 +265,13 @@ export default function Index({ products }) {
             unmountOnExit
           >
             <FullScreen>
-              <div className="content-full-screen" onClick={() => { setShowModal(false) }}>
+              <div className="content-full-screen">
                 <form onSubmit={itemPush} action="" onClick={(e) => {e.stopPropagation()}}>
                   { /** Inputs de texto */ }
                   <input type="text" className="form-control" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInput(e.target.value) }} />
-                  <input type="number" defaultValue={'90'} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
+                  <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
                   <textarea type="text" id="categoriaDeBusca" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
                   <span className="d-block mt-3">
                     <b>Avulsos:</b>
@@ -311,6 +314,7 @@ export default function Index({ products }) {
                   <input type="text" className="form-control" placeholder="Porcentagem de desconto" onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
+                  <input type="text" className="form-control" placeholder="Loja vendedora" onChange={(e) => { setlLojaInput(e.target.value) }} />
                   <div className="d-flex align-items-center" onClick={(e) => { setSemJurosInput(!semJurosInput) }}>
                     <input type="checkbox" checked={semJurosInput} id="check-sem-juros" className="mt-2" />
                     <label htmlFor="#check-sem-juros" className="ms-2">Sem juros?</label>
