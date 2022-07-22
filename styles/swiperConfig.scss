@@ -1,0 +1,35 @@
+.swiper{
+  position: relative;
+}
+
+.swiper-products{
+  padding-bottom: 55px !important;
+}
+
+.swiper-pagination{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  
+  .swiper-pagination-bullet{
+    width: 5px;
+    height: 5px;
+    border-radius: 30px;
+    background-color: $gray3;
+    opacity: .4;
+    transition: all .3s;
+    cursor: pointer;
+    
+    &:not(:last-child){
+      margin-right: 13px;
+    }
+
+    &.swiper-pagination-bullet-active{
+      transform: scale3d(2.1, 2.1, 2.1);
+      opacity: 1;
+    }
+  }
+}

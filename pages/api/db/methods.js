@@ -33,6 +33,29 @@ export async function createProductDB( id, name, description, preco, popularity,
   })
 }
 
+export async function updateProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, semJuros) {
+  return prisma.public_products.update({
+    where: {
+      id: id
+    },
+    data: {
+      name,
+      description,
+      preco,
+      popularity,
+      categorySearch,
+      link,
+      images,
+      precoAntigo,
+      porcentagemDesconto,
+      numeroParcelas,
+      precoParcelas,
+      loja,
+      semJuros
+    }
+  })
+}
+
 export async function deleteProductDB(id) {
   return prisma.public_products.delete({
     where: {

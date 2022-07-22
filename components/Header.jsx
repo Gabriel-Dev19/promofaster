@@ -57,7 +57,9 @@ export default function Header (props) {
       document.body.classList.remove('overflow-hidden')
       document.querySelector('html').classList.remove('overflow-hidden')
     }
-      
+    showCategory ?
+    document.querySelector('#headerComponent').classList.add('show-hover-boxes') :
+    document.querySelector('#headerComponent').classList.remove('show-hover-boxes')      
   })
 
   // UseEffect no repeat
@@ -121,9 +123,7 @@ export default function Header (props) {
                         onMouseLeave={() => setShowCategory(false)}
                       >
                         Categorias
-                        <Collapse isOpen={showCategory}>
-                          <CategorySubmenu />
-                        </Collapse>
+                        { showCategory ? <CategorySubmenu /> : null }
                       </div>
                     </li>
                     <li className='group-items'>
