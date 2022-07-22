@@ -20,6 +20,7 @@ export default function MyApp({ Component, pageProps }) {
       setIsLoading(false)
     }
     setIsLoading(false)
+    document.body.setAttribute('onselectstart', 'return false')
   }, [router.events])
 
   return(

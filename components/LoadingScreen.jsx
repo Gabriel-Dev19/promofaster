@@ -1,11 +1,3 @@
-
-
-function LoadingScreen() {
-  return (
-    <section id="loading-screen">
-
-    </section>
-  );
+export default function LoadingScreen() {
+  return ( <section className="loading-screen" /> );
 }
-
-export default LoadingScreen;

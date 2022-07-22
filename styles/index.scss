@@ -2,6 +2,7 @@
 @import './buttons.scss';
 @import './fonts.scss';
 @import './admin.scss';
+@import './swiperConfig.scss';
 @import './components/Hero.scss';
 @import './components/Header.scss';
 @import './components/Product.scss';
@@ -92,7 +93,7 @@ body{
   }
 }
 
-#loading-screen{
+.loading-screen{
   height: 100%;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.664);

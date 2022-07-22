@@ -27,8 +27,11 @@
     border-bottom: 1px solid #00000025;
     position: relative;
 
-    @media (max-width: $sm) {
-      height: 50vw;
+    @media (max-width: 479.95px) {
+      height: calc(50vw);
+    }
+    @media (min-width: 479.95px) and (max-width: $sm) {
+      height: calc(50vw - 50px);
     }
 
     @media (min-width: $sm) and (max-width: $md) {
@@ -94,7 +97,7 @@
   }
 
   .text{
-    padding: 18px;
+    padding: 16px;
 
     @media (max-width: $sm) {
       padding: 10px;
@@ -151,6 +154,14 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+}.swiper-slide{
+  .product{
+    h6{
+      @media (max-width: $sm) {
+        font-size: 13px;
+      }
     }
   }
 }

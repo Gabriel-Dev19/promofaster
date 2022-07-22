@@ -1,6 +1,18 @@
 #headerComponent{
   transition: all .3s;
-  background-color: $blue;
+
+  &.show-hover-boxes::before{
+    content: '';
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .2;
+    z-index: -1;
+    transition: all .3s;
+  }
 
   &.bg-white{
     background-color: rgba(255, 255, 255, 0.763) !important;
@@ -14,6 +26,7 @@
   nav{
     padding-top: 12px;
     padding-bottom: 12px;
+    background-color: $blue;
 
     @media (min-width: $xl) {
       padding-top: 0;
@@ -170,6 +183,7 @@
             border-radius: 2px;
             list-style: none;
             padding: 0;
+            min-width: 160px;
             margin: 0;
 
             @media (max-width: $xl) {
@@ -178,11 +192,12 @@
             }
             
             .item{
-              padding: 7px 20px 7px 17px;
+              padding: 7px 13px 7px 17px;
               position: relative;
               color: $black !important;
               display: flex;
               align-items: center;
+              width: 100%;
               justify-content: space-between;
               font-size: 13px;
               font-weight: 300;
@@ -205,7 +220,7 @@
               }
 
               ion-icon{
-                margin-left: 15px;
+                margin-left: 20px;
               }
             }
 

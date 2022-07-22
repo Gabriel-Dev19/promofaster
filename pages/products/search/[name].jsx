@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import LayoutDefault from '../../../layouts/LayoutDefault'
-import {SwiperSlide} from 'swiper/react'
 import Product from '../../../components/Product'
 import axios from 'axios'
 import Skeleton from '../../../components/Skeleton'
@@ -20,7 +19,7 @@ export default function SearchPage() {
     const dev = process.env.NODE_ENV !== 'production'
     const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
     const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`)
+    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get?NEXT_PUBLIC_API_KEY=${process.env.NEXT_PUBLIC_API_KEY}`)
       .then((res) => {
         setShowSkeleton(false)
         setDataBase(res.data)
@@ -131,15 +130,7 @@ export default function SearchPage() {
                   <Product
                     numberId={index + 1}
                     linkProduct={{pathname: '/products/view/[id]', query: { id: item.id}}}
-                    images={
-                      item.images.map((itemImages, indexImages) => {
-                        return(
-                          <SwiperSlide key={indexImages}>
-                            <img src={itemImages.url} alt={itemImages.alt} />
-                          </SwiperSlide>
-                        )
-                      })
-                    }
+                    images={item.images}
                     nameProduct={item.name}
                     precoAntigo={item.precoAntigo}
                     porcentagemDesconto={item.porcentagemDesconto}

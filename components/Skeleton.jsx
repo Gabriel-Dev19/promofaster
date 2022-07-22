@@ -18,7 +18,8 @@ export default function Skeleton({ colunms, elements, heightEls }) {
         display: 'grid',
         gridTemplateColumns: frs,
         rowGap: '20px',
-        columnGap: '20px'
+        columnGap: '20px',
+        padding: '0 15px'
       }}
     >
       {

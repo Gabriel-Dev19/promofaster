@@ -1,5 +1,5 @@
 #admin{
-  padding: 30px;
+  padding: 10px 10px 135px;
 
   .content-full-screen{
     height: 100%;
@@ -11,6 +11,21 @@
       margin: auto;
       padding: 30px;
       background-color: rgb(238, 238, 238);
+      position: relative;
+
+      .button-close-modal-admin{
+        background-color: $danger;
+        color: $white;
+        height: 27px;
+        width: 27px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -11px;
+        right: -11px;
+      }
       
       input, textarea{
         margin-bottom: 9px;
@@ -29,6 +44,17 @@
         }
       }
     }
+  }
+
+  .fixed-bar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(216, 216, 216, 0.545);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
