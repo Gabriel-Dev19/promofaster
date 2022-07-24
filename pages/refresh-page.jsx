@@ -1,16 +1,15 @@
-import LayoutDefault from "../layouts/LayoutDefault";
+import { useEffect } from "react";
+import { useRouter } from 'next/router'
+import Index from './admin'
 import axios from 'axios'
-import SliderProducts from "../components/SliderProducts";
 
-export default function Index({ response }) {
-  return (
-    <>
-      <LayoutDefault>
-        <SliderProducts products={response} />
-        <section style={{height: '200vh'}}></section>
-      </LayoutDefault>
-    </>
-  )
+export default function Refresh ({ response }) {
+  const router = useRouter()
+  useEffect(() => {
+    history.pushState({}, null, '/admin')
+    router.push('/admin')
+  })
+  return( <Index response={response}></Index> )
 }
 
 export const getServerSideProps = async () => {

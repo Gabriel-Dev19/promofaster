@@ -8,13 +8,18 @@ import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
 import { message, Popconfirm } from 'antd'
 import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone, FormOutlined } from '@ant-design/icons'
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux'
+import { isAuthFalse } from "../redux/authLogin";
 
-export default function Index() {
+export default function Index({ response, children }) {
   // Dados gerais
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [dataBase, setDataBase] = useState([])
+  const state = useSelector(state => state)
+  const dispath = useDispatch()
 
   // Dados usados para o formulário de update
   const [idUpdate, setIdUpdate] = useState(0)
@@ -87,15 +92,8 @@ export default function Index() {
     setCategorySearchInputUpdate(input.value)
   }
 
-  async function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`).then((res) => {
-      setDataBase(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
+  function refreshData() {
+    router.push('/refresh-page')
   }
 
   async function itemPush(e) {
@@ -144,12 +142,12 @@ export default function Index() {
       setSemJurosInput(false)
       message.success({
         content: 'Produto adicionado com sucesso',
-        duration: 2,
+        duration: 4,
         style: {
           marginTop: '30px'
         }
       })
-      getProducts()
+      refreshData()
     }).catch((err) => {
       console.log(err)
     })
@@ -165,39 +163,36 @@ export default function Index() {
       }
     }).then((res) => {
       message.error({
-        content: 'Produto removido com sucesso',
-        duration: 2,
+        content: 'Produto removido',
+        duration: 4,
         style: {
           marginTop: '30px'
         }
       })
-      getProducts()
+      refreshData()
     }).catch((err) => {
       console.log(err)
     })
   }
 
   async function openModalUpdate(id) {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/${id}`).then((res) => {
-      setIdUpdate(res.data.id)
-      setImagesInputUpdate(res.data.images)
-      setNameInputUpdate(res.data.name)
-      setDescriptionInputUpdate(res.data.description)
-      setPrecoInputUpdate(res.data.preco)
-      setPopularityInputUpdate(res.data.popularity)
-      setCategorySearchInputUpdate(res.data.categorySearch)
-      setLinkInputUpdate(res.data.link)
-      setPrecoAntigoInputUpdate(res.data.precoAntigo)
-      setPorcentagemDescontoInputUpdate(res.data.porcentagemDesconto)
-      setNumeroParcelasInputUpdate(res.data.numeroParcelas)
-      setPrecoParcelasInputUpdate(res.data.precoParcelas)
-      setlLojaInputUpdate(res.data.loja)
-      setSemJurosInputUpdate(res.data.semJuros)
-    }).catch((err) => {
-      console.log(err)
+    response.filter((item) => {
+      return item.id === id
+    }).map((item) => {
+      setIdUpdate(item.id)
+      setImagesInputUpdate(item.images)
+      setNameInputUpdate(item.name)
+      setDescriptionInputUpdate(item.description)
+      setPrecoInputUpdate(item.preco)
+      setPopularityInputUpdate(item.popularity)
+      setCategorySearchInputUpdate(item.categorySearch)
+      setLinkInputUpdate(item.link)
+      setPrecoAntigoInputUpdate(item.precoAntigo)
+      setPorcentagemDescontoInputUpdate(item.porcentagemDesconto)
+      setNumeroParcelasInputUpdate(item.numeroParcelas)
+      setPrecoParcelasInputUpdate(item.precoParcelas)
+      setlLojaInputUpdate(item.loja)
+      setSemJurosInputUpdate(item.semJuros)
     })
     setShowModalUpdate(true)
   }
@@ -232,31 +227,30 @@ export default function Index() {
       setShowModalUpdate(false)
       message.info({
         content: 'Produto atualizado com sucesso',
-        duration: 2,
+        duration: 4,
         style: {
           marginTop: '30px'
         }
       })
-      getProducts()
+      refreshData()
     }).catch((err) => {
       console.log(err)
     })
   }
 
   useEffect( () => {
-    if (localStorage.getItem('acesso') === 'true') {
-      localStorage.setItem('acesso', true)
-      getProducts()
-    } else if (localStorage.getItem('acesso') !== 'true') {
+    if (state.auth.isAuth === true && response != []) {
+      setDataBase(response)
+    } else {
       alert('usuário não autenticado')
       router.push('/login')
     }
 
-    // return () => {
-    //   setTimeout(() => {
-    //     localStorage.clear()
-    //   }, 1500);
-    // }
+    return () => {
+      setTimeout(() => {
+        dispath(isAuthFalse())
+      }, 10000000);
+    }
 
     // Desabilita a mudança indesejada com scroll de um input number
     document.addEventListener('wheel', () => {
@@ -275,6 +269,9 @@ export default function Index() {
   return (
     <>
       <LayoutDefault noHeader={true} title={'Painel de controle'}>
+  
+        { children }
+  
         <section id="admin">
           <table className="table table-striped table-inverse table-responsive">
             <thead className="thead-inverse">
@@ -334,27 +331,22 @@ export default function Index() {
                         </td>
                       </tr>
                     )
-                  }
-                )}
+                  }).reverse()
+                  // End Array
+                }
               </tbody>
           </table>
           
           <div className="fixed-bar shadow-lg border-top py-2 px-3">
             <Link href={'/'}>
               <a className="btn btn-sm btn-primary me-2">
-                <ion-icon
-                  style={{ fontSize: '12px', marginRight: '5px' }}
-                  name="arrow-back-outline"
-                />
+                <ion-icon style={{ fontSize: '12px', marginRight: '5px' }} name="arrow-back-outline" />
                 Home
               </a>
             </Link>
             <button className="btn btn-sm btn-success" onClick={() => { setShowModal(true) }}>
               Adicionar produto
-              <ion-icon
-                style={{ fontSize: '16px', marginLeft: '5px' }}
-                name="add-circle-outline"
-              />
+              <ion-icon style={{ fontSize: '16px', marginLeft: '5px' }} name="add-circle-outline" />
             </button>
           </div>
           
@@ -670,3 +662,16 @@ export default function Index() {
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+  const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`);
+  const response = data;
+  return {
+    props: {
+      response,
+    },
+  };
+};

@@ -8,6 +8,7 @@
 @import './components/Product.scss';
 @import './components/PageSearch.scss';
 @import './components/Skeleton.scss';
+@import './components/SliderProducts.scss';
 
 .borda{
   border: 1px solid red;
@@ -15,6 +16,10 @@
 
 .ant-message .anticon {
   top: -3px !important;
+}
+
+.ant-message{
+  z-index: 6000 !important;
 }
 
 .bg-blue{

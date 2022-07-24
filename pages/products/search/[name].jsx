@@ -6,7 +6,7 @@ import Product from '../../../components/Product'
 import axios from 'axios'
 import Skeleton from '../../../components/Skeleton'
 
-export default function SearchPage() {
+export default function SearchPage({ response }) {
   const [dataBase, setDataBase] = useState([])
   const router = useRouter()
   const routerQueryName = router.query.name
@@ -14,21 +14,6 @@ export default function SearchPage() {
   const [orderLabel, setOrderLabel] = useState('')
   const [showOptionsOrder, setShowOptionsOrder] = useState(false)
   const [showSkeleton, setShowSkeleton] = useState(true)
-
-  function getProducts() {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get?NEXT_PUBLIC_API_KEY=${process.env.NEXT_PUBLIC_API_KEY}`)
-      .then((res) => {
-        setShowSkeleton(false)
-        setDataBase(res.data)
-        orderByRelevance()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
 
   function orderByMinusPrice() {
     setDataBase(oldArray => [...oldArray].sort((x, y) => {
@@ -61,22 +46,29 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    getProducts()
+    if (response != []) {
+      setShowSkeleton(false)
+      setDataBase(response)
+      orderByRelevance()
+    }
+    console.log(response)
     setQueryName(String(routerQueryName))
   }, [routerQueryName])
 
   return (
     <LayoutDefault title={routerQueryName}>
       <section id="page-search">
-      {
-        showSkeleton
-        ?
-        <div className="container">
-          <Skeleton colunms={1} heightEls={30} elements={1} />
-          <Skeleton colunms={4} heightEls={350} elements={8} />
-        </div>
-        :
-        <div className="container">
+        {
+          showSkeleton
+          ?
+          <div className="container">
+            <Skeleton colunms={1} heightEls={30} elements={1} />
+            <Skeleton colunms={4} heightEls={350} elements={8} />
+          </div>
+          :
+          null
+        }
+        <div className={classNames({ 'container': true, 'd-none': showSkeleton })}>
           <div className="row mx-0 justify-content-between align-items-end">
             <h5 className='px-0' style={{ width: '100%', maxWidth: '450px' }}>
               <span style={{ fontSize: '14px', fontWeight: '400' }}>
@@ -110,44 +102,59 @@ export default function SearchPage() {
             </div>
           </div>
           <ul className="mt-4 list-products">
-            {dataBase.filter((item) => {
-              return (
-                item.categorySearch.includes('')
-              ) &&
-              (
-                queryName.includes(' ') ?
-                item.name.toLowerCase().indexOf(queryName.toLowerCase().slice(item.name.indexOf(' ') + 1)) !== -1 :
-                item.name.toLowerCase().indexOf(queryName.toLowerCase()) !== -1
-                // item.name.toLowerCase().replace(' ', '').includes(queryName.toLowerCase().replace(' ', ''))
-                // item.categorySearch.toLowerCase().includes(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) ||
-                // item.description.toLowerCase().includes(queryName.toLowerCase().slice(item.description.indexOf(' ') + 1)) ||
-                // item.id.toString().toLowerCase().includes(queryName.toLowerCase())
-                // item.name.toLowerCase().includes(campoInput.toLowerCase().substr(0, 4))
-              )
-            }).map((item, index) => {
-              return(
-                <li key={index}>
-                  <Product
-                    numberId={index + 1}
-                    linkProduct={{pathname: '/products/view/[id]', query: { id: item.id}}}
-                    images={item.images}
-                    nameProduct={item.name}
-                    precoAntigo={item.precoAntigo}
-                    porcentagemDesconto={item.porcentagemDesconto}
-                    realPrice={item.preco}
-                    verifyTextGreen={item.semJuros}
-                    numeroParcelas={item.numeroParcelas}
-                    priceParcelas={item.precoParcelas}
-                    popularity={item.popularity}
-                    lojaVendedora={item.loja}
-                  />
-                </li>
-              )
-            })}
+            {
+              dataBase.filter((item) => {
+                return (
+                  item.categorySearch.includes('')
+                ) &&
+                (
+                  queryName.includes(' ') ?
+                  item.name.toLowerCase().indexOf(queryName.toLowerCase().slice(item.name.indexOf(' ') + 1)) !== -1 :
+                  item.name.toLowerCase().indexOf(queryName.toLowerCase()) !== -1
+                  // item.name.toLowerCase().replace(' ', '').includes(queryName.toLowerCase().replace(' ', ''))
+                  // item.categorySearch.toLowerCase().includes(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) ||
+                  // item.description.toLowerCase().includes(queryName.toLowerCase().slice(item.description.indexOf(' ') + 1)) ||
+                  // item.id.toString().toLowerCase().includes(queryName.toLowerCase())
+                  // item.name.toLowerCase().includes(campoInput.toLowerCase().substr(0, 4))
+                )
+              }).map((item, index) => {
+                return(
+                  <li key={index}>
+                    <Product
+                      numberId={index + 1}
+                      linkProduct={{pathname: '/products/view/[id]', query: { id: item.id}}}
+                      images={item.images}
+                      nameProduct={item.name}
+                      precoAntigo={item.precoAntigo}
+                      porcentagemDesconto={item.porcentagemDesconto}
+                      realPrice={item.preco}
+                      verifyTextGreen={item.semJuros}
+                      numeroParcelas={item.numeroParcelas}
+                      priceParcelas={item.precoParcelas}
+                      popularity={item.popularity}
+                      lojaVendedora={item.loja}
+                    />
+                  </li>
+                )
+              })
+            }
           </ul>
         </div>
-      }
       </section>
     </LayoutDefault>
   )
 }
+
+export const getServerSideProps = async () => {
+  let dev = process.env.NODE_ENV !== 'production';
+  const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
+  const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
+  const { data } = await axios.get(`${dev ? DEV_URL : PROD_URL}/api/products/get`);
+  const response = data;
+  return {
+    props: {
+      response,
+    },
+  };
+};
+

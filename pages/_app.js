@@ -4,6 +4,8 @@ import LoadingScreen from '../components/LoadingScreen'
 import 'antd/dist/antd.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../styles/index.scss'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 export default function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -29,7 +31,9 @@ export default function MyApp({ Component, pageProps }) {
         isLoading &&
         <LoadingScreen />
       }
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </>
   )
 }

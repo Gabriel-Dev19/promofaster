@@ -70,8 +70,8 @@ function Product({
             <span
               className="col-auto px-0 row mx-0"
               style={{
-                color: verifyTextGreen !== '' ? '#27ae60' : '',
-                fontWeight: verifyTextGreen !== '' ? '500' : '' }}
+                color: verifyTextGreen ? '#27ae60' : '',
+                fontWeight: verifyTextGreen ? '500' : '' }}
               >
               {numeroParcelas}x de&nbsp;
               <span className="col-auto px-0">
