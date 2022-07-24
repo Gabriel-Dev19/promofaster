@@ -1,5 +1,5 @@
 import FormatPrice from "./FormatPrice";
-import Stars from "./Stars";
+import Stars from "./Rating";
 import Link from "next/link";
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'

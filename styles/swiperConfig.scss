@@ -8,28 +8,49 @@
 
 .swiper-pagination{
   position: absolute;
+  padding: 5px 15px;
   left: 0;
   width: 100%;
-  bottom: 10px;
+  bottom: 15px;
   display: flex;
+  z-index: 5;
   justify-content: center;
   
   .swiper-pagination-bullet{
-    width: 5px;
-    height: 5px;
+    width: 7.5px;
+    height: 7.5px;
     border-radius: 30px;
-    background-color: $gray3;
-    opacity: .4;
+    background-color: transparent;
+    border: 2px solid $gray3;
+    opacity: .8;
     transition: all .3s;
     cursor: pointer;
     
     &:not(:last-child){
-      margin-right: 13px;
+      margin-right: 7px;
     }
 
     &.swiper-pagination-bullet-active{
-      transform: scale3d(2.1, 2.1, 2.1);
+      background-color: $gray3;
       opacity: 1;
+    }
+  }
+}
+
+.product{
+  .swiper-pagination{
+    bottom: 5px;
+    justify-content: flex-end;
+  }
+  .swiper-pagination-bullet{
+    border: 1px solid $graySky;
+    background-color: $black;
+    width: 8px;
+    height: 8px;
+
+    &.swiper-pagination-bullet-active{
+      background-color: $graySky;
+      border: 1px solid $black;
     }
   }
 }

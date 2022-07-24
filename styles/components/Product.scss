@@ -24,7 +24,7 @@
   .img{
     height: 280px;
     width: 100%;
-    border-bottom: 1px solid #00000025;
+    border-bottom: 1px solid #00000068;
     position: relative;
 
     @media (max-width: 479.95px) {
@@ -46,12 +46,13 @@
 
     .btn-prev, .btn-next{
       position: absolute;
-      top: calc(50% - 22.5px);
+      bottom: 10px;
       z-index: 2;
       background-color: rgba(0, 0, 0, 0.445);
       color: white;
-      height: 45px;
-      width: 30px;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -59,30 +60,28 @@
       opacity: 0;
 
       @media (max-width: $xl) {
-        width: 24px;
-        height: 38px;
+        width: 20px;
+        height: 20px;
 
         ion-icon{
-          font-size: 22px !important;
-          min-width: 22px !important;
+          font-size: 12px !important;
+          min-width: 12px !important;
           --ionicon-stroke-width: 10px;
         }
       }
 
       ion-icon{
-        font-size: 30px;
-        min-width: 30px;
+        font-size: 14px;
+        min-width: 14px;
         --ionicon-stroke-width: 10px;
       }
     }
 
     .btn-prev{
-      left: 0;
-      margin-left: -2px;
+      right: 40px;
     }
     .btn-next{
-      right: 0;
-      margin-right: -2px;
+      right: 10px;
     }
 
     img{

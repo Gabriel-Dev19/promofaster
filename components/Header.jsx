@@ -1,17 +1,19 @@
 import {useState, useEffect} from 'react'
-import Link from 'next/link'
 import classNames from 'classnames'
 import { Collapse } from 'reactstrap'
 import { useRouter } from 'next/router'
-import CategorySubmenu from './CategorySubmenu'
+import { CSSTransition } from 'react-transition-group'
+import FormSearch from './parts/FormSearch'
+import LinksNavbar from './parts/LinksNavbar'
+import AreaLogin from './parts/AreaLogin'
+import { useSelector } from 'react-redux'
 
 export default function Header (props) {
   const [stateCollapse, setStateCollapse] = useState(false)
   const [onShadow, setOnShadow] = useState(false)
-  const [onScroll, setOnScroll] = useState(false)
-  const [showCategory, setShowCategory] = useState(false)
   const breakpointDesktop = 1199.95
   const router = useRouter()
+  const state = useSelector(state => state)
 
   // Methods
   function setShadowInHeader() {
@@ -23,57 +25,64 @@ export default function Header (props) {
       setOnShadow(false)
     }
   }
+
   function closeCollapseInMobile() {
     window.innerWidth < breakpointDesktop ? setStateCollapse(false) : null
   }
-  function verifyScroll() {
-    window.scrollY > 10 ? setOnScroll(true) : setOnScroll(false)
+
+  function submitFormSearch() {
+    router.push({
+      pathname: '/products/search/[name]',
+      query: { name: document.querySelector('#headerComponent #search-header-input').value }
+    })
+    closeCollapseInMobile()
   }
-  function setCollapseIfWindowWidth(param) {
-    if (window.innerWidth > param - 50 && window.innerWidth < param) {
-      setStateCollapse(false)
-    } else if (window.innerWidth > param) {
-      setStateCollapse(true)
-    }
+
+  function setCollapseIfWindowWidth(param = breakpointDesktop) {
+    window.innerWidth < param ? setStateCollapse(false) : setStateCollapse(true)
   }
 
   // UseEffect repeat
-  useEffect(() => {
-    setShadowInHeader()
-    verifyScroll()
-    // Resize event
-    window.addEventListener('resize', () => {
-      setShadowInHeader()
-    })
-    // Scroll Event
-    window.addEventListener('scroll', () => {
-      setShadowInHeader()
-      verifyScroll()
-    })
+  useEffect(() => {  
     if (stateCollapse && window.innerWidth < breakpointDesktop) {
       document.body.classList.add('overflow-hidden')
       document.querySelector('html').classList.add('overflow-hidden')
     } else {
       document.body.classList.remove('overflow-hidden')
       document.querySelector('html').classList.remove('overflow-hidden')
-    }
-    showCategory ?
-    document.querySelector('#headerComponent').classList.add('show-hover-boxes') :
-    document.querySelector('#headerComponent').classList.remove('show-hover-boxes')      
+    }    
   })
 
   // UseEffect no repeat
   useEffect(() => {
-    setCollapseIfWindowWidth(breakpointDesktop)
+    setCollapseIfWindowWidth()
+    setShadowInHeader()
     // Resize event
     window.addEventListener('resize', () => {
-      setCollapseIfWindowWidth(breakpointDesktop)
+      setCollapseIfWindowWidth()
+      setShadowInHeader()
+    })
+    window.addEventListener('scroll', () => {
+      setShadowInHeader()
     })
   }, [])
 
   return(
     <>
       <header id='headerComponent' className={classNames({ 'shadow': onShadow, 'fixed-top': true })}>
+        <CSSTransition
+          in={state.backdrop.setBackdrop}
+          timeout={300}
+          classNames={{
+            enter: 'fade-opac-enter',
+            enterActive: 'fade-opac-enter-active',
+            exit: 'fade-opac-exit',
+            exitActive: 'fade-opac-exit-active',
+          }}
+          unmountOnExit
+        >
+          <div className="backdrop-mask" />
+        </CSSTransition>
         <nav className="navbar nav">
           <div className="container">
             <a href="" className='brand-logo'>
@@ -91,88 +100,11 @@ export default function Header (props) {
             <Collapse isOpen={stateCollapse} className="col-12 px-0 col-xl">
               <div className='content-nav'>
                 <div className='mx-xl-auto col-12 col-xl-auto p-0'>
-                  <form
-                    className='form-search'
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      router.push({
-                        pathname: '/products/search/[name]',
-                        query: { name: document.querySelector('#headerComponent #search-header-input').value }
-                      })
-                      closeCollapseInMobile()
-                    }}
-                  >
-                    <input
-                      id='search-header-input'
-                      type="text"
-                      className='form-control'
-                      required
-                      placeholder='Busque por algo...'
-                      onFocus={() => {document.querySelector('#headerComponent .form-search').classList.add('bg-white')}}
-                      onBlur={() => {document.querySelector('#headerComponent .form-search').classList.remove('bg-white')}}
-                    />
-                    <button type='submit' title='Buscar' aria-label='Buscar'>
-                      <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                  </form>
-                  <ul className='group-links'>
-                    <li className='group-items'>
-                      <div
-                        className="hover-categories"
-                        onMouseEnter={() => setShowCategory(true)}
-                        onMouseLeave={() => setShowCategory(false)}
-                      >
-                        Categorias
-                        { showCategory ? <CategorySubmenu /> : null }
-                      </div>
-                    </li>
-                    <li className='group-items'>
-                      <Link href={'/#exclusividades'}>
-                        <a className='links-primary'>Exclusividades</a>
-                      </Link>
-                    </li>
-                    <li className='group-items'>
-                      <Link href={'/#about'}>
-                        <a className='links-primary'>Projetos</a>
-                      </Link>
-                    </li>
-                    <li className='group-items'>
-                      <Link href={'/#about'}>
-                        <a className='links-primary'>Avaliações</a>
-                      </Link>
-                    </li>
-                    <li className='group-items'>
-                      <Link href={'/#about'}>
-                        <a className='links-primary'>Contato</a>
-                      </Link>
-                    </li>
-                  </ul>
+                  <FormSearch submitEvent={(e) => {e.preventDefault(), submitFormSearch()}} />
+                  <LinksNavbar />
                 </div>
                 <hr className='col-12 mt-3 d-xl-none mb-4' />
-                <div className='area-login'>
-                  <div className='d-flex align-items-center'>
-                    <button title='promoções' aria-label='promoções'>
-                      <ion-icon name="trending-up-outline"></ion-icon>
-                      em alta
-                    </button>
-                    <div className="text-white mx-2" style={{ lineHeight: '88%', fontWeight: '200' }}>
-                      | <br />
-                      |
-                    </div>
-                    <button title='Perfil no instagram' aria-label='Perfil no instagram'>
-                      <ion-icon name="logo-instagram" />
-                      insta
-                    </button>
-                    <div className="text-white mx-2" style={{ lineHeight: '88%', fontWeight: '200' }}>
-                      | <br />
-                      |
-                    </div>
-                    <button title='suporte' aria-label='suporte'>
-                      <ion-icon name="chatbubbles-outline"></ion-icon>
-                      suporte
-                    </button>
-                  </div>
-                </div>
+                <AreaLogin />
               </div>
             </Collapse>
           </div>

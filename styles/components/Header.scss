@@ -1,17 +1,14 @@
 #headerComponent{
   transition: all .3s;
 
-  &.show-hover-boxes::before{
-    content: '';
+  .backdrop-mask{
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    background-color: black;
-    opacity: .2;
+    background-color: rgba(0, 0, 0, 0.405);
     z-index: -1;
-    transition: all .3s;
   }
 
   &.bg-white{
@@ -81,7 +78,8 @@
         form{
           width: 100%;
           margin-top: 10px;
-          background-color: rgba(255, 255, 255, 0.911);
+          background-color: rgba(255, 255, 255, 0.735);
+          border-radius: 5px;
           display: flex;
           align-items: center;
 
@@ -90,15 +88,14 @@
           }
 
           &.bg-white{
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.908) !important;
           }
 
           input{
             border: none;
-            border-radius: 3px;
-            padding-left: 20px;
+            padding-left: 15px;
             padding-right: 20px;
-            background-color: transparent;
+            background-color: transparent !important;
 
             &:focus{
               box-shadow: none;
@@ -116,6 +113,7 @@
           button{
             display: flex;
             align-items: center;
+            margin-right: 5px;
 
             ion-icon{
               font-size: 20px;
@@ -127,7 +125,7 @@
         ul.group-links{
           list-style: none;
           padding: 0;
-          margin: 13px 0 0;
+          margin: 11px 0 0;
           display: flex;
           flex-wrap: wrap;
 
@@ -153,26 +151,43 @@
               margin: 0 !important;
             }
 
-            a.links-primary, .hover-categories{
+            a.link-primary, .hover-categories{
               color: $white;
               position: relative;
               display: flex;
               flex-direction: column;
               width: fit-content;
-              font-size: 13px;
+              font-size: 14px;
               font-weight: 300;
               letter-spacing: .7px;
               text-align: left;
               padding-bottom: 7px;
               cursor: pointer;
-            }
 
-            @media (min-width: $xl) {
-              a.links-primary:hover, .hover-categories:hover{
-                text-decoration: underline;
+              .label{
+                display: flex;
+                align-items: center;
+
+                ion-icon{
+                  margin-left: 5px;
+                  margin-right: -7px;
+                }
               }
             }
 
+            a.link-primary{
+              .label{
+                ion-icon{
+                  transition: all .2s;
+                  transform: translateX(-10px);
+                  opacity: 0;
+                }
+                &:hover ion-icon{
+                  transform: translateX(-2px);
+                  opacity: 1;
+                }
+              }
+            }
           }
 
           ul.box-categories{
@@ -262,7 +277,7 @@
           display: flex;
           flex-wrap: wrap;
 
-          button{
+          a{
             color: white;
             display: flex;
             flex-direction: column;

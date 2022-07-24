@@ -1,13 +1,13 @@
 import {Swiper, SwiperSlide} from 'swiper/react'
-import { Pagination, Autoplay } from 'swiper'
+import { Pagination } from 'swiper'
 import 'swiper/css'
-import Product from './Product'
+import Product from './parts/Product'
 import { useState, useEffect, useRef } from "react";
-import Skeleton from './Skeleton'
+import Skeleton from './parts/Skeleton'
 
 export default function SliderProducts({ products, sliderPerPage }) {
   const swiperRef = useRef(null)
-  const moduleSwiper = [Pagination, Autoplay]
+  const moduleSwiper = [Pagination]
   const [renderSkeletonMobile, setRenderSkeletonMobile] = useState(false)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
@@ -35,17 +35,12 @@ export default function SliderProducts({ products, sliderPerPage }) {
             <Skeleton colunms={4} heightEls={400} elements={4} />
           }
         </div> :
-        <div
-          className="container"
-          onMouseEnter={() => {swiperRef.current.swiper.autoplay.stop()}}
-          onMouseLeave={() => {swiperRef.current.swiper.autoplay.start()}}
-        >
+        <div className="container">
           <Swiper
             ref={swiperRef}
             grabCursor={true}
             pagination={{clickable: true}}
             modules={moduleSwiper}
-            autoplay={{delay: 2000}}
             breakpoints={{
               0:       { slidesPerView: 1.6, spaceBetween: 15 },
               399.95:  { slidesPerView: 1.8, spaceBetween: 20 },

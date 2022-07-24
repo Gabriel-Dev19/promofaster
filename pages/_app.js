@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import LoadingScreen from '../components/LoadingScreen'
+import LoadingScreen from '../components/parts/LoadingScreen'
 import 'antd/dist/antd.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../styles/index.scss'

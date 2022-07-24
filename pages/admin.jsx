@@ -2,7 +2,7 @@
 import LayoutDefault from "../layouts/LayoutDefault";
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import FullScreen from "../components/FullScreen";
+import FullScreen from "../components/parts/FullScreen";
 import { useRouter } from 'next/router'
 import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
@@ -197,13 +197,13 @@ export default function Index({ response, children }) {
     setShowModalUpdate(true)
   }
 
-  async function updateProduct (id) {
+  async function updateProduct () {
     event.preventDefault()
     const dev = process.env.NODE_ENV !== 'production'
     const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
     const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
     axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/update`, JSON.stringify({
-      id: id,
+      id: idUpdate,
       name: nameInputUpdate,
       description: descriptionInputUpdate,
       preco: precoInputUpdate,
@@ -518,7 +518,7 @@ export default function Index({ response, children }) {
           >
             <FullScreen>
               <div className="content-full-screen">
-                <form onSubmit={(e) => { e.preventDefault, updateProduct(idUpdate) }} onClick={(e) => {e.stopPropagation()}}>
+                <form onSubmit={(e) => { e.preventDefault, updateProduct() }} onClick={(e) => {e.stopPropagation()}}>
                   <button className="button-close-modal-admin" onClick={(e) => { e.preventDefault(), setShowModalUpdate(false) }}>
                     <ion-icon style={{ fontSize: '20px' }} name="close-outline"></ion-icon>
                   </button>

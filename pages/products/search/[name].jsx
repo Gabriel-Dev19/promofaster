@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import LayoutDefault from '../../../layouts/LayoutDefault'
-import Product from '../../../components/Product'
+import Product from '../../../components/parts/Product'
 import axios from 'axios'
-import Skeleton from '../../../components/Skeleton'
+import Skeleton from '../../../components/parts/Skeleton'
 
 export default function SearchPage({ response }) {
   const [dataBase, setDataBase] = useState([])
