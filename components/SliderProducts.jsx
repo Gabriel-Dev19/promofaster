@@ -46,9 +46,9 @@ export default function SliderProducts({ products, sliderPerPage }) {
               399.95:  { slidesPerView: 1.8, spaceBetween: 20 },
               479.95:  { slidesPerView: 2.1, spaceBetween: 20 },
               576.95:  { slidesPerView: 2.2, spaceBetween: 20 },
-              767.95:  { slidesPerView: 2.4, spaceBetween: 20 },
-              991.95:  { slidesPerView: 3.4, spaceBetween: 20 },
-              1199.95: { slidesPerView: 4, spaceBetween: 30 }
+              767.95:  { slidesPerView: 2.9, spaceBetween: 20 },
+              991.95:  { slidesPerView: 3.8, spaceBetween: 20 },
+              1199.95: { slidesPerView: 5, spaceBetween: 25 }
             }}
             className="swiper-hero swiper-products"
           >

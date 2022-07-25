@@ -22,20 +22,16 @@
   }
 
   .img{
-    height: 280px;
+    height: 220px;
     width: 100%;
     border-bottom: 1px solid #00000068;
     position: relative;
 
     @media (max-width: 479.95px) {
-      height: calc(50vw);
+      height: calc(50vw - 20px);
     }
     @media (min-width: 479.95px) and (max-width: $sm) {
       height: calc(50vw - 50px);
-    }
-
-    @media (min-width: $sm) and (max-width: $md) {
-      height: 220px;
     }
 
     @media (max-width: $xl) {
@@ -96,7 +92,15 @@
   }
 
   .text{
-    padding: 16px;
+    padding: 12px 15px 8px;
+
+    .small{
+      font-size: 11px !important;
+    }
+
+    ion-icon{
+      font-size: 13px;
+    }
 
     @media (max-width: $sm) {
       padding: 10px;
@@ -119,7 +123,7 @@
     }
 
     h6{
-      font-size: 14px;
+      font-size: 13.5px;
       max-height: 39px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -134,7 +138,7 @@
     }
     
     .format-price{
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
 
       @media (max-width: $sm) {
@@ -144,8 +148,12 @@
 
     .desconto{
       color: #27ae60;
-      font-size: 12px;
+      padding: 3px 3px 1px;
+      border-radius: 3px;
+      line-height: 100%;
+      background-color: #27ae5f27;
       font-weight: 500;
+      font-size: 10px;
       margin-top: 8px;
       margin-left: 8px;
       display: -webkit-box !important;
@@ -155,8 +163,15 @@
       text-overflow: ellipsis;
     }
   }
-}.swiper-slide{
+}
+
+.swiper-slide{
   .product{
+    .img{
+      @media (max-width: 479.95px) {
+        height: 50vw;
+      }
+    }
     h6{
       @media (max-width: $sm) {
         font-size: 13px;

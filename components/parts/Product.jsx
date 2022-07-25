@@ -45,9 +45,9 @@ function Product({
           <h6>
             {nameProduct}
           </h6>
-          <div className="col-12 d-flex align-items-center px-0">
+          <div className="col-12 small d-flex align-items-center px-0">
             <div
-              className="mt-2 small"
+              className="mt-2"
               style={{ opacity: '.6' }}
               title={Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoAntigo)}
             >
@@ -79,10 +79,10 @@ function Product({
               </span>
             </span>
           </span>
-          <div className="mt-1 mt-sm-2">
+          <div className="mt-1">
             <Stars comparator={popularity} />
           </div>
-          <span style={{ opacity: '.9', fontWeight: '300' }} className="mt-1 mt-sm-2 small loja-vendedora d-block">
+          <span style={{ opacity: '.9', fontWeight: '300' }} className="mt-1 small loja-vendedora d-block">
             vendido por {lojaVendedora}
           </span>
         </div>
