@@ -43,7 +43,7 @@ export default function Header (props) {
   }
 
   // UseEffect repeat
-  useEffect(() => {  
+  useEffect(() => {
     if (stateCollapse && window.innerWidth < breakpointDesktop) {
       document.body.classList.add('overflow-hidden')
       document.querySelector('html').classList.add('overflow-hidden')
@@ -58,9 +58,13 @@ export default function Header (props) {
     setCollapseIfWindowWidth()
     setShadowInHeader()
     // Resize event
+    let w = window.innerWidth
     window.addEventListener('resize', () => {
-      setCollapseIfWindowWidth()
-      setShadowInHeader()
+      if (w != window.innerWidth) {
+        w = window.innerWidth
+        setCollapseIfWindowWidth()
+        setShadowInHeader()
+      }
     })
     window.addEventListener('scroll', () => {
       setShadowInHeader()
