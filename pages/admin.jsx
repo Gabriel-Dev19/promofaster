@@ -6,12 +6,14 @@ import FullScreen from "../components/parts/FullScreen";
 import { useRouter } from 'next/router'
 import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
-import { message, Popconfirm } from 'antd'
-import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone, FormOutlined } from '@ant-design/icons'
+import { message } from 'antd'
+import { DeleteTwoTone } from '@ant-design/icons'
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux'
 import { isAuthFalse } from "../redux/authLogin";
-import { pushMethod } from "../lib/methods";
+import { pushMethod, updateMethod } from "../helpers/methods";
+import TableAdmin from "../components/parts/TableAdmin";
+import useBus from "use-bus";
 
 export default function Index({ response, children }) {
   // Dados gerais
@@ -83,7 +85,7 @@ export default function Index({ response, children }) {
     const input = document.getElementById(elementInput)
     input.value = input.value + category + ' '
 
-    const button = document.querySelector(`.button-add-category-${idButton}`)
+    const button = document.querySelector(idButton)
     button.style.backgroundColor = '#198754'
     setTimeout(() => {
       button.style.backgroundColor = '#3498db'
@@ -92,6 +94,8 @@ export default function Index({ response, children }) {
     setCategorySearchInput(input.value)
     setCategorySearchInputUpdate(input.value)
   }
+
+  useBus( 'showModalUpdate', () => setShowModalUpdate(true) )
 
   function refreshData() {
     router.push('/refresh-page')
@@ -142,89 +146,37 @@ export default function Index({ response, children }) {
     )
   }
 
-  async function deleteProduct (id) {
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/delete`, JSON.stringify(id), {
-      headers:{
-        "Content-Type": "application/json"
-      }
-    }).then((res) => {
-      message.error({
-        content: 'Produto removido',
-        duration: 4,
-        style: {
-          marginTop: '30px'
-        }
-      })
-      refreshData()
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
-  async function openModalUpdate(id) {
-    response.filter((item) => {
-      return item.id === id
-    }).map((item) => {
-      setIdUpdate(item.id)
-      setImagesInputUpdate(item.images)
-      setNameInputUpdate(item.name)
-      setDescriptionInputUpdate(item.description)
-      setPrecoInputUpdate(item.preco)
-      setPopularityInputUpdate(item.popularity)
-      setCategorySearchInputUpdate(item.categorySearch)
-      setLinkInputUpdate(item.link)
-      setPrecoAntigoInputUpdate(item.precoAntigo)
-      setPorcentagemDescontoInputUpdate(item.porcentagemDesconto)
-      setNumeroParcelasInputUpdate(item.numeroParcelas)
-      setPrecoParcelasInputUpdate(item.precoParcelas)
-      setlLojaInputUpdate(item.loja)
-      setSemJurosInputUpdate(item.semJuros)
-    })
-    setShowModalUpdate(true)
-  }
-
   async function updateProduct () {
     event.preventDefault()
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/update`, JSON.stringify({
-      id: idUpdate,
-      name: nameInputUpdate,
-      description: descriptionInputUpdate,
-      preco: precoInputUpdate,
-      popularity: popularityInputUpdate,
-      categorySearch: categorySearchInputUpdate,
-      link: linkInputUpdate,
-      images: imagesInputUpdate,
-      url: imagesInputUpdate.url,
-      alt: imagesInputUpdate.alt,
-      precoAntigo: precoAntigoInputUpdate,
-      porcentagemDesconto: porcentagemDescontoInputUpdate,
-      numeroParcelas: numeroParcelasInputUpdate,
-      precoParcelas: precoParcelasInputUpdate,
-      loja: lojaInputUpdate,
-      semJuros: semJurosInputUpdate
-    }), {
-      headers:{
-        "Content-Type": "application/json"
+    updateMethod(
+      idUpdate,
+      nameInputUpdate,
+      descriptionInputUpdate,
+      precoInputUpdate,
+      popularityInputUpdate,
+      categorySearchInputUpdate,
+      linkInputUpdate,
+      imagesInputUpdate,
+      imagesInputUpdate.url,
+      imagesInputUpdate.alt,
+      precoAntigoInputUpdate,
+      porcentagemDescontoInputUpdate,
+      numeroParcelasInputUpdate,
+      precoParcelasInputUpdate,
+      lojaInputUpdate,
+      semJurosInputUpdate,
+      () => {
+        setShowModalUpdate(false)
+        message.info({
+          content: 'Produto atualizado com sucesso',
+          duration: 4,
+          style: {
+            marginTop: '30px'
+          }
+        })
+        refreshData()
       }
-    }).then((res) => {
-      setShowModalUpdate(false)
-      message.info({
-        content: 'Produto atualizado com sucesso',
-        duration: 4,
-        style: {
-          marginTop: '30px'
-        }
-      })
-      refreshData()
-    }).catch((err) => {
-      console.log(err)
-    })
+    )
   }
 
   useEffect( () => {
@@ -240,7 +192,7 @@ export default function Index({ response, children }) {
         dispath(isAuthFalse())
       }, 10000000);
     }
-  }, []);
+  }, [dispath, response, router, state.auth.isAuth]);
 
   useEffect(() => {
     (showModal || showModalUpdate) ?
@@ -261,73 +213,29 @@ export default function Index({ response, children }) {
   return (
     <>
       <LayoutDefault noHeader={true} title={'Painel de controle'}>
-  
         { children }
-  
         <section id="admin">
-          <table className="table table-striped table-inverse table-responsive">
-            <thead className="thead-inverse">
-              <tr>
-                <th>Imagem</th> <th>Id</th> <th>Nome do produto</th> <th>Desconto</th> <th>Preço</th> <th>Ações</th>
-              </tr>
-              </thead>
-              <tbody>
-                {
-                  // Renderiza todos os produtos
-                  dataBase.map((item, index) => {
-                    return(
-                      <tr key={index}>
-                        <td>
-                          {
-                            item.images.length > 0 ?
-                            <img 
-                              src={item.images[0].url}
-                              style={{ 
-                                height: '60px',
-                                width: '60px',
-                                objectFit: 'cover'
-                              }}
-                              height={100}
-                              width={100}
-                              alt={item.images[0].alt}
-                            /> :
-                            null
-                          }
-                        </td>
-                        <td>#{ item.id }</td>
-                        <td>{ item.name }</td>
-                        <td>{ item.porcentagemDesconto }</td>
-                        <td>{ item.preco }</td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Popconfirm
-                              icon={<CloseCircleOutlined  style={{ color: 'red' }} />}
-                              title="Deseja excluir esse produto?"
-                              placement="left"
-                              onConfirm={() => deleteProduct(item.id)}
-                              okText="Excluir"
-                              cancelText="Cancelar"
-                              onVisibleChange={() => console.log('visible change')}
-                            >
-                              <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
-                            </Popconfirm>
-                            <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
-                              <a style={{ marginLeft: '10px', marginRight: '10px' }} >
-                                <ion-icon style={{ fontSize: '26px', marginBottom: '-5px' }} name="open-outline"></ion-icon>
-                              </a>
-                            </Link>
-                            <button onClick={() => openModalUpdate(item.id)}>
-                              <FormOutlined style={{ fontSize: '22px' }} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  })
-                  // End Array
-                }
-              </tbody>
-          </table>
+          <TableAdmin
+            data={dataBase}
+            map={
+              (item) => {
+                setIdUpdate(item.id)
+                setImagesInputUpdate(item.images)
+                setNameInputUpdate(item.name)
+                setDescriptionInputUpdate(item.description)
+                setPrecoInputUpdate(item.preco)
+                setPopularityInputUpdate(item.popularity)
+                setCategorySearchInputUpdate(item.categorySearch)
+                setLinkInputUpdate(item.link)
+                setPrecoAntigoInputUpdate(item.precoAntigo)
+                setPorcentagemDescontoInputUpdate(item.porcentagemDesconto)
+                setNumeroParcelasInputUpdate(item.numeroParcelas)
+                setPrecoParcelasInputUpdate(item.precoParcelas)
+                setlLojaInputUpdate(item.loja)
+                setSemJurosInputUpdate(item.semJuros)
+              }
+            }
+          />
           
           <div className="fixed-bar shadow-lg border-top py-2 px-3">
             <Link href={'/'}>
@@ -379,7 +287,14 @@ export default function Index({ response, children }) {
                           key={index}
                           className={`button-add-category-${index} me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => { e.preventDefault(); addCategory('categoriaDeBusca', item.category, index) }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categoriaDeBusca',
+                              item.category,
+                              `.button-add-category-${index}`
+                            )
+                          }}
                         >
                           { item.title }
                         </button>
@@ -397,7 +312,14 @@ export default function Index({ response, children }) {
                           key={index}
                           className={`button-add-category-${buttonsCategory.avulsos.length + index} me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => { e.preventDefault(); addCategory('categoriaDeBusca', item.category, buttonsCategory.avulsos.length + index) }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categoriaDeBusca',
+                              item.category,
+                              `.button-add-category-${buttonsCategory.avulsos.length + index}`
+                            )
+                          }}
                         >
                           { item.title }
                         </button>
@@ -548,7 +470,14 @@ export default function Index({ response, children }) {
                           key={index}
                           className={`button-add-category-${index} me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => { e.preventDefault(); addCategory('categoriaDeBuscaUpdate', item.category, index) }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categoriaDeBuscaUpdate',
+                              item.category,
+                              `.button-add-category-${index}`
+                            )
+                          }}
                         >
                           { item.title }
                         </button>
@@ -566,7 +495,14 @@ export default function Index({ response, children }) {
                           key={index}
                           className={`button-add-category-${buttonsCategory.avulsos.length + index} me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => { e.preventDefault(); addCategory('categoriaDeBuscaUpdate', item.category, buttonsCategory.avulsos.length + index) }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categoriaDeBuscaUpdate',
+                              item.category,
+                              `.button-add-category-${buttonsCategory.avulsos.length + index}`
+                            )
+                          }}
                         >
                           { item.title }
                         </button>
