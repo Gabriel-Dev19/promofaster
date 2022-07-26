@@ -9,6 +9,7 @@ import { backdropFalse, backdropTrue } from '../../redux/backDropMask'
 export default function LinksNavbar() {
   const [showCategory, setShowCategory] = useState(false)
   const dispath = useDispatch()
+  var timeoutEnterCategory = undefined
 
   useEffect(() => {
     window.addEventListener('resize', () => setShowCategory(false))
@@ -23,8 +24,8 @@ export default function LinksNavbar() {
       <li className='group-items'>
         <div
           className="hover-categories"
-          onMouseEnter={() => { window.innerWidth > 1199.95 ? setShowCategory(true) : null }}
-          onMouseLeave={() => { window.innerWidth > 1199.95 ? setShowCategory(false) : null }}
+          onMouseEnter={() => { if (window.innerWidth > 1199.95) { timeoutEnterCategory = setTimeout(() => setShowCategory(true), 200) } }}
+          onMouseLeave={() => { if (window.innerWidth > 1199.95) { setShowCategory(false), clearTimeout(timeoutEnterCategory) } }}
           onClick={() => { window.innerWidth < 1199.95 ? setShowCategory(!showCategory) : null }}
         >
           <div className="label">
@@ -32,7 +33,7 @@ export default function LinksNavbar() {
           </div>
           <CSSTransition
             in={showCategory}
-            timeout={300}
+            timeout={2}
             classNames={{
               enter: 'fade-enter',
               enterActive: 'fade-enter-active',

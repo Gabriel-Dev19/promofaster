@@ -18,7 +18,7 @@ function Product({
       <a
         id={'product-' + uniqueId}
         title={nameProduct}
-        className="product shadow"
+        className="product shadow-sm"
       >
         <div className="img">
           <button className="btn-prev" onClick={(e) => e.preventDefault()}><ion-icon name="chevron-back-outline" /></button>

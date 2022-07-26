@@ -4,12 +4,31 @@
 @import './admin.scss';
 @import './swiperConfig.scss';
 @import './animations.scss';
+@import './colors.scss';
 @import './components/Hero.scss';
 @import './components/Header.scss';
 @import './components/Product.scss';
 @import './components/PageSearch.scss';
 @import './components/Skeleton.scss';
 @import './components/SliderProducts.scss';
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(236, 236, 236);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(175, 175, 175);
+  border-radius: 20px;
+  border: 4px solid rgb(236, 236, 236);
+  
+  &:hover{
+    background-color: rgb(157, 157, 157);
+  }
+}
 
 .borda{
   border: 1px solid red;
@@ -44,7 +63,7 @@
     max-width: 1180px;
   }
 }
-@media (min-width: 1349.95px) {
+@media (min-width: $xxl) {
   .container{
     max-width: 1300px;
   }

@@ -2,7 +2,7 @@
   border-radius: 7px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid #00000025;
+  border: 1px solid rgba(0, 0, 0, 0.145);
   display: block;
   color: $softBlack !important;
   max-width: 100%;
@@ -22,7 +22,7 @@
   }
 
   .img{
-    height: 220px;
+    height: 215px;
     width: 100%;
     border-bottom: 1px solid #00000068;
     position: relative;
@@ -32,6 +32,9 @@
     }
     @media (min-width: 479.95px) and (max-width: $sm) {
       height: calc(50vw - 50px);
+    }
+    @media (min-width: $xl) and (max-width: $xxl) {
+      height: 203px;
     }
 
     @media (max-width: $xl) {

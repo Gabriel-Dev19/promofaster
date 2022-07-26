@@ -11,6 +11,7 @@ import { CloseCircleOutlined, DeleteTwoTone, EyeTwoTone, FormOutlined } from '@a
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux'
 import { isAuthFalse } from "../redux/authLogin";
+import { pushMethod } from "../lib/methods";
 
 export default function Index({ response, children }) {
   // Dados gerais
@@ -96,61 +97,49 @@ export default function Index({ response, children }) {
     router.push('/refresh-page')
   }
 
-  async function itemPush(e) {
+  function itemPush(e) {
     e.preventDefault()
-
-    const product = {
-      id: Date.now(),
-      name: nameInput,
-      description: descriptionInput,
-      preco: precoInput,
-      popularity: popularityInput,
-      categorySearch: categorySearchInput,
-      link: linkInput,
-      images: imagesInput,
-      url: imagesInput.url,
-      alt: imagesInput.alt,
-      precoAntigo: precoAntigoInput,
-      porcentagemDesconto: porcentagemDescontoInput,
-      numeroParcelas: numeroParcelasInput,
-      precoParcelas: precoParcelasInput,
-      loja: lojaInput,
-      semJuros: semJurosInput
-    }
-    
-    const dev = process.env.NODE_ENV !== 'production'
-    const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
-    const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-    axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create`, JSON.stringify(product), {
-      headers:{
-        "Content-Type": "application/json"
+    pushMethod(
+      nameInput,
+      descriptionInput,
+      precoInput,
+      popularityInput,
+      categorySearchInput,
+      linkInput,
+      imagesInput,
+      imagesInput.url,
+      imagesInput.alt,
+      precoAntigoInput,
+      porcentagemDescontoInput,
+      numeroParcelasInput,
+      precoParcelasInput,
+      lojaInput,
+      semJurosInput,
+      () => {
+        setShowModal(false)
+        setImagesInput([])
+        setNameInput('')
+        setDescriptionInput('')
+        setPrecoInput('')
+        setPopularityInput('')
+        setCategorySearchInput('')
+        setLinkInput('')
+        setPrecoAntigoInput('')
+        setPorcentagemDescontoInput('')
+        setNumeroParcelasInput('')
+        setPrecoParcelasInput('')
+        setlLojaInput('')
+        setSemJurosInput(false)
+        message.success({
+          content: 'Produto adicionado com sucesso',
+          duration: 4,
+          style: {
+            marginTop: '30px'
+          }
+        })
+        refreshData()
       }
-    }).then((res) => {
-      setShowModal(false)
-      setImagesInput([])
-      setNameInput('')
-      setDescriptionInput('')
-      setPrecoInput('')
-      setPopularityInput('')
-      setCategorySearchInput('')
-      setLinkInput('')
-      setPrecoAntigoInput('')
-      setPorcentagemDescontoInput('')
-      setNumeroParcelasInput('')
-      setPrecoParcelasInput('')
-      setlLojaInput('')
-      setSemJurosInput(false)
-      message.success({
-        content: 'Produto adicionado com sucesso',
-        duration: 4,
-        style: {
-          marginTop: '30px'
-        }
-      })
-      refreshData()
-    }).catch((err) => {
-      console.log(err)
-    })
+    )
   }
 
   async function deleteProduct (id) {
@@ -251,19 +240,22 @@ export default function Index({ response, children }) {
         dispath(isAuthFalse())
       }, 10000000);
     }
-
-    // Desabilita a mudança indesejada com scroll de um input number
-    document.addEventListener('wheel', () => {
-      if (document.activeElement.type === 'number') {
-        document.activeElement.blur()
-      }
-    })
   }, []);
 
   useEffect(() => {
     (showModal || showModalUpdate) ?
       document.body.classList.add('overflow-hidden') :
       document.body.classList.remove('overflow-hidden')
+
+    document.addEventListener('wheel', () => {
+      if (document.activeElement.type === 'number') {
+        document.activeElement.blur()
+      }
+    })
+
+    response.sort(function (a, b) {
+      return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0);
+    })
   })
 
   return (
@@ -321,7 +313,7 @@ export default function Index({ response, children }) {
                             </Popconfirm>
                             <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
                               <a style={{ marginLeft: '10px', marginRight: '10px' }} >
-                                <EyeTwoTone style={{ fontSize: '24px' }} />
+                                <ion-icon style={{ fontSize: '26px', marginBottom: '-5px' }} name="open-outline"></ion-icon>
                               </a>
                             </Link>
                             <button onClick={() => openModalUpdate(item.id)}>
@@ -331,7 +323,7 @@ export default function Index({ response, children }) {
                         </td>
                       </tr>
                     )
-                  }).reverse()
+                  })
                   // End Array
                 }
               </tbody>
@@ -374,7 +366,6 @@ export default function Index({ response, children }) {
                   { /** Inputs de texto */ }
                   <input type="text" className="form-control" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInput(e.target.value) }} />
                   <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
                   <textarea type="text" id="categoriaDeBusca" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
                   <span className="d-block mt-3">
@@ -414,8 +405,24 @@ export default function Index({ response, children }) {
                     })
                   }
                   <input type="text" className="form-control mt-5" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Porcentagem de desconto" onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }} />
+                  <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
+                  <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="Porcentagem de desconto"
+                    onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }}
+                    value={porcentagemDescontoInput}
+                    onFocus={() => {
+                      const precoAntigo = document.querySelector('#preco-antigo-create').value
+                      const precoNovo = document.querySelector('#preco-novo-create').value
+                      var decreaseValue = precoAntigo - precoNovo
+                      if (precoAntigo != '' && precoNovo != '') {
+                        const result = decreaseValue / precoAntigo * 100
+                        setPorcentagemDescontoInput(result.toFixed(0))
+                      }
+                    }}
+                  />
                   <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Loja vendedora" onChange={(e) => { setlLojaInput(e.target.value) }} />
@@ -528,7 +535,6 @@ export default function Index({ response, children }) {
                   { /** Inputs de texto */ }
                   <input type="text" defaultValue={nameInputUpdate} className="form-control" placeholder="Nome" onChange={(e) => { setNameInputUpdate(e.target.value) }} />
                   <input type="text" defaultValue={descriptionInputUpdate} className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={precoInputUpdate} className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInputUpdate(e.target.value) }} />
                   <input type="number" defaultValue={popularityInputUpdate} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInputUpdate(e.target.value) }} />
                   <textarea type="text" defaultValue={categorySearchInputUpdate} id="categoriaDeBuscaUpdate" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInputUpdate(e.target.value) }} />
                   <span className="d-block mt-3">
@@ -568,8 +574,25 @@ export default function Index({ response, children }) {
                     })
                   }
                   <input type="text" defaultValue={linkInputUpdate} className="form-control mt-5" placeholder="Link de afiliado" onChange={(e) => { setLinkInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={precoAntigoInputUpdate} className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={porcentagemDescontoInputUpdate} className="form-control" placeholder="Porcentagem de desconto" onChange={(e) => { setPorcentagemDescontoInputUpdate(e.target.value) }} />
+                  <input type="number" id="preco-antigo-update" defaultValue={precoAntigoInputUpdate} className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInputUpdate(e.target.value) }} />
+                  <input type="number" id="preco-novo-update" defaultValue={precoInputUpdate} className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInputUpdate(e.target.value) }} />
+                  <input
+                    type="number"
+                    defaultValue={porcentagemDescontoInputUpdate}
+                    value={porcentagemDescontoInputUpdate}
+                    className="form-control"
+                    placeholder="Porcentagem de desconto"
+                    onChange={(e) => { setPorcentagemDescontoInputUpdate(e.target.value) }}
+                    onFocus={() => {
+                      const precoAntigo = document.querySelector('#preco-antigo-update').value
+                      const precoNovo = document.querySelector('#preco-novo-update').value
+                      var decreaseValue = precoAntigo - precoNovo
+                      if (precoAntigo != '' && precoNovo != '') {
+                        const result = decreaseValue / precoAntigo * 100
+                        setPorcentagemDescontoInputUpdate(result.toFixed(0))
+                      }
+                    }}
+                  />
                   <input type="text" defaultValue={numeroParcelasInputUpdate} className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInputUpdate(e.target.value) }} />
                   <input type="text" defaultValue={precoParcelasInputUpdate} className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInputUpdate(e.target.value) }} />
                   <input type="text" defaultValue={lojaInputUpdate} className="form-control" placeholder="Loja vendedora" onChange={(e) => { setlLojaInputUpdate(e.target.value) }} />
