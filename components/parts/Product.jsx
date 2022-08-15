@@ -45,10 +45,9 @@ function Product({
           <h6>
             {nameProduct}
           </h6>
-          <div className="col-12 small d-flex align-items-center px-0">
+          <div className="col-12 small mt-2 d-flex align-items-center px-0">
             <div
-              className="mt-2"
-              style={{ opacity: '.6' }}
+              style={{ opacity: '.6', lineHeight: '100%' }}
               title={Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoAntigo)}
             >
               <strike>

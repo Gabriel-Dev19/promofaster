@@ -97,11 +97,7 @@ export default function Index({ response, children }) {
 
   useBus( 'showModalUpdate', () => setShowModalUpdate(true) )
 
-  function refreshData() {
-    router.push('/refresh-page')
-  }
-
-  function itemPush(e) {
+  async function itemPush(e) {
     e.preventDefault()
     pushMethod(
       nameInput,
@@ -141,13 +137,13 @@ export default function Index({ response, children }) {
             marginTop: '30px'
           }
         })
-        refreshData()
+        router.push('/refresh-page')
       }
     )
   }
 
-  async function updateProduct () {
-    event.preventDefault()
+  async function updateProduct (e) {
+    e.preventDefault()
     updateMethod(
       idUpdate,
       nameInputUpdate,
@@ -174,7 +170,7 @@ export default function Index({ response, children }) {
             marginTop: '30px'
           }
         })
-        refreshData()
+        router.push('/refresh-page')
       }
     )
   }
@@ -217,7 +213,7 @@ export default function Index({ response, children }) {
         <section id="admin">
           <TableAdmin
             data={dataBase}
-            map={
+            mapModalUpdate={
               (item) => {
                 setIdUpdate(item.id)
                 setImagesInputUpdate(item.images)
@@ -347,7 +343,20 @@ export default function Index({ response, children }) {
                   />
                   <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
                   <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Loja vendedora" onChange={(e) => { setlLojaInput(e.target.value) }} />
+                  <select className="form-control" onChange={(e) => { setlLojaInput(e.target.value) }}>
+                    <option value="" disabled selected>
+                      Selecione a loja
+                    </option>
+                    <option value="Magazine luíza">
+                      Magazine luíza
+                    </option>
+                    <option value="Lojas americanas">
+                      Lojas americanas
+                    </option>
+                    <option value="Shopee">
+                      Shopee
+                    </option>
+                  </select>
                   <div className="d-flex align-items-center" onClick={(e) => { setSemJurosInput(!semJurosInput) }}>
                     <input type="checkbox" checked={semJurosInput} id="check-sem-juros" className="mt-2" />
                     <label htmlFor="#check-sem-juros" className="ms-2">Sem juros?</label>
@@ -447,7 +456,7 @@ export default function Index({ response, children }) {
           >
             <FullScreen>
               <div className="content-full-screen">
-                <form onSubmit={(e) => { e.preventDefault, updateProduct() }} onClick={(e) => {e.stopPropagation()}}>
+                <form onSubmit={updateProduct} onClick={(e) => {e.stopPropagation()}}>
                   <button className="button-close-modal-admin" onClick={(e) => { e.preventDefault(), setShowModalUpdate(false) }}>
                     <ion-icon style={{ fontSize: '20px' }} name="close-outline"></ion-icon>
                   </button>
@@ -531,7 +540,20 @@ export default function Index({ response, children }) {
                   />
                   <input type="text" defaultValue={numeroParcelasInputUpdate} className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInputUpdate(e.target.value) }} />
                   <input type="text" defaultValue={precoParcelasInputUpdate} className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={lojaInputUpdate} className="form-control" placeholder="Loja vendedora" onChange={(e) => { setlLojaInputUpdate(e.target.value) }} />
+                  <select className="form-control" onChange={(e) => { setlLojaInputUpdate(e.target.value) }}>
+                    <option value="" disabled selected>
+                      Selecione a loja
+                    </option>
+                    <option value="Magazine luíza">
+                      Magazine luíza
+                    </option>
+                    <option value="Lojas americanas">
+                      Lojas americanas
+                    </option>
+                    <option value="Shopee">
+                      Shopee
+                    </option>
+                  </select>
                   <div className="d-flex align-items-center" onClick={(e) => { setSemJurosInputUpdate(!semJurosInputUpdate) }}>
                     <input type="checkbox" checked={semJurosInputUpdate} id="check-sem-juros" className="mt-2" />
                     <label htmlFor="#check-sem-juros" className="ms-2">Sem juros?</label>

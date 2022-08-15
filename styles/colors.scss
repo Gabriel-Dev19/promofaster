@@ -1,5 +1,12 @@
 
-.icon-moda{ color: $colorModa; &::before{ background-color: $colorModa; } }
-.icon-moveis-e-eletros{ color: $colorMoveisEletros; &::before{ background-color: $colorMoveisEletros; } }
-.icon-smartphones{ color: $colorSmartphones; &::before{ background-color: $colorSmartphones; } }
-.icon-notebooks{ color: $colorNotebooks; &::before{ background-color: $colorNotebooks; } }
+.color-melhores-ofertas{ color: $colorMelhoresOfertas; &::before{ background-color: $colorMelhoresOfertas; } }
+.color-casa-e-moveis{ color: $colorCasaTrabalho; &::before{ background-color: $colorCasaTrabalho; } }
+.color-cama-mesa-e-banho{ color: $colorCasaTrabalho; &::before{ background-color: $colorCasaTrabalho; } }
+.color-eletrodomesticos{ color: $colorCasaTrabalho; &::before{ background-color: $colorCasaTrabalho; } }
+.color-eletronicos{ color: $colorTecnologia; &::before{ background-color: $colorTecnologia; } }
+.color-smartphones{ color: $colorTecnologia; &::before{ background-color: $colorTecnologia; } }
+.color-notebooks{ color: $colorTecnologia; &::before{ background-color: $colorTecnologia; } }
+.color-moda{ color: $colorVidaLazer; &::before{ background-color: $colorVidaLazer; } }
+.color-cosmeticos{ color: $colorVidaLazer; &::before{ background-color: $colorVidaLazer; } }
+.color-fitness{ color: $colorVidaLazer; &::before{ background-color: $colorVidaLazer; } }
+.color-livros{ color: $colorVidaLazer; &::before{ background-color: $colorVidaLazer; } }

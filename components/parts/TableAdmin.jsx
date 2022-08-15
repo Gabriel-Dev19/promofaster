@@ -6,10 +6,10 @@ import { deleteMethod } from "../../helpers/methods";
 import { useRouter } from 'next/router';
 import { dispatch } from 'use-bus';
 
-export default function TableAdmin({ data, map }) {
+export default function TableAdmin({ data, mapModalUpdate }) {
   const router = useRouter()
 
-  function deleteProduct (id) {
+  async function deleteProduct (id) {
     deleteMethod(id, () => {
       message.error({
         content: 'Produto removido',
@@ -22,10 +22,10 @@ export default function TableAdmin({ data, map }) {
     })
   }
 
-  function openModalUpdate(id) {
+  async function openModalUpdate(id) {
     data.filter((item) => {
       return item.id === id
-    }).map(map)
+    }).map(mapModalUpdate)
     dispatch('showModalUpdate')
   }
 

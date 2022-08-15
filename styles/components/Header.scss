@@ -25,6 +25,11 @@
     padding-bottom: 12px;
     background-color: $blue;
 
+    @media (max-width: $xl) {
+      max-height: 100vh;
+      overflow: auto;
+    }
+
     @media (min-width: $xl) {
       padding-top: 0;
       padding-bottom: 0;
@@ -55,13 +60,6 @@
 
           font-size: 30px;
           color: $white;
-        }
-      }
-
-      .collapse{
-        @media (max-width: $xl) {
-          max-height: calc(100vh - 70px);
-          overflow: auto !important;
         }
       }
 
@@ -136,7 +134,7 @@
           }
 
           li.group-items{
-            margin: 0 35px 0 0;
+            margin: 0 45px 0 0;
 
             @media (max-width: $xl) {
               margin: 0 0 10px 0;
@@ -151,7 +149,7 @@
               margin: 0 !important;
             }
 
-            a.link-primary, .hover-categories{
+            .link-primary{
               color: $white;
               position: relative;
               display: flex;
@@ -166,11 +164,13 @@
 
               .label{
                 display: flex;
+                width: fit-content;
                 align-items: center;
+                position: relative;
 
                 ion-icon{
-                  margin-left: 5px;
-                  margin-right: -7px;
+                  position: absolute;
+                  right: -18px;
                 }
               }
             }
@@ -188,6 +188,18 @@
                 }
               }
             }
+
+            div.link-primary{
+              padding-right: 18px;
+              margin-right: -8px !important;
+
+              .label{
+                ion-icon{
+                  position: absolute;
+                  left: calc(100% + 5px);
+                }
+              }
+            }
           }
 
           ul.box-categories{
@@ -196,15 +208,19 @@
             top: 100%;
             background-color: white;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-gap: 10px;
+            grid-template-columns: 1fr;
+            row-gap: 5px;
             border-radius: 5px;
             list-style: none;
-            padding: 6px;
+            padding: 8px;
             min-width: 160px;
             margin: 0;
-            max-height: calc(100vh - 100px);
-            overflow: auto;
+            
+            @media (min-width: $xl) {
+              max-height: calc(100vh - 100px);
+              overflow: auto;
+              box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+            }
 
             &::-webkit-scrollbar {
               width: 7px;

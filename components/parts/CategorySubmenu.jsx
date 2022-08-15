@@ -4,18 +4,42 @@ export default function CategorySubmenu () {
   const links = [
     {
       href: '/',
-      title: 'Móveis e eletros',
+      title: 'Melhores ofertas',
       icon: {
-        name: 'desktop-outline',
-        type: 'icon-moveis-e-eletros'
+        name: 'star',
+        type: 'color-melhores-ofertas'
       }
     },
     {
       href: '/',
-      title: 'Moda',
+      title: 'Casa e Móveis',
       icon: {
-        name: 'shirt-outline',
-        type: 'icon-moda'
+        name: 'home-outline',
+        type: 'color-casa-e-moveis'
+      }
+    },
+    {
+      href: '/',
+      title: 'Cama mesa e banho',
+      icon: {
+        name: 'bed-outline',
+        type: 'color-cama-mesa-e-banho'
+      }
+    },
+    {
+      href: '/',
+      title: 'Eletrodomésticos',
+      icon: {
+        name: 'desktop-outline',
+        type: 'color-eletrodomesticos'
+      }
+    },
+    {
+      href: '/',
+      title: 'Eletrônicos',
+      icon: {
+        name: 'headset-outline',
+        type: 'color-eletronicos'
       }
     },
     {
@@ -23,7 +47,7 @@ export default function CategorySubmenu () {
       title: 'Smarthphones',
       icon: {
         name: 'phone-portrait-outline',
-        type: 'icon-smartphones'
+        type: 'color-smartphones'
       }
     },
     {
@@ -31,13 +55,45 @@ export default function CategorySubmenu () {
       title: 'Notebooks',
       icon: {
         name: 'laptop-outline',
-        type: 'icon-notebooks'
+        type: 'color-notebooks'
+      }
+    },
+    {
+      href: '/',
+      title: 'Moda',
+      icon: {
+        name: 'shirt-outline',
+        type: 'color-moda'
+      }
+    },
+    {
+      href: '/',
+      title: 'Cosméticos',
+      icon: {
+        name: 'flower-outline',
+        type: 'color-cosmeticos'
+      }
+    },
+    {
+      href: '/',
+      title: 'Fitness e Esportes',
+      icon: {
+        name: 'barbell-outline',
+        type: 'color-fitness'
+      }
+    },
+    {
+      href: '/',
+      title: 'Livros',
+      icon: {
+        name: 'book-outline',
+        type: 'color-livros'
       }
     },
   ]
 
   return(
-    <ul className='shadow box-categories'>
+    <ul className='box-categories'>
       {
         links.map((item, index) => {
           return(

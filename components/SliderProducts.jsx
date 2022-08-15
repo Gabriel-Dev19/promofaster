@@ -4,8 +4,14 @@ import 'swiper/css'
 import Product from './parts/Product'
 import { useState, useEffect, useRef } from "react";
 import Skeleton from './parts/Skeleton'
+import Link from 'next/link'
 
-export default function SliderProducts({ products, sliderPerPage }) {
+export default function SliderProducts({
+  products,
+  sliderPerPage,
+  bestOffert = false,
+  filterCategory = ''
+}) {
   const swiperRef = useRef(null)
   const moduleSwiper = [Pagination]
   const [renderSkeletonMobile, setRenderSkeletonMobile] = useState(false)
@@ -19,10 +25,7 @@ export default function SliderProducts({ products, sliderPerPage }) {
     products != [] ? setShowSkeleton(false) : null
     verificationRenderSkeleton()
     window.addEventListener('resize', verificationRenderSkeleton())
-    products.sort((x, y) => {
-      return y.porcentagemDesconto - x.porcentagemDesconto
-    })
-  }, [])
+  }, [products])
 
   return(
     <section className='slider-product'>
@@ -36,6 +39,22 @@ export default function SliderProducts({ products, sliderPerPage }) {
           }
         </div> :
         <div className="container">
+          <div className="title">
+            <div className="icon-text">
+              <div className="icon color-casa-e-moveis">
+                <ion-icon name="home-outline" />
+              </div>
+              <h2>
+                Casa e trabalho
+              </h2>
+            </div>
+            <hr />
+            <Link href={'/'}>
+              <a className='btn btn-casa-e-moveis'>
+                Ver mais
+              </a>
+            </Link>
+          </div>
           <Swiper
             ref={swiperRef}
             grabCursor={true}
@@ -50,10 +69,24 @@ export default function SliderProducts({ products, sliderPerPage }) {
               991.95:  { slidesPerView: 3.8, spaceBetween: 18 },
               1199.95: { slidesPerView: 5, spaceBetween: 18 }
             }}
-            className="swiper-hero swiper-products"
+            className="swiper-products"
           >
             {
-              products.map((item, index) => {
+              products
+              .sort((x, y) => {
+                return y.porcentagemDesconto - x.porcentagemDesconto
+              })
+              .filter((item) => {
+                if (bestOffert) {
+                  return item.porcentagemDesconto > 30
+                } else {
+                  return item
+                }
+              })
+              .filter((item) => {
+                return item.categorySearch.includes(filterCategory)
+              })
+              .map((item, index) => {
                 return(
                   <SwiperSlide key={index}>
                     <Product
@@ -72,7 +105,8 @@ export default function SliderProducts({ products, sliderPerPage }) {
                     />
                   </SwiperSlide>
                 )
-              }).slice(0, sliderPerPage || '8')
+              })
+              .slice(0, sliderPerPage || '8')
             }
           </Swiper>
         </div>

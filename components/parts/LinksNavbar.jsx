@@ -11,9 +11,7 @@ export default function LinksNavbar() {
   const dispath = useDispatch()
   var timeoutEnterCategory = undefined
 
-  useEffect(() => {
-    window.addEventListener('resize', () => setShowCategory(false))
-  })
+  useEffect(() => { window.addEventListener('resize', () => setShowCategory(false)) })
 
   useEffect(() => {
     showCategory ? dispath(backdropTrue()) : dispath(backdropFalse())
@@ -23,10 +21,10 @@ export default function LinksNavbar() {
     <ul className='group-links'>
       <li className='group-items'>
         <div
-          className="hover-categories"
+          className="link-primary"
           onMouseEnter={() => { if (window.innerWidth > 1199.95) { timeoutEnterCategory = setTimeout(() => setShowCategory(true), 200) } }}
           onMouseLeave={() => { if (window.innerWidth > 1199.95) { setShowCategory(false), clearTimeout(timeoutEnterCategory) } }}
-          onClick={() => { window.innerWidth < 1199.95 ? setShowCategory(!showCategory) : null }}
+          onClick={() => { window.innerWidth < 1199.95 ? setShowCategory(!showCategory) : setShowCategory(true) }}
         >
           <div className="label">
             Categorias <ion-icon name="chevron-down-outline"></ion-icon>

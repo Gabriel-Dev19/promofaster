@@ -6,7 +6,8 @@ import { CSSTransition } from 'react-transition-group'
 import FormSearch from './parts/FormSearch'
 import LinksNavbar from './parts/LinksNavbar'
 import AreaLogin from './parts/AreaLogin'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { backdropFalse } from '../redux/backDropMask'
 
 export default function Header (props) {
   const [stateCollapse, setStateCollapse] = useState(false)
@@ -14,6 +15,7 @@ export default function Header (props) {
   const breakpointDesktop = 1199.95
   const router = useRouter()
   const state = useSelector(state => state)
+  const dispatch = useDispatch()
 
   // Methods
   function setShadowInHeader() {
@@ -50,7 +52,7 @@ export default function Header (props) {
     } else {
       document.body.classList.remove('overflow-hidden')
       document.querySelector('html').classList.remove('overflow-hidden')
-    }    
+    }
   })
 
   // UseEffect no repeat
@@ -93,7 +95,10 @@ export default function Header (props) {
               <img src="/img/logo.webp" width={200} height={100} loading="lazy" alt="Logo" />
             </a>
             <button
-              onClick={() => { setStateCollapse(!stateCollapse) }}
+              onClick={() => {
+                setStateCollapse(!stateCollapse)
+                dispatch(backdropFalse())
+              }}
               className='btn toggle-nav d-flex d-xl-none p-0'
               title={ stateCollapse ? 'Fechar barra de navegação' : 'Abrir barra de navegação' }
               aria-label={ stateCollapse ? 'Fechar barra de navegação' : 'Abrir barra de navegação' }
