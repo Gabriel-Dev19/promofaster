@@ -41,16 +41,16 @@ export default function SliderProducts({
         <div className="container">
           <div className="title">
             <div className="icon-text">
-              <div className="icon color-casa-e-moveis">
-                <ion-icon name="home-outline" />
+              <div className="icon color-melhores-ofertas">
+                <ion-icon name="star" />
               </div>
               <h2>
-                Casa e trabalho
+                Melhores ofertas
               </h2>
             </div>
             <hr />
             <Link href={'/'}>
-              <a className='btn btn-casa-e-moveis'>
+              <a className='btn btn-blue'>
                 Ver mais
               </a>
             </Link>

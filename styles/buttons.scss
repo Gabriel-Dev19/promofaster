@@ -59,7 +59,8 @@ a, button{
 .btn-moda,
 .btn-cosmeticos,
 .btn-fitness,
-.btn-livros{
+.btn-livros,
+.btn-blue{
   position: relative;
   overflow: hidden;
   font-weight: 500;
@@ -78,6 +79,7 @@ a, button{
   }
 }
 
+.btn-blue{ color: $blue !important; &::before{ background-color: $blue; } }
 .btn-melhores-ofertas{ color: $colorMelhoresOfertas !important; &::before{ background-color: $colorMelhoresOfertas; } }
 .btn-casa-e-moveis{ color: $colorCasaTrabalho !important; &::before{ background-color: $colorCasaTrabalho; } }
 .btn-cama-mesa-e-banho{ color: $colorCasaTrabalho !important; &::before{ background-color: $colorCasaTrabalho; } }
