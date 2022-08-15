@@ -6,6 +6,7 @@
   display: block;
   color: $softBlack !important;
   max-width: 100%;
+  position: relative;
 
   .btn-prev:focus, .btn-next:focus{
     box-shadow: none !important;
@@ -125,18 +126,31 @@
       }
     }
 
-    h6{
+    a{
       font-size: 13.5px;
       max-height: 39px;
+      font-weight: 500;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 0;
+      color: $softBlack;
       
       @media (max-width: $sm) {
         font-size: 12px;
+      }
+
+      &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        z-index: 1;
       }
     }
     

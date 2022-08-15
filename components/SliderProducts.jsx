@@ -9,6 +9,13 @@ import Link from 'next/link'
 export default function SliderProducts({
   products,
   sliderPerPage,
+  marginTop = 120,
+  header = {
+    color: 'color-melhores-ofertas',
+    icon: 'star',
+    title: 'Nome da categoria',
+    hrefVerMais: '/'
+  },
   bestOffert = false,
   filterCategory = ''
 }) {
@@ -28,7 +35,7 @@ export default function SliderProducts({
   }, [products])
 
   return(
-    <section className='slider-product'>
+    <section className='slider-product' style={{ marginTop: `${marginTop}px` }}>
       {
         showSkeleton ?
         <div className="container">
@@ -39,22 +46,25 @@ export default function SliderProducts({
           }
         </div> :
         <div className="container">
-          <div className="title">
-            <div className="icon-text">
-              <div className="icon color-melhores-ofertas">
-                <ion-icon name="star" />
+          {
+            header !== '' &&
+            <div className="title">
+              <div className="icon-text">
+                <div className={`icon ${header.color}`}>
+                  <ion-icon name={header.icon} />
+                </div>
+                <h2>
+                  {header.title}
+                </h2>
               </div>
-              <h2>
-                Melhores ofertas
-              </h2>
+              <hr />
+              <Link href={header.hrefVerMais || '/'}>
+                <a className='btn btn-blue'>
+                  Ver mais
+                </a>
+              </Link>
             </div>
-            <hr />
-            <Link href={'/'}>
-              <a className='btn btn-blue'>
-                Ver mais
-              </a>
-            </Link>
-          </div>
+          }
           <Swiper
             ref={swiperRef}
             grabCursor={true}

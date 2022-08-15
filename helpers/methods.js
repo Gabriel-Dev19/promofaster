@@ -23,7 +23,7 @@ export async function pushMethod( nameInput, descriptionInput, precoInput, popul
   const dev = process.env.NODE_ENV !== 'production'
   const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
   const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create`, JSON.stringify(product), {
+  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/create?NEXT_PUBLIC_API_KEY_METHOD_POST=${process.env.NEXT_PUBLIC_API_KEY_METHOD_POST}`, JSON.stringify(product), {
     headers:{
       "Content-Type": "application/json"
     }
@@ -38,7 +38,7 @@ export async function deleteMethod (id, thenMethod) {
   const dev = process.env.NODE_ENV !== 'production'
   const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
   const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/delete`, JSON.stringify(id), {
+  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/delete?NEXT_PUBLIC_API_KEY_METHOD_DELETE=${process.env.NEXT_PUBLIC_API_KEY_METHOD_DELETE}`, JSON.stringify(id), {
     headers:{
       "Content-Type": "application/json"
     }
@@ -53,7 +53,7 @@ export async function updateMethod ( idUpdate, nameInputUpdate, descriptionInput
   const dev = process.env.NODE_ENV !== 'production'
   const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
   const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
-  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/update`, JSON.stringify({
+  axios.post(`${dev ? DEV_URL : PROD_URL}/api/products/update?NEXT_PUBLIC_API_KEY_METHOD_UPDATE=${process.env.NEXT_PUBLIC_API_KEY_METHOD_UPDATE}`, JSON.stringify({
     id: idUpdate,
     name: nameInputUpdate,
     description: descriptionInputUpdate,
