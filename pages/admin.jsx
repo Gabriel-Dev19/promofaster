@@ -14,6 +14,7 @@ import { isAuthFalse } from "../redux/authLogin";
 import { pushMethod, updateMethod } from "../helpers/methods";
 import TableAdmin from "../components/parts/TableAdmin";
 import useBus from "use-bus";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Index({ response, children }) {
   // Dados gerais
@@ -23,6 +24,7 @@ export default function Index({ response, children }) {
   const [dataBase, setDataBase] = useState([])
   const state = useSelector(state => state)
   const dispath = useDispatch()
+  const { data: session } = useSession()
 
   // Dados usados para o formulário de update
   const [idUpdate, setIdUpdate] = useState(0)
@@ -80,6 +82,11 @@ export default function Index({ response, children }) {
       { title: 'Lojas Americanas', category: 'lojas_americanas' },
     ]
   }
+
+  const emailSession = session && session.user.email
+  const usersVerification = 
+    emailSession === 'camurcagabriel68@gmail.com' ||
+    emailSession === 'gabrielcamurcaaa10@gmail.com'
 
   function addCategory(elementInput, category, idButton) {
     const input = document.getElementById(elementInput)
@@ -176,19 +183,11 @@ export default function Index({ response, children }) {
   }
 
   useEffect( () => {
-    if (state.auth.isAuth === true && response != []) {
+    if (session && usersVerification) {
       setDataBase(response)
-    } else {
-      alert('usuário não autenticado')
-      router.push('/login')
     }
-
-    return () => {
-      setTimeout(() => {
-        dispath(isAuthFalse())
-      }, 10000000);
-    }
-  }, [dispath, response, router, state.auth.isAuth]);
+ 
+  }, [response, session]);
 
   useEffect(() => {
     (showModal || showModalUpdate) ?
@@ -211,44 +210,82 @@ export default function Index({ response, children }) {
       <LayoutDefault noHeader={true} title={'Painel de controle'}>
         { children }
         <section id="admin">
-          <TableAdmin
-            data={dataBase}
-            mapModalUpdate={
-              (item) => {
-                setIdUpdate(item.id)
-                setImagesInputUpdate(item.images)
-                setNameInputUpdate(item.name)
-                setDescriptionInputUpdate(item.description)
-                setPrecoInputUpdate(item.preco)
-                setPopularityInputUpdate(item.popularity)
-                setCategorySearchInputUpdate(item.categorySearch)
-                setLinkInputUpdate(item.link)
-                setPrecoAntigoInputUpdate(item.precoAntigo)
-                setPorcentagemDescontoInputUpdate(item.porcentagemDesconto)
-                setNumeroParcelasInputUpdate(item.numeroParcelas)
-                setPrecoParcelasInputUpdate(item.precoParcelas)
-                setlLojaInputUpdate(item.loja)
-                setSemJurosInputUpdate(item.semJuros)
-              }
-            }
-          />
+          {
+            session && usersVerification && (
+              <TableAdmin
+                data={dataBase}
+                mapModalUpdate={
+                  (item) => {
+                    setIdUpdate(item.id)
+                    setImagesInputUpdate(item.images)
+                    setNameInputUpdate(item.name)
+                    setDescriptionInputUpdate(item.description)
+                    setPrecoInputUpdate(item.preco)
+                    setPopularityInputUpdate(item.popularity)
+                    setCategorySearchInputUpdate(item.categorySearch)
+                    setLinkInputUpdate(item.link)
+                    setPrecoAntigoInputUpdate(item.precoAntigo)
+                    setPorcentagemDescontoInputUpdate(item.porcentagemDesconto)
+                    setNumeroParcelasInputUpdate(item.numeroParcelas)
+                    setPrecoParcelasInputUpdate(item.precoParcelas)
+                    setlLojaInputUpdate(item.loja)
+                    setSemJurosInputUpdate(item.semJuros)
+                  }
+                }
+              />
+            )
+          }
           
-          <div className="fixed-bar shadow-lg border-top py-2 px-3">
+          <div className="fixed-bar shadow-sm border-bottom py-2 px-3">
             <Link href={'/'}>
-              <a className="btn btn-sm btn-primary me-2">
-                <ion-icon style={{ fontSize: '12px', marginRight: '5px' }} name="arrow-back-outline" />
-                Home
+              <a className="btn btn-sm p-0 me-3" title="Home">
+                <ion-icon style={{ fontSize: '20px', marginRight: '5px' }} name="arrow-back-outline" />
               </a>
             </Link>
-            <button className="btn btn-sm btn-success" onClick={() => { setShowModal(true) }}>
-              Adicionar produto
-              <ion-icon style={{ fontSize: '16px', marginLeft: '5px' }} name="add-circle-outline" />
-            </button>
+            {
+              session && (
+                <>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={session.user.image}
+                      height={30}
+                      width={30}
+                      alt="User image"
+                      style={{ objectFit: 'contain', height: 30, width: 30, borderRadius: '50%' }}
+                    />
+                    <h6 className="mb-0 ms-2">
+                      <small>{ session.user.name }</small>
+                    </h6>
+                    <div className="mx-3">
+                      |
+                    </div>
+                    <button className="btn btn-sm text-danger p-0" style={{ fontSize: '14px' }} onClick={() => signOut()}>
+                      Sair <ion-icon style={{ fontSize: '15px', marginLeft: '5px', marginRight: '-7px' }} name="log-out-outline"></ion-icon>
+                    </button>
+                  </div>
+                  {
+                    usersVerification && (
+                      <button className="btn btn-sm btn-success ms-auto" onClick={() => { setShowModal(true) }}>
+                        Adicionar produto
+                        <ion-icon style={{ fontSize: '16px', marginLeft: '5px' }} name="add-circle-outline" />
+                      </button>
+                    )
+                  }
+                </>
+              )
+            }
+            {
+              !session && (
+                <button className="btn btn-sm btn-primary" onClick={() => signIn('google')}>
+                  Entrar <ion-icon style={{ fontSize: '15px', marginLeft: '5px', marginRight: '-4px' }} name="log-in-outline"></ion-icon>
+                </button>
+              )
+            }
           </div>
           
           {/* MODAL DE ADIÇÃO DE PRODUTO */}
           <CSSTransition
-            in={showModal}
+            in={showModal && usersVerification}
             timeout={300}
             classNames={{
               enter: 'alert-enter',
@@ -444,7 +481,7 @@ export default function Index({ response, children }) {
 
           {/* MODAL DE ATUALIZAÇÃO DE PRODUTO */}
           <CSSTransition
-            in={showModalUpdate}
+            in={showModalUpdate && usersVerification}
             timeout={300}
             classNames={{
               enter: 'alert-enter',

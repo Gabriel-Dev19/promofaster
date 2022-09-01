@@ -1,5 +1,5 @@
 #admin{
-  padding: 10px 10px 135px;
+  padding: 70px 10px 100px;
 
   .content-full-screen{
     height: 100%;
@@ -48,13 +48,14 @@
 
   .fixed-bar{
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
     background-color: rgba(216, 216, 216, 0.545);
     backdrop-filter: blur(10px);
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
   }
 }
 
