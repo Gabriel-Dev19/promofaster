@@ -6,7 +6,7 @@ const nextConfig = {
       {
         source: '/_next/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Origin', value: 'https://promofaster.com.br, http://localhost:3000' },
         ]
       }
     ]
