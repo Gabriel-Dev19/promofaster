@@ -8,40 +8,44 @@ import Link from 'next/link'
 
 export default function SliderProducts({
   products,
-  sliderPerPage,
-  marginTop = 120,
+  slidersPerSwiper,
+  paddingTop = 100,
   header = {
     color: 'color-melhores-ofertas',
     icon: 'star',
     title: 'Nome da categoria',
     hrefVerMais: '/'
   },
-  bestOffert = false,
-  filterCategory = ''
+  bestOffert,
+  filterCategory = ['']
 }) {
   const swiperRef = useRef(null)
-  const moduleSwiper = [Pagination]
-  const [renderSkeletonMobile, setRenderSkeletonMobile] = useState(false)
+  const [verificationWindow, setVerificationWindow] = useState()
   const [showSkeleton, setShowSkeleton] = useState(true)
 
-  function verificationRenderSkeleton() {
-    window.innerWidth < 767.95 ? setRenderSkeletonMobile(true) : setRenderSkeletonMobile(false)
+  const sizes = {
+    mobile: 'mobile',
+    desktop: 'desktop'
+  }
+
+  const verificationMobile = (param) => {
+    window.innerWidth > param ? setVerificationWindow(sizes.desktop) : setVerificationWindow(sizes.mobile)
   }
 
   useEffect(() => {
     products != [] ? setShowSkeleton(false) : null
-    verificationRenderSkeleton()
-    window.addEventListener('resize', verificationRenderSkeleton())
+    verificationMobile(767.95)
+    window.addEventListener('resize', () => verificationMobile(767.95))
   }, [products])
 
   return(
-    <section className='slider-product' style={{ marginTop: `${marginTop}px` }}>
+    <section className='slider-product' style={{ paddingTop: `${verificationWindow == sizes.desktop ? paddingTop : paddingTop / 1.5}px` }}>
       {
         showSkeleton ?
         <div className="container">
           {
-            renderSkeletonMobile ?
-            <Skeleton colunms={2} heightEls={300} elements={2} /> :
+            verificationWindow == sizes.mobile ?
+            <Skeleton colunms={2} heightEls={270} elements={2} /> :
             <Skeleton colunms={4} heightEls={400} elements={4} />
           }
         </div> :
@@ -69,7 +73,7 @@ export default function SliderProducts({
             ref={swiperRef}
             grabCursor={true}
             pagination={{clickable: true}}
-            modules={moduleSwiper}
+            modules={[Pagination]}
             breakpoints={{
               0:       { slidesPerView: 1.6, spaceBetween: 15 },
               399.95:  { slidesPerView: 1.8, spaceBetween: 18 },
@@ -94,13 +98,14 @@ export default function SliderProducts({
                 }
               })
               .filter((item) => {
-                return item.categorySearch.includes(filterCategory)
+                return item.categorySearch.includes(filterCategory[0]) ||
+                       item.categorySearch.includes(filterCategory[1]) ||
+                       item.categorySearch.includes(filterCategory[2])
               })
               .map((item, index) => {
                 return(
                   <SwiperSlide key={index}>
                     <Product
-                      numberId={index + 1}
                       linkProduct={{pathname: '/products/view/[id]', query: { id: item.id }}}
                       images={item.images}
                       nameProduct={item.name}
@@ -116,7 +121,7 @@ export default function SliderProducts({
                   </SwiperSlide>
                 )
               })
-              .slice(0, sliderPerPage || '8')
+              .slice(0, slidersPerSwiper || 8)
             }
           </Swiper>
         </div>

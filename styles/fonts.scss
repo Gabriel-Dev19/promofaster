@@ -1,3 +1,15 @@
+body{
+  font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6{
+  color: $softBlack;
+}
+
+.font-oxygen{
+  font-family: $oxygen;
+}
+
 .text-emphasis-primary{
   background: linear-gradient(108.89deg, #e67e22 0%, #d35400 47.02%, $orange 96.04%);
   -webkit-background-clip: text;

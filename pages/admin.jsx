@@ -8,13 +8,11 @@ import { CSSTransition } from 'react-transition-group'
 import Link from 'next/link'
 import { message } from 'antd'
 import { DeleteTwoTone } from '@ant-design/icons'
-import { useSelector } from "react-redux";
-import { useDispatch } from 'react-redux'
-import { isAuthFalse } from "../redux/authLogin";
 import { pushMethod, updateMethod } from "../helpers/methods";
 import TableAdmin from "../components/parts/TableAdmin";
 import useBus from "use-bus";
 import { useSession, signIn, signOut } from "next-auth/react"
+import categories from "../helpers/categories";
 
 export default function Index({ response, children }) {
   // Dados gerais
@@ -22,8 +20,6 @@ export default function Index({ response, children }) {
   const [showModal, setShowModal] = useState(false)
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [dataBase, setDataBase] = useState([])
-  const state = useSelector(state => state)
-  const dispath = useDispatch()
   const { data: session } = useSession()
 
   // Dados usados para o formulário de update
@@ -59,10 +55,8 @@ export default function Index({ response, children }) {
 
   const buttonsCategory = {
     avulsos: [
-      { title: 'Carro', category: 'carro' },
-      { title: 'Moda', category: 'moda' },
-      { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
-      { title: 'Carro', category: 'carro' },
+      { title: categories.notebooks.title, category: categories.notebooks.tag },
+      { title: categories.smartphones.title, category: categories.smartphones.tag },
       { title: 'Carro', category: 'carro' },
       { title: 'Moda', category: 'moda' },
       { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
@@ -84,7 +78,7 @@ export default function Index({ response, children }) {
   }
 
   const emailSession = session && session.user.email
-  const usersVerification = 
+  const usersVerification =
     emailSession === 'camurcagabriel68@gmail.com' ||
     emailSession === 'gabrielcamurcaaa10@gmail.com'
 
@@ -207,7 +201,7 @@ export default function Index({ response, children }) {
 
   return (
     <>
-      <LayoutDefault noHeader={true} title={'Painel de controle'}>
+      <LayoutDefault header={false} title={'Painel de controle'}>
         { children }
         <section id="admin">
           {

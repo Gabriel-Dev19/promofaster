@@ -1,12 +1,11 @@
-import FormatPrice from "./FormatPrice";
+import FormatBrl from "./FormatBrl";
 import Stars from "./Rating";
 import Link from "next/link";
 import {Swiper, SwiperSlide} from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
+import { Navigation } from 'swiper'
 import 'swiper/css'
-SwiperCore.use([Navigation])
 
-function Product({
+export default function Product({
   linkProduct, nameProduct, images, precoAntigo,
   porcentagemDesconto, realPrice, verifyTextGreen,
   numeroParcelas, priceParcelas, popularity, lojaVendedora
@@ -16,7 +15,6 @@ function Product({
   return (
     <div
       id={'product-' + uniqueId}
-      title={nameProduct}
       className="product shadow-sm"
     >
       <div className="img">
@@ -28,6 +26,7 @@ function Product({
             prevEl: `#product-${uniqueId} .btn-prev`,
             nextEl: `#product-${uniqueId} .btn-next`,
           }}
+          modules={[Navigation]}
         >
           {
             images.map((item, index) => {
@@ -47,35 +46,20 @@ function Product({
           </a>
         </Link>
         <div className="col-12 small mt-2 d-flex align-items-center px-0">
-          <div
-            style={{ opacity: '.6', lineHeight: '100%' }}
-            title={Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoAntigo)}
-          >
-            <strike>
-              <FormatPrice price={precoAntigo} />
-            </strike>
+          <div style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)}>
+            <strike>{ FormatBrl(precoAntigo) }</strike>
           </div>
-          <span className="desconto">
-            {porcentagemDesconto}% off
-          </span>
+          <span className="desconto">{porcentagemDesconto}% off</span>
         </div>
-        <div
-          className="format-price"
-          title={Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(realPrice)}
-        >
-          <FormatPrice price={realPrice} />
+        <div className="format-price" title={FormatBrl(realPrice)}>
+          { FormatBrl(realPrice) }
         </div>
         <span className="small col-12 row mx-0 px-0">
           até&nbsp;
-          <span
-            className="col-auto px-0 row mx-0"
-            style={{
-              color: verifyTextGreen ? '#27ae60' : '',
-              fontWeight: verifyTextGreen ? '500' : '' }}
-            >
+          <span className="col-auto px-0 row mx-0" style={{ color: verifyTextGreen ? '#27ae60' : '', fontWeight: verifyTextGreen ? '500' : '' }}>
             {numeroParcelas}x de&nbsp;
             <span className="col-auto px-0">
-              <FormatPrice price={priceParcelas} />
+              { FormatBrl(priceParcelas) }
             </span>
           </span>
         </span>
@@ -90,4 +74,40 @@ function Product({
   );
 }
 
-export default Product;
+export function ProductExtended({
+  linkProduct, nameProduct, images, precoAntigo,
+  porcentagemDesconto, realPrice, verifyTextGreen,
+  numeroParcelas, priceParcelas, popularity, lojaVendedora
+}) {
+
+  return(
+    <div className="product-extended">
+      <img src={images[0].url} loading="lazy" height={100} width={100} alt={images[0].url} />
+      <div className="text">
+        <Link href={linkProduct} passHref>
+          <a title={nameProduct}>
+            {nameProduct}
+          </a>
+        </Link>
+        <div className="col-12 small mt-1 d-flex align-items-center px-0">
+          <div style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)} >
+            <strike>{ FormatBrl(precoAntigo) }</strike>
+          </div>
+          <span className="desconto">{porcentagemDesconto}% off</span>
+        </div>
+        <div className="format-price" title={FormatBrl(realPrice)}>
+          { FormatBrl(realPrice) }
+        </div>
+        <span className="small col-12 row mx-0 px-0">
+          até&nbsp;
+          <span className="col-auto px-0 row mx-0" style={{ color: verifyTextGreen ? '#27ae60' : '', fontWeight: verifyTextGreen ? '500' : '' }}>
+            {numeroParcelas}x de&nbsp;
+            <span className="col-auto px-0">
+              { FormatBrl(priceParcelas) }
+            </span>
+          </span>
+        </span>
+      </div>
+    </div>
+  )
+}

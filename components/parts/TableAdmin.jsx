@@ -71,7 +71,6 @@ export default function TableAdmin({ data, mapModalUpdate }) {
                         onConfirm={() => deleteProduct(item.id)}
                         okText="Excluir"
                         cancelText="Cancelar"
-                        onVisibleChange={() => console.log('visible change')}
                       >
                         <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
                       </Popconfirm>

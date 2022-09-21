@@ -57,6 +57,7 @@ export default function Header (props) {
 
   // UseEffect no repeat
   useEffect(() => {
+    document.body.classList.add('padding-header')
     setCollapseIfWindowWidth()
     setShadowInHeader()
     // Resize event
@@ -68,9 +69,7 @@ export default function Header (props) {
         setShadowInHeader()
       }
     })
-    window.addEventListener('scroll', () => {
-      setShadowInHeader()
-    })
+    window.addEventListener('scroll', () => setShadowInHeader())
   }, [])
 
   return(
@@ -79,12 +78,7 @@ export default function Header (props) {
         <CSSTransition
           in={state.backdrop.setBackdrop}
           timeout={300}
-          classNames={{
-            enter: 'fade-opac-enter',
-            enterActive: 'fade-opac-enter-active',
-            exit: 'fade-opac-exit',
-            exitActive: 'fade-opac-exit-active',
-          }}
+          classNames={{ enter: 'fade-opac-enter', enterActive: 'fade-opac-enter-active', exit: 'fade-opac-exit', exitActive: 'fade-opac-exit-active' }}
           unmountOnExit
         >
           <div className="backdrop-mask" />

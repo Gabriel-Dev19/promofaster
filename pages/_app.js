@@ -13,16 +13,11 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
   const router = useRouter()
 
   useEffect(() => {
-    router.events.on('routeChangeStart', () => {
-      setIsLoading(true)
-    })
-    router.events.on('routeChangeComplete', () => {
-      setIsLoading(false)
-    })
-    window.onload = () => {
-      setIsLoading(false)
-    }
+    router.events.on('routeChangeStart', () => { setIsLoading(true) })
+    router.events.on('routeChangeComplete', () => { setIsLoading(false) })
+    window.onload = () => { setIsLoading(false) }
     setIsLoading(false)
+
     document.body.setAttribute('onselectstart', 'return false')
   }, [router.events])
 

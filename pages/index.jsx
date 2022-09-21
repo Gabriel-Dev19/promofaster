@@ -1,14 +1,28 @@
 import LayoutDefault from "../layouts/LayoutDefault";
 import axios from 'axios'
 import SliderProducts from "../components/SliderProducts";
+import BannerCategory from "../components/parts/BannerCategory";
+import categories from "../helpers/categories";
 
 export default function Index({ response }) {
   return (
     <>
       <LayoutDefault>
+        <BannerCategory
+          image={'/img/bg-tech-2.jpg'}
+          configsBg={'no-repeat bottom center/cover'}
+          opacityBackdrop={'0.6'}
+          tagTitle={'h1'}
+          products={response}
+          filterCategory={[categories.notebooks.tag, categories.smartphones.tag]}
+          infos={{
+            title: 'Melhores promoções em celulares e notebooks!',
+            description: 'Procurando um celular ou notebook? Aqui você encontra as melhores ofertas.'
+          }}
+        />
         <SliderProducts
           products={response}
-          marginTop={150}
+          paddingTop={70}
           header={{
             title: 'Melhores ofertas',
             color: 'color-melhores-ofertas',
@@ -18,7 +32,7 @@ export default function Index({ response }) {
         />
         <SliderProducts
           products={response}
-          marginTop={100}
+          paddingTop={100}
           header={{
             title: 'Cosméticos',
             color: 'color-moda',

@@ -15,14 +15,17 @@
   display: flex;
   z-index: 5;
   justify-content: center;
+
+  @media (max-width: $xl) {
+    bottom: 20px;
+  }
   
   .swiper-pagination-bullet{
-    width: 7.5px;
-    height: 7.5px;
+    width: 6.5px;
+    height: 6.5px;
     border-radius: 30px;
-    background-color: transparent;
-    border: 2px solid $gray3;
-    opacity: .8;
+    background-color: $blue;
+    opacity: .5;
     transition: all .3s;
     cursor: pointer;
     
@@ -31,26 +34,8 @@
     }
 
     &.swiper-pagination-bullet-active{
-      background-color: $gray3;
+      width: 20px;
       opacity: 1;
-    }
-  }
-}
-
-.product{
-  .swiper-pagination{
-    bottom: 5px;
-    justify-content: flex-end;
-  }
-  .swiper-pagination-bullet{
-    border: 1px solid $graySky;
-    background-color: $black;
-    width: 8px;
-    height: 8px;
-
-    &.swiper-pagination-bullet-active{
-      background-color: $graySky;
-      border: 1px solid $black;
     }
   }
 }

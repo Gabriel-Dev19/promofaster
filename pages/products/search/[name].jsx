@@ -51,7 +51,6 @@ export default function SearchPage({ response }) {
       setDataBase(response)
       orderByRelevance()
     }
-    console.log(response)
     setQueryName(String(routerQueryName))
   }, [routerQueryName])
 
