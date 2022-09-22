@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export async function pushMethod( nameInput, descriptionInput, precoInput, popularityInput, categorySearchInput, linkInput, imagesInput, url, alt, precoAntigoInput, porcentagemDescontoInput, numeroParcelasInput, precoParcelasInput, lojaInput, semJurosInput, thenMethod ) {
+export async function pushMethod( nameInput, descriptionInput, precoInput, popularityInput, categorySearchInput, linkInput, imagesInput, precoAntigoInput, porcentagemDescontoInput, numeroParcelasInput, precoParcelasInput, lojaInput, semJurosInput, thenMethod ) {
   const product = {
     id: Date.now(),
     name: nameInput,
@@ -10,8 +10,6 @@ export async function pushMethod( nameInput, descriptionInput, precoInput, popul
     categorySearch: categorySearchInput,
     link: linkInput,
     images: imagesInput,
-    url: url,
-    alt: alt,
     precoAntigo: precoAntigoInput,
     porcentagemDesconto: porcentagemDescontoInput,
     numeroParcelas: numeroParcelasInput,
@@ -49,7 +47,7 @@ export async function deleteMethod (id, thenMethod) {
   })
 }
 
-export async function updateMethod ( idUpdate, nameInputUpdate, descriptionInputUpdate, precoInputUpdate, popularityInputUpdate, categorySearchInputUpdate, linkInputUpdate, imagesInputUpdate, url, alt, precoAntigoInputUpdate, porcentagemDescontoInputUpdate, numeroParcelasInputUpdate, precoParcelasInputUpdate, lojaInputUpdate, semJurosInputUpdate, thenMethod ) {
+export async function updateMethod ( idUpdate, nameInputUpdate, descriptionInputUpdate, precoInputUpdate, popularityInputUpdate, categorySearchInputUpdate, linkInputUpdate, imagesInputUpdate, precoAntigoInputUpdate, porcentagemDescontoInputUpdate, numeroParcelasInputUpdate, precoParcelasInputUpdate, lojaInputUpdate, semJurosInputUpdate, thenMethod ) {
   const dev = process.env.NODE_ENV !== 'production'
   const DEV_URL = process.env.NEXT_PUBLIC_URL_LOCAL
   const PROD_URL = process.env.NEXT_PUBLIC_URL_PROD
@@ -62,8 +60,6 @@ export async function updateMethod ( idUpdate, nameInputUpdate, descriptionInput
     categorySearch: categorySearchInputUpdate,
     link: linkInputUpdate,
     images: imagesInputUpdate,
-    url: url,
-    alt: alt,
     precoAntigo: precoAntigoInputUpdate,
     porcentagemDesconto: porcentagemDescontoInputUpdate,
     numeroParcelas: numeroParcelasInputUpdate,

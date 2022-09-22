@@ -8,6 +8,8 @@ import LinksNavbar from './parts/LinksNavbar'
 import AreaLogin from './parts/AreaLogin'
 import { useDispatch, useSelector } from 'react-redux'
 import { backdropFalse } from '../redux/backDropMask'
+import Link from 'next/link'
+import urls from '../helpers/url'
 
 export default function Header (props) {
   const [stateCollapse, setStateCollapse] = useState(false)
@@ -85,9 +87,11 @@ export default function Header (props) {
         </CSSTransition>
         <nav className="navbar nav">
           <div className="container">
-            <a href="" className='brand-logo'>
-              <img src="/img/logo.webp" width={200} height={100} loading="lazy" alt="Logo" />
-            </a>
+            <Link href={String(urls.home)}>
+              <a className='brand-logo'>
+                <img src="/img/logo.webp" width={200} height={100} loading="lazy" alt="Logo" />
+              </a>
+            </Link>
             <button
               onClick={() => {
                 setStateCollapse(!stateCollapse)

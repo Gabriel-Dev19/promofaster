@@ -58,16 +58,14 @@ export default function SearchPage({ response }) {
     <LayoutDefault title={routerQueryName}>
       <section id="page-search">
         {
-          showSkeleton
-          ?
+          showSkeleton ?
           <div className="container">
             <Skeleton colunms={1} heightEls={30} elements={1} />
             <Skeleton colunms={4} heightEls={350} elements={8} />
-          </div>
-          :
+          </div> :
           null
         }
-        <div className={classNames({ 'container': true, 'd-none': showSkeleton })}>
+        <div className={`container ${showSkeleton && 'd-none'}`}>
           <div className="row mx-0 justify-content-between align-items-end">
             <h5 className='px-0' style={{ width: '100%', maxWidth: '450px' }}>
               <span style={{ fontSize: '14px', fontWeight: '400' }}>

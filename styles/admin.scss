@@ -57,6 +57,11 @@
     flex-wrap: wrap;
     align-items: center;
   }
+
+  .button-category:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+  }
 }
 
 #login{

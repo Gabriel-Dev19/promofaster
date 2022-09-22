@@ -181,6 +181,22 @@
   }
 }
 
+//Verificação para produtos dentro do slider
+.swiper-slide{
+  .product{
+    .img{
+      @media (max-width: 479.95px) {
+        height: 50vw;
+      }
+    }
+    a{
+      @media (max-width: $sm) {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
 .product-extended{
   display: flex;
   border-radius: 5px;
@@ -292,21 +308,6 @@
 
       @media (max-width: $sm) {
         font-size: 9px !important;
-      }
-    }
-  }
-}
-
-.swiper-slide{
-  .product{
-    .img{
-      @media (max-width: 479.95px) {
-        height: 50vw;
-      }
-    }
-    h6{
-      @media (max-width: $sm) {
-        font-size: 13px;
       }
     }
   }

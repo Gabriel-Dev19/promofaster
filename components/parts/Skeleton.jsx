@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 export default function Skeleton({ colunms, elements, heightEls }) {
-  const boxes = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+  const boxes = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
   const [frs, setFrs] = useState('')
   
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Skeleton({ colunms, elements, heightEls }) {
           return(
             <div key={index} style={{ height: `${heightEls}px` }} className="loading-skeleton" />
           )
-        }).slice(0, elements)
+        }).slice(0, elements || 4)
       }
     </div>
   )

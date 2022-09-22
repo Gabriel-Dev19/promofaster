@@ -22,6 +22,21 @@ export default function Index({ response, children }) {
   const [dataBase, setDataBase] = useState([])
   const { data: session } = useSession()
 
+  // Dados usados para o formulário de create
+  const [nameInput, setNameInput] = useState('')
+  const [descriptionInput, setDescriptionInput] = useState('')
+  const [precoInput, setPrecoInput] = useState('')
+  const [popularityInput, setPopularityInput] = useState('')
+  const [categorySearchInput, setCategorySearchInput] = useState('')
+  const [linkInput, setLinkInput] = useState('')
+  const [imagesInput, setImagesInput] = useState([])
+  const [precoAntigoInput, setPrecoAntigoInput] = useState('')
+  const [porcentagemDescontoInput, setPorcentagemDescontoInput] = useState('')
+  const [numeroParcelasInput, setNumeroParcelasInput] = useState('')
+  const [precoParcelasInput, setPrecoParcelasInput] = useState('')
+  const [lojaInput, setlLojaInput] = useState('')
+  const [semJurosInput, setSemJurosInput] = useState(false)
+
   // Dados usados para o formulário de update
   const [idUpdate, setIdUpdate] = useState(0)
   const [nameInputUpdate, setNameInputUpdate] = useState('')
@@ -38,23 +53,8 @@ export default function Index({ response, children }) {
   const [lojaInputUpdate, setlLojaInputUpdate] = useState('')
   const [semJurosInputUpdate, setSemJurosInputUpdate] = useState(false)
 
-  // Dados usados para o formulário de create
-  const [nameInput, setNameInput] = useState('')
-  const [descriptionInput, setDescriptionInput] = useState('')
-  const [precoInput, setPrecoInput] = useState('')
-  const [popularityInput, setPopularityInput] = useState('')
-  const [categorySearchInput, setCategorySearchInput] = useState('')
-  const [linkInput, setLinkInput] = useState('')
-  const [imagesInput, setImagesInput] = useState([])
-  const [precoAntigoInput, setPrecoAntigoInput] = useState('')
-  const [porcentagemDescontoInput, setPorcentagemDescontoInput] = useState('')
-  const [numeroParcelasInput, setNumeroParcelasInput] = useState('')
-  const [precoParcelasInput, setPrecoParcelasInput] = useState('')
-  const [lojaInput, setlLojaInput] = useState('')
-  const [semJurosInput, setSemJurosInput] = useState(false)
-
   const buttonsCategory = {
-    avulsos: [
+    categories: [
       { title: categories.notebooks.title, category: categories.notebooks.tag },
       { title: categories.smartphones.title, category: categories.smartphones.tag },
       { title: 'Carro', category: 'carro' },
@@ -69,11 +69,6 @@ export default function Index({ response, children }) {
       { title: 'Moda', category: 'moda' },
       { title: 'Cama mesa e banho', category: 'cama_mesa_e_banho' },
       { title: 'Carro', category: 'carro' },
-    ],
-    lojas: [
-      { title: 'Shopee', category: 'Shopee' },
-      { title: 'Magazine luiza', category: 'magazine_luiza' },
-      { title: 'Lojas Americanas', category: 'lojas_americanas' },
     ]
   }
 
@@ -84,7 +79,7 @@ export default function Index({ response, children }) {
 
   function addCategory(elementInput, category, idButton) {
     const input = document.getElementById(elementInput)
-    input.value = input.value + category + ' '
+    input.value.length > 1 ? input.value = input.value + ' ' + category : input.value = input.value + category
 
     const button = document.querySelector(idButton)
     button.style.backgroundColor = '#198754'
@@ -108,8 +103,6 @@ export default function Index({ response, children }) {
       categorySearchInput,
       linkInput,
       imagesInput,
-      imagesInput.url,
-      imagesInput.alt,
       precoAntigoInput,
       porcentagemDescontoInput,
       numeroParcelasInput,
@@ -154,8 +147,6 @@ export default function Index({ response, children }) {
       categorySearchInputUpdate,
       linkInputUpdate,
       imagesInputUpdate,
-      imagesInputUpdate.url,
-      imagesInputUpdate.alt,
       precoAntigoInputUpdate,
       porcentagemDescontoInputUpdate,
       numeroParcelasInputUpdate,
@@ -291,7 +282,7 @@ export default function Index({ response, children }) {
           >
             <FullScreen>
               <div className="content-full-screen">
-                <form onSubmit={itemPush} action="">
+                <form onSubmit={itemPush}>
                   <button className="button-close-modal-admin" onClick={(e) => { e.preventDefault(), setShowModal(false) }}>
                     <ion-icon style={{ fontSize: '20px' }} name="close-outline"></ion-icon>
                   </button>
@@ -304,15 +295,16 @@ export default function Index({ response, children }) {
                   <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
                   <textarea type="text" id="categoriaDeBusca" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
                   <span className="d-block mt-3">
-                    <b>Avulsos:</b>
+                    <b>Categories - </b> (Max: 3):
                   </span>
                   <hr className="mt-1 mb-2" />
                   {
-                    buttonsCategory.avulsos.map((item, index) => {
+                    buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
-                          className={`button-add-category-${index} me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          disabled={categorySearchInput.split(' ').length > 2}
+                          className={`button-add-category-${index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
                           onClick={(e) => {
                             e.preventDefault()
@@ -328,32 +320,7 @@ export default function Index({ response, children }) {
                       )
                     })
                   }
-                  <span className="d-block mt-3">
-                    <b>Lojas:</b>
-                  </span>
-                  <hr className="mt-1 mb-2" />
-                  {
-                    buttonsCategory.lojas.map((item, index) => {
-                      return(
-                        <button
-                          key={index}
-                          className={`button-add-category-${buttonsCategory.avulsos.length + index} me-2 px-2 small py-1 rounded bg-blue text-white`}
-                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => {
-                            e.preventDefault()
-                            addCategory(
-                              'categoriaDeBusca',
-                              item.category,
-                              `.button-add-category-${buttonsCategory.avulsos.length + index}`
-                            )
-                          }}
-                        >
-                          { item.title }
-                        </button>
-                      )
-                    })
-                  }
-                  <input type="text" className="form-control mt-5" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
+                  <input type="text" className="form-control mt-4" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
                   <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
                   <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
                   <input
@@ -487,7 +454,7 @@ export default function Index({ response, children }) {
           >
             <FullScreen>
               <div className="content-full-screen">
-                <form onSubmit={updateProduct} onClick={(e) => {e.stopPropagation()}}>
+                <form onSubmit={updateProduct}>
                   <button className="button-close-modal-admin" onClick={(e) => { e.preventDefault(), setShowModalUpdate(false) }}>
                     <ion-icon style={{ fontSize: '20px' }} name="close-outline"></ion-icon>
                   </button>
@@ -500,15 +467,16 @@ export default function Index({ response, children }) {
                   <input type="number" defaultValue={popularityInputUpdate} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInputUpdate(e.target.value) }} />
                   <textarea type="text" defaultValue={categorySearchInputUpdate} id="categoriaDeBuscaUpdate" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInputUpdate(e.target.value) }} />
                   <span className="d-block mt-3">
-                    <b>Avulsos:</b>
+                    <b>Categories - </b> (Max: 3):
                   </span>
                   <hr className="mt-1 mb-2" />
                   {
-                    buttonsCategory.avulsos.map((item, index) => {
+                    buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
-                          className={`button-add-category-${index} me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          disabled={categorySearchInputUpdate.split(' ').length > 2}
+                          className={`button-add-category-${index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
                           onClick={(e) => {
                             e.preventDefault()
@@ -524,32 +492,7 @@ export default function Index({ response, children }) {
                       )
                     })
                   }
-                  <span className="d-block mt-3">
-                    <b>Lojas:</b>
-                  </span>
-                  <hr className="mt-1 mb-2" />
-                  {
-                    buttonsCategory.lojas.map((item, index) => {
-                      return(
-                        <button
-                          key={index}
-                          className={`button-add-category-${buttonsCategory.avulsos.length + index} me-2 px-2 small py-1 rounded bg-blue text-white`}
-                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
-                          onClick={(e) => {
-                            e.preventDefault()
-                            addCategory(
-                              'categoriaDeBuscaUpdate',
-                              item.category,
-                              `.button-add-category-${buttonsCategory.avulsos.length + index}`
-                            )
-                          }}
-                        >
-                          { item.title }
-                        </button>
-                      )
-                    })
-                  }
-                  <input type="text" defaultValue={linkInputUpdate} className="form-control mt-5" placeholder="Link de afiliado" onChange={(e) => { setLinkInputUpdate(e.target.value) }} />
+                  <input type="text" defaultValue={linkInputUpdate} className="form-control mt-4" placeholder="Link de afiliado" onChange={(e) => { setLinkInputUpdate(e.target.value) }} />
                   <input type="number" id="preco-antigo-update" defaultValue={precoAntigoInputUpdate} className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInputUpdate(e.target.value) }} />
                   <input type="number" id="preco-novo-update" defaultValue={precoInputUpdate} className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInputUpdate(e.target.value) }} />
                   <input
