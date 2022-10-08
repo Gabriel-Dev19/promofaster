@@ -72,6 +72,8 @@ export default function Index({ response, children }) {
     ]
   }
 
+  useBus( 'showModalUpdate', () => setShowModalUpdate(true) )
+
   const emailSession = session && session.user.email
   const usersVerification =
     emailSession === 'camurcagabriel68@gmail.com' ||
@@ -87,11 +89,14 @@ export default function Index({ response, children }) {
       button.style.backgroundColor = '#3498db'
     }, 300);
 
-    setCategorySearchInput(input.value)
-    setCategorySearchInputUpdate(input.value)
+    if (elementInput === 'categorySearch' || elementInput === 'categorySearchUpdate') {
+      setCategorySearchInput(input.value)
+      setCategorySearchInputUpdate(input.value)
+    } else if (elementInput === 'nameInput' || elementInput === 'nameInputUpdate') {
+      setNameInput(input.value)
+      setNameInputUpdate(input.value)
+    }
   }
-
-  useBus( 'showModalUpdate', () => setShowModalUpdate(true) )
 
   async function itemPush(e) {
     e.preventDefault()
@@ -290,26 +295,18 @@ export default function Index({ response, children }) {
                     Adicionar produto
                   </h4>
                   { /** Inputs de texto */ }
-                  <input type="text" className="form-control" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
-                  <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
-                  <textarea type="text" id="categoriaDeBusca" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
-                  <span className="d-block mt-3">
-                    <b>Categories - </b> (Max: 3):
-                  </span>
-                  <hr className="mt-1 mb-2" />
+                  <textarea type="text" className="form-control" rows={2} id="nameInput" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
                   {
                     buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
-                          disabled={categorySearchInput.split(' ').length > 2}
                           className={`button-add-category-${index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
                           onClick={(e) => {
                             e.preventDefault()
                             addCategory(
-                              'categoriaDeBusca',
+                              'nameInput',
                               item.category,
                               `.button-add-category-${index}`
                             )
@@ -320,27 +317,58 @@ export default function Index({ response, children }) {
                       )
                     })
                   }
-                  <input type="text" className="form-control mt-4" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
-                  <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
-                  <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Porcentagem de desconto"
-                    onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }}
-                    value={porcentagemDescontoInput}
-                    onFocus={() => {
-                      const precoAntigo = document.querySelector('#preco-antigo-create').value
-                      const precoNovo = document.querySelector('#preco-novo-create').value
-                      var decreaseValue = precoAntigo - precoNovo
-                      if (precoAntigo != '' && precoNovo != '') {
-                        const result = decreaseValue / precoAntigo * 100
-                        setPorcentagemDescontoInput(result.toFixed(0))
-                      }
-                    }}
-                  />
-                  <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
-                  <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
+                  <textarea type="text" className="form-control mt-3" rows={3} placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
+                  <textarea type="text" id="categorySearch" rows={3} className="form-control" placeholder="Categorias" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
+                  <span className="d-block mt-3">
+                    <b>Categories - </b> (Max: 3):
+                  </span>
+                  <hr className="mt-1 mb-2" />
+                  {
+                    buttonsCategory.categories.map((item, index) => {
+                      return(
+                        <button
+                          key={index}
+                          disabled={categorySearchInput.split(' ').length > 2}
+                          className={`button-add-category-${buttonsCategory.categories.length + index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categorySearch',
+                              item.category,
+                              `.button-add-category-${buttonsCategory.categories.length + index}`
+                            )
+                          }}
+                        >
+                          { item.title }
+                        </button>
+                      )
+                    })
+                  }
+                  <input type="text" className="form-control mt-3" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
+                  <div className="group-numbers">
+                    <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
+                    <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
+                    <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Porcentagem de desconto"
+                      onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }}
+                      value={porcentagemDescontoInput}
+                      onFocus={() => {
+                        const precoAntigo = document.querySelector('#preco-antigo-create').value
+                        const precoNovo = document.querySelector('#preco-novo-create').value
+                        var decreaseValue = precoAntigo - precoNovo
+                        if (precoAntigo != '' && precoNovo != '') {
+                          const result = decreaseValue / precoAntigo * 100
+                          setPorcentagemDescontoInput(result.toFixed(0))
+                        }
+                      }}
+                    />
+                    <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
+                    <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
+                  </div>
                   <select className="form-control" onChange={(e) => { setlLojaInput(e.target.value) }}>
                     <option value="" disabled selected>
                       Selecione a loja
@@ -462,26 +490,18 @@ export default function Index({ response, children }) {
                     Atualizar produto
                   </h4>
                   { /** Inputs de texto */ }
-                  <input type="text" defaultValue={nameInputUpdate} className="form-control" placeholder="Nome" onChange={(e) => { setNameInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={descriptionInputUpdate} className="form-control" placeholder="Descrição" onChange={(e) => { setDescriptionInputUpdate(e.target.value) }} />
-                  <input type="number" defaultValue={popularityInputUpdate} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInputUpdate(e.target.value) }} />
-                  <textarea type="text" defaultValue={categorySearchInputUpdate} id="categoriaDeBuscaUpdate" rows={3} className="form-control" placeholder="Categorias de busca" onChange={(e) => { setCategorySearchInputUpdate(e.target.value) }} />
-                  <span className="d-block mt-3">
-                    <b>Categories - </b> (Max: 3):
-                  </span>
-                  <hr className="mt-1 mb-2" />
+                  <textarea type="text" defaultValue={nameInputUpdate} rows={2} id="nameInputUpdate" className="form-control" placeholder="Nome" onChange={(e) => { setNameInputUpdate(e.target.value) }} />
                   {
                     buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
-                          disabled={categorySearchInputUpdate.split(' ').length > 2}
                           className={`button-add-category-${index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
                           style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
                           onClick={(e) => {
                             e.preventDefault()
                             addCategory(
-                              'categoriaDeBuscaUpdate',
+                              'nameInputUpdate',
                               item.category,
                               `.button-add-category-${index}`
                             )
@@ -492,28 +512,59 @@ export default function Index({ response, children }) {
                       )
                     })
                   }
-                  <input type="text" defaultValue={linkInputUpdate} className="form-control mt-4" placeholder="Link de afiliado" onChange={(e) => { setLinkInputUpdate(e.target.value) }} />
-                  <input type="number" id="preco-antigo-update" defaultValue={precoAntigoInputUpdate} className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInputUpdate(e.target.value) }} />
-                  <input type="number" id="preco-novo-update" defaultValue={precoInputUpdate} className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInputUpdate(e.target.value) }} />
-                  <input
-                    type="number"
-                    defaultValue={porcentagemDescontoInputUpdate}
-                    value={porcentagemDescontoInputUpdate}
-                    className="form-control"
-                    placeholder="Porcentagem de desconto"
-                    onChange={(e) => { setPorcentagemDescontoInputUpdate(e.target.value) }}
-                    onFocus={() => {
-                      const precoAntigo = document.querySelector('#preco-antigo-update').value
-                      const precoNovo = document.querySelector('#preco-novo-update').value
-                      var decreaseValue = precoAntigo - precoNovo
-                      if (precoAntigo != '' && precoNovo != '') {
-                        const result = decreaseValue / precoAntigo * 100
-                        setPorcentagemDescontoInputUpdate(result.toFixed(0))
-                      }
-                    }}
-                  />
-                  <input type="text" defaultValue={numeroParcelasInputUpdate} className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInputUpdate(e.target.value) }} />
-                  <input type="text" defaultValue={precoParcelasInputUpdate} className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInputUpdate(e.target.value) }} />
+                  <textarea type="text" defaultValue={descriptionInputUpdate} rows={3} className="form-control mt-3" placeholder="Descrição" onChange={(e) => { setDescriptionInputUpdate(e.target.value) }} />
+                  <textarea type="text" defaultValue={categorySearchInputUpdate} id="categorySearchUpdate" rows={3} className="form-control" placeholder="Categorias" onChange={(e) => { setCategorySearchInputUpdate(e.target.value) }} />
+                  <span className="d-block mt-3">
+                    <b>Categories - </b> (Max: 3):
+                  </span>
+                  <hr className="mt-1 mb-2" />
+                  {
+                    buttonsCategory.categories.map((item, index) => {
+                      return(
+                        <button
+                          key={index}
+                          disabled={categorySearchInputUpdate.split(' ').length > 2}
+                          className={`button-add-category-${buttonsCategory.categories.length + index} button-category me-2 px-2 small py-1 rounded bg-blue text-white`}
+                          style={{ marginBottom: '5px', marginTop: '5px', transition: 'all .2s' }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            addCategory(
+                              'categorySearchUpdate',
+                              item.category,
+                              `.button-add-category-${buttonsCategory.categories.length + index}`
+                            )
+                          }}
+                        >
+                          { item.title }
+                        </button>
+                      )
+                    })
+                  }
+                  <input type="text" defaultValue={linkInputUpdate} className="form-control mt-3" placeholder="Link de afiliado" onChange={(e) => { setLinkInputUpdate(e.target.value) }} />
+                  <div className="group-numbers">
+                    <input type="number" defaultValue={popularityInputUpdate} className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInputUpdate(e.target.value) }} />
+                    <input type="number" id="preco-antigo-update" defaultValue={precoAntigoInputUpdate} className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInputUpdate(e.target.value) }} />
+                    <input type="number" id="preco-novo-update" defaultValue={precoInputUpdate} className="form-control" placeholder="Preço" onChange={(e) => { setPrecoInputUpdate(e.target.value) }} />
+                    <input
+                      type="number"
+                      defaultValue={porcentagemDescontoInputUpdate}
+                      value={porcentagemDescontoInputUpdate}
+                      className="form-control"
+                      placeholder="Porcentagem de desconto"
+                      onChange={(e) => { setPorcentagemDescontoInputUpdate(e.target.value) }}
+                      onFocus={() => {
+                        const precoAntigo = document.querySelector('#preco-antigo-update').value
+                        const precoNovo = document.querySelector('#preco-novo-update').value
+                        var decreaseValue = precoAntigo - precoNovo
+                        if (precoAntigo != '' && precoNovo != '') {
+                          const result = decreaseValue / precoAntigo * 100
+                          setPorcentagemDescontoInputUpdate(result.toFixed(0))
+                        }
+                      }}
+                    />
+                    <input type="text" defaultValue={numeroParcelasInputUpdate} className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInputUpdate(e.target.value) }} />
+                    <input type="text" defaultValue={precoParcelasInputUpdate} className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInputUpdate(e.target.value) }} />
+                  </div>
                   <select className="form-control" onChange={(e) => { setlLojaInputUpdate(e.target.value) }}>
                     <option value="" disabled selected>
                       Selecione a loja

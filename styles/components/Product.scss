@@ -97,7 +97,7 @@
   }
 
   .text{
-    padding: 12px 15px 8px;
+    padding: 10px 12px;
     border-top: 1px solid rgb(181, 181, 181, 0.4);
 
     .small{
@@ -220,7 +220,7 @@
     flex-grow: 1;
     flex-basis: 0;
     max-width: 100%;
-    padding: 8px 12px;
+    padding: 8px 10px;
     margin: auto 0;
     border-left: 1px solid rgb(181, 181, 181, 0.4);
 
@@ -232,9 +232,7 @@
       font-size: 13px;
     }
 
-    @media (max-width: $sm) {
-      padding: 8px 10px;
-      
+    @media (max-width: $sm) {      
       .small{
         font-size: 10px !important;
       }

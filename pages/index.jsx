@@ -13,6 +13,7 @@ export default function Index({ response }) {
           configsBg={'no-repeat bottom center/cover'}
           opacityBackdrop={'0.6'}
           tagTitle={'h1'}
+          slidersPerSwiper={10}
           products={response}
           filterCategory={[categories.notebooks.tag, categories.smartphones.tag]}
           infos={{

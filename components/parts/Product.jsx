@@ -46,7 +46,7 @@ export default function Product({
           </a>
         </Link>
         <div className="col-12 small mt-2 d-flex align-items-center px-0">
-          <div style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)}>
+          <div className="text-danger" style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)}>
             <strike>{ FormatBrl(precoAntigo) }</strike>
           </div>
           <span className="desconto">{porcentagemDesconto}% off</span>
@@ -90,7 +90,7 @@ export function ProductExtended({
           </a>
         </Link>
         <div className="col-12 small mt-1 d-flex align-items-center px-0">
-          <div style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)} >
+          <div className="text-danger" style={{ opacity: '.6', lineHeight: '100%' }} title={FormatBrl(precoAntigo)} >
             <strike>{ FormatBrl(precoAntigo) }</strike>
           </div>
           <span className="desconto">{porcentagemDesconto}% off</span>
