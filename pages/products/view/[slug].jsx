@@ -5,7 +5,7 @@ export default function ViewPage ({ response }) {
 
   return(
     <LayoutDefault title={response.name} noHeader={true}>
-      <div>About us: {response.name} </div>
+      <div>About us: {response.name}  </div>
       <div>About us: {response.id} </div>
       <div>About us: {response.description} </div>
       <div>About us: {response.slug} </div>
