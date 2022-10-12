@@ -4,15 +4,15 @@ export async function getProductsDB() {
   return prisma.public_products.findMany()
 }
 
-export async function getUniqueProductDB(id) {
+export async function getUniqueProductDB(slug) {
   return prisma.public_products.findUnique({
     where: {
-      id: id
+      slug: slug,
     }
   })
 }
 
-export async function createProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, semJuros) {
+export async function createProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, slug, semJuros) {
   return prisma.public_products.create({
     data: {
       id,
@@ -28,12 +28,13 @@ export async function createProductDB( id, name, description, preco, popularity,
       numeroParcelas,
       precoParcelas,
       loja,
+      slug,
       semJuros
     }
   })
 }
 
-export async function updateProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, semJuros) {
+export async function updateProductDB( id, name, description, preco, popularity, categorySearch, link, images, precoAntigo, porcentagemDesconto, numeroParcelas, precoParcelas, loja, slug, semJuros) {
   return prisma.public_products.update({
     where: {
       id: id
@@ -51,6 +52,7 @@ export async function updateProductDB( id, name, description, preco, popularity,
       numeroParcelas,
       precoParcelas,
       loja,
+      slug,
       semJuros
     }
   })

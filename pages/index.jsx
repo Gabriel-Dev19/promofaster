@@ -17,7 +17,7 @@ export default function Index({ response }) {
           products={response}
           filterCategory={[categories.notebooks.tag, categories.smartphones.tag]}
           infos={{
-            title: 'Melhores promoções em celulares e notebooks!',
+            title: `Melhores promoções em ${categories.smartphones.title.toLowerCase()} e ${categories.notebooks.title.toLowerCase()}!`,
             description: 'Procurando um celular ou notebook? Aqui você encontra as melhores ofertas.'
           }}
         />

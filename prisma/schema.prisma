@@ -22,6 +22,7 @@ model public_products {
   numeroParcelas      String?  @db.VarChar(255)
   precoParcelas       String?  @db.VarChar(255)
   loja                String?  @db.VarChar(255)
+  slug                String @unique
   semJuros            Boolean?
 
   @@map("public.products")

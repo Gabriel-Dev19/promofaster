@@ -1,8 +1,9 @@
 import axios from 'axios'
 
 export async function pushMethod( nameInput, descriptionInput, precoInput, popularityInput, categorySearchInput, linkInput, imagesInput, precoAntigoInput, porcentagemDescontoInput, numeroParcelasInput, precoParcelasInput, lojaInput, semJurosInput, thenMethod ) {
+  const uniqueId = Date.now()
   const product = {
-    id: Date.now(),
+    id: uniqueId,
     name: nameInput,
     description: descriptionInput,
     preco: precoInput,
@@ -15,6 +16,7 @@ export async function pushMethod( nameInput, descriptionInput, precoInput, popul
     numeroParcelas: numeroParcelasInput,
     precoParcelas: precoParcelasInput,
     loja: lojaInput,
+    slug: nameInput.replace(/ /g, '-') + '-' + uniqueId,
     semJuros: semJurosInput
   }
   
@@ -65,6 +67,7 @@ export async function updateMethod ( idUpdate, nameInputUpdate, descriptionInput
     numeroParcelas: numeroParcelasInputUpdate,
     precoParcelas: precoParcelasInputUpdate,
     loja: lojaInputUpdate,
+    slug: nameInputUpdate.replace(/ /g, '-') + '-' + idUpdate,
     semJuros: semJurosInputUpdate
   }), {
     headers:{

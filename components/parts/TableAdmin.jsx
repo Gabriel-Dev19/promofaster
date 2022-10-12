@@ -74,7 +74,7 @@ export default function TableAdmin({ data, mapModalUpdate }) {
                       >
                         <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
                       </Popconfirm>
-                      <Link href={{ pathname: 'products/view/[id]', query: { id: item.id} }}>
+                      <Link href={{ pathname: 'products/view/[slug]', query: { slug: item.slug} }}>
                         <a style={{ marginLeft: '10px', marginRight: '10px' }} >
                           <ion-icon style={{ fontSize: '26px', marginBottom: '-5px' }} name="open-outline"></ion-icon>
                         </a>

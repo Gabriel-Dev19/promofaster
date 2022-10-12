@@ -106,7 +106,7 @@ export default function SliderProducts({
                 return(
                   <SwiperSlide key={index}>
                     <Product
-                      linkProduct={{pathname: '/products/view/[id]', query: { id: item.id }}}
+                      linkProduct={{pathname: '/products/view/[slug]', query: { slug: item.slug }}}
                       images={item.images}
                       nameProduct={item.name}
                       precoAntigo={item.precoAntigo}

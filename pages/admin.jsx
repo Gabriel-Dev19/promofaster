@@ -176,7 +176,6 @@ export default function Index({ response, children }) {
     if (session && usersVerification) {
       setDataBase(response)
     }
- 
   }, [response, session]);
 
   useEffect(() => {

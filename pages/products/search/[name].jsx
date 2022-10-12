@@ -119,7 +119,7 @@ export default function SearchPage({ response }) {
                   <li key={index}>
                     <Product
                       numberId={index + 1}
-                      linkProduct={{pathname: '/products/view/[id]', query: { id: item.id}}}
+                      linkProduct={{pathname: '/products/view/[slug]', query: { slug: item.slug}}}
                       images={item.images}
                       nameProduct={item.name}
                       precoAntigo={item.precoAntigo}
