@@ -94,8 +94,8 @@ export default function database() {
     },
     {
       id:                  4,
-      name:                'Smart TV Philco PTV42G52RCF LED Full HD 42" 110V/220V',
-      slug:                formattedURL('Smart TV Philco PTV42G52RCF LED Full HD 42" 110V/220V'),
+      name:                'Smart TV Philco PTV42G52RCF LED Full HD 42 110V/220V',
+      slug:                formattedURL('Smart TV Philco PTV42G52RCF LED Full HD 42 110V/220V'),
       description:         'Descrição do produto',
       popularity:          '95',
       categorySearch:      'eletrodomesticos eletronicos',
