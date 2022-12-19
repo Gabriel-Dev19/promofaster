@@ -294,9 +294,9 @@ export default function Index({ response, children }) {
                     Adicionar produto
                   </h4>
                   { /** Inputs de texto */ }
-                  <textarea type="text" className="form-control" rows={2} id="nameInput" placeholder="Nome" onChange={(e) => { setNameInput(e.target.value) }} />
-                  {
-                    buttonsCategory.categories.map((item, index) => {
+                  <label htmlFor="nameInput">Nome do produto</label>
+                  <textarea type="text" className="form-control mb-1" rows={2} id="nameInput" placeholder="Preencha com o nome do produto" onChange={(e) => { setNameInput(e.target.value) }} />
+                    {buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
@@ -314,16 +314,16 @@ export default function Index({ response, children }) {
                           { item.title }
                         </button>
                       )
-                    })
-                  }
-                  <textarea type="text" className="form-control mt-3" rows={3} placeholder="Descrição" onChange={(e) => { setDescriptionInput(e.target.value) }} />
-                  <textarea type="text" id="categorySearch" rows={3} className="form-control" placeholder="Categorias" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
+                    })}
+                  <label htmlFor="descriptionInput">Descrição do produto</label>
+                  <textarea type="text" className="form-control" id="descriptionInput" rows={3} placeholder="Preencha com a descrição do produto" onChange={(e) => { setDescriptionInput(e.target.value) }} />
+                  <label htmlFor="categorySearch">Categorias do produto</label>
+                  <textarea type="text" id="categorySearch" rows={3} className="form-control" placeholder="Preencha com as categorias do produto" onChange={(e) => { setCategorySearchInput(e.target.value) }} />
                   <span className="d-block mt-3">
                     <b>Categories - </b> (Max: 3):
                   </span>
                   <hr className="mt-1 mb-2" />
-                  {
-                    buttonsCategory.categories.map((item, index) => {
+                    {buttonsCategory.categories.map((item, index) => {
                       return(
                         <button
                           key={index}
@@ -342,36 +342,53 @@ export default function Index({ response, children }) {
                           { item.title }
                         </button>
                       )
-                    })
-                  }
-                  <input type="text" className="form-control mt-3" placeholder="Link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
+                    })}
+                  <label htmlFor="linkDeAfiliadoInput">Link de afiliado</label>
+                  <input type="text" id="linkDeAfiliadoInput" className="form-control" placeholder="Preencha com o link de afiliado" onChange={(e) => { setLinkInput(e.target.value) }} />
                   <div className="group-numbers">
-                    <input type="number" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
-                    <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
-                    <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Porcentagem de desconto"
-                      onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }}
-                      value={porcentagemDescontoInput}
-                      onFocus={() => {
-                        const precoAntigo = document.querySelector('#preco-antigo-create').value
-                        const precoNovo = document.querySelector('#preco-novo-create').value
-                        var decreaseValue = precoAntigo - precoNovo
-                        if (precoAntigo != '' && precoNovo != '') {
-                          const result = decreaseValue / precoAntigo * 100
-                          setPorcentagemDescontoInput(result.toFixed(0))
-                        }
-                      }}
-                    />
-                    <input type="text" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
-                    <input type="text" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
+                    <div>
+                      <label htmlFor="popularidadeInput">Popularidade</label>
+                      <input type="number" id="popularidadeInput" className="form-control" placeholder="Popularidade" onChange={(e) => { setPopularityInput(e.target.value) }} />
+                    </div>
+                    <div>
+                      <label htmlFor="preco-antigo-create">Preço antigo</label>
+                      <input type="number" id="preco-antigo-create" className="form-control" placeholder="Preço antigo" onChange={(e) => { setPrecoAntigoInput(e.target.value) }} />
+                    </div>
+                    <div>
+                      <label htmlFor="preco-novo-create">Preço Novo</label>
+                      <input type="number" id="preco-novo-create" className="form-control" placeholder="Preço Novo" onChange={(e) => { setPrecoInput(e.target.value) }} />
+                    </div>
+                    <div>
+                      <label htmlFor="porcentagemInput">Desconto</label>
+                      <input
+                        type="number"
+                        id="porcentagemInput"
+                        className="form-control"
+                        placeholder="Porcentagem de desconto"
+                        onChange={(e) => { setPorcentagemDescontoInput(e.target.value) }}
+                        value={porcentagemDescontoInput}
+                        onFocus={() => {
+                          const precoAntigo = document.querySelector('#preco-antigo-create').value
+                          const precoNovo = document.querySelector('#preco-novo-create').value
+                          var decreaseValue = precoAntigo - precoNovo
+                          if (precoAntigo != '' && precoNovo != '') {
+                            const result = decreaseValue / precoAntigo * 100
+                            setPorcentagemDescontoInput(result.toFixed(0))
+                          }
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="numeroParcelasInput">Parcelas</label>
+                      <input type="text" id="numeroParcelasInput" className="form-control" placeholder="Número de parcelas" onChange={(e) => { setNumeroParcelasInput(e.target.value) }} />
+                    </div>
+                    <div>
+                      <label htmlFor="precoParcelasInput">Preço / parcela</label>
+                      <input type="text" id="precoParcelasInput" className="form-control" placeholder="Preço das parcelas" onChange={(e) => { setPrecoParcelasInput(e.target.value) }} />
+                    </div>
                   </div>
-                  <select className="form-control" onChange={(e) => { setlLojaInput(e.target.value) }}>
-                    <option value="" disabled selected>
-                      Selecione a loja
-                    </option>
+                  <label htmlFor="selectLoja">Selecione a loja</label>
+                  <select className="form-control" id="selectLoja" onChange={(e) => { setlLojaInput(e.target.value) }}>
                     <option value="Magazine luíza">
                       Magazine luíza
                     </option>
@@ -382,9 +399,9 @@ export default function Index({ response, children }) {
                       Shopee
                     </option>
                   </select>
-                  <div className="d-flex align-items-center" onClick={(e) => { setSemJurosInput(!semJurosInput) }}>
-                    <input type="checkbox" checked={semJurosInput} id="check-sem-juros" className="mt-2" />
-                    <label htmlFor="#check-sem-juros" className="ms-2">Sem juros?</label>
+                  <div className="d-flex align-items-center mt-3" style={{ cursor: 'pointer' }} onClick={(e) => { setSemJurosInput(!semJurosInput) }}>
+                    <input type="checkbox" checked={semJurosInput} style={{ cursor: 'pointer' }} id="check-sem-juros" />
+                    <label htmlFor="#check-sem-juros" style={{ cursor: 'pointer' }} className="ms-2 my-0">Sem juros?</label>
                   </div>
 
                   { /* Lista de imagens */ }
@@ -392,11 +409,10 @@ export default function Index({ response, children }) {
                     Imagens: {imagesInput.length}
                   </span>
                   <hr className="mt-1 mb-4" />
-                  { imagesInput.map((item, index) => {
+                    {imagesInput.map((item, index) => {
                       return(
                         <div key={index}>
-                          {
-                            imagesInput.length > 0 &&
+                          {imagesInput.length > 0 && (
                             <div className="d-flex mt-4">
                               <img src={item.url} style={{ height: '60px', width: '60px', objectFit: 'cover' }} height={100} width={100} alt={item.alt} />
                               <div className="mx-3 col small" style={{ wordBreak: 'break-word' }}>
@@ -425,34 +441,27 @@ export default function Index({ response, children }) {
                                 <DeleteTwoTone style={{ fontSize: '24px' }} twoToneColor="red" />
                               </button>
                             </div>
-                          }
+                          )}
                         </div>
-                      )
-                  })}
+                      )})}
 
                   { /** Form de imagens */ }
-                  <input type="text" id="input-url" className="form-control mt-4" placeholder="Url da imagem" />
-                  <input type="text" id="input-alt" className="form-control" placeholder="Alt da imagem" />
+                  <label htmlFor="input-url">URL da imagem</label>
+                  <input type="text" id="input-url" className="form-control" placeholder="Url da imagem" />
                   <button
-                    className="btn btn-sm btn-success"
+                    className="btn btn-sm mt-3 btn-success"
                     onClick={(e) => {
                       e.preventDefault()
                       setImagesInput(oldArray =>
-                        [
-                          ...oldArray,
-                          {
-                            url: document.getElementById('input-url').value,
-                            alt: document.getElementById('input-alt').value
-                          }
-                        ]
-                      )
+                        [...oldArray,
+                          { url: document.getElementById('input-url').value, alt: nameInput }
+                        ])
                       setTimeout(() => {
-                        document.getElementById('input-alt').value = ''
                         document.getElementById('input-url').value = ''
                       }, 300);
                     }}
                   >
-                    Add Image
+                    Adicionar imagem
                   </button>
                   <div className="d-flex justify-content-end mt-4">
                     <button type="submit" className="btn btn-success">

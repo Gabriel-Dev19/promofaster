@@ -28,8 +28,20 @@
       }
       
       input, textarea, select{
-        margin-bottom: 9px;
+        margin-bottom: 0;
         border: 1px solid $blue;
+        font-size: 15px;
+      }
+
+      input::placeholder, textarea::placeholder, select::placeholder{
+        font-size: 15px;
+      }
+
+      label{
+        font-size: 14px;
+        margin-bottom: 7px;
+        display: block;
+        margin-top: 20px;
       }
     }
   }
@@ -63,7 +75,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 9px;
-    row-gap: 9px;
     margin-bottom: 9px;
 
     input{
