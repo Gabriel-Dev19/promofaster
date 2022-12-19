@@ -8,7 +8,7 @@ export default function database() {
       slug:                formattedURL('Celular motorola'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'cama-mesa-e-banho celulares eletrodomesticos',
+      categorySearch:      'cama-mesa-e-banho smartphones eletrodomesticos',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -218,7 +218,7 @@ export default function database() {
       slug:                formattedURL('Samsung Galaxy Z Flip4 5G 128 GB violeta 8 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -248,7 +248,7 @@ export default function database() {
       slug:                formattedURL('Apple iPhone 11 (128 GB) - Preto'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -278,7 +278,7 @@ export default function database() {
       slug:                formattedURL('Samsung Galaxy S20 FE 5G Dual SIM 128 GB cloud lavender 6 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -308,7 +308,7 @@ export default function database() {
       slug:                formattedURL('Xiaomi Redmi Note 11 (Snapdragon) Dual SIM 128 GB graphite gray 6 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -338,7 +338,7 @@ export default function database() {
       slug:                formattedURL('Xiaomi Redmi 10C Dual SIM 128 GB cinza 4 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -368,7 +368,7 @@ export default function database() {
       slug:                formattedURL('Moto G22 Dual SIM 128 GB cosmic black 4 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'cama-mesa-e-banho celulares eletrodomesticos',
+      categorySearch:      'cama-mesa-e-banho smartphones eletrodomesticos',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
@@ -398,7 +398,7 @@ export default function database() {
       slug:                formattedURL('Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM'),
       description:         'Descrição do produto',
       popularity:          '95',
-      categorySearch:      'celulares',
+      categorySearch:      'smartphones',
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
