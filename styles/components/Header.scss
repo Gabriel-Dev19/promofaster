@@ -267,7 +267,6 @@
 
               .icon{
                 position: relative;
-                overflow: hidden;
                 height: 27px;
                 width: 27px;
                 display: flex;
@@ -275,16 +274,8 @@
                 align-items: center;
                 border-radius: 5px;
                 margin-right: 8px;
-
-                &::before{
-                  content: '';
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  height: 100%;
-                  width: 100%;
-                  opacity: .17;
-                }
+                color: $blue;
+                background-color: $blueOpac;
 
                 ion-icon{
                   font-size: 16px;

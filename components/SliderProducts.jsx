@@ -54,7 +54,7 @@ export default function SliderProducts({
             header !== '' &&
             <div className="title">
               <div className="icon-text">
-                <div className={`icon ${header.color}`}>
+                <div className={`icon`}>
                   <ion-icon name={header.icon} />
                 </div>
                 <h2>

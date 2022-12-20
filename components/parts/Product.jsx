@@ -77,7 +77,7 @@ export default function Product({
 export function ProductExtended({
   linkProduct, nameProduct, images, precoAntigo,
   porcentagemDesconto, realPrice, verifyTextGreen,
-  numeroParcelas, priceParcelas, popularity, lojaVendedora
+  numeroParcelas, priceParcelas
 }) {
 
   return(

@@ -6,8 +6,7 @@ export default function CategorySubmenu () {
       href: '/',
       title: 'Melhores ofertas',
       icon: {
-        name: 'star',
-        type: 'color-melhores-ofertas'
+        name: 'star-outline',
       }
     },
     {
@@ -15,7 +14,6 @@ export default function CategorySubmenu () {
       title: 'Casa e Móveis',
       icon: {
         name: 'home-outline',
-        type: 'color-casa-e-moveis'
       }
     },
     {
@@ -23,7 +21,6 @@ export default function CategorySubmenu () {
       title: 'Cama mesa e banho',
       icon: {
         name: 'bed-outline',
-        type: 'color-cama-mesa-e-banho'
       }
     },
     {
@@ -31,15 +28,13 @@ export default function CategorySubmenu () {
       title: 'Eletrodomésticos',
       icon: {
         name: 'desktop-outline',
-        type: 'color-eletrodomesticos'
       }
     },
     {
       href: '/',
       title: 'Eletrônicos',
       icon: {
-        name: 'headset-outline',
-        type: 'color-eletronicos'
+        name: 'hardware-chip-outline',
       }
     },
     {
@@ -47,7 +42,13 @@ export default function CategorySubmenu () {
       title: 'Smarthphones',
       icon: {
         name: 'phone-portrait-outline',
-        type: 'color-smartphones'
+      }
+    },
+    {
+      href: '/',
+      title: 'Áudio',
+      icon: {
+        name: 'headset-outline',
       }
     },
     {
@@ -55,7 +56,6 @@ export default function CategorySubmenu () {
       title: 'Notebooks',
       icon: {
         name: 'laptop-outline',
-        type: 'color-notebooks'
       }
     },
     {
@@ -63,7 +63,6 @@ export default function CategorySubmenu () {
       title: 'Moda',
       icon: {
         name: 'shirt-outline',
-        type: 'color-moda'
       }
     },
     {
@@ -71,7 +70,6 @@ export default function CategorySubmenu () {
       title: 'Cosméticos',
       icon: {
         name: 'flower-outline',
-        type: 'color-cosmeticos'
       }
     },
     {
@@ -79,17 +77,8 @@ export default function CategorySubmenu () {
       title: 'Fitness e Esportes',
       icon: {
         name: 'barbell-outline',
-        type: 'color-fitness'
       }
-    },
-    {
-      href: '/',
-      title: 'Livros',
-      icon: {
-        name: 'book-outline',
-        type: 'color-livros'
-      }
-    },
+    }
   ]
 
   return(
@@ -100,7 +89,7 @@ export default function CategorySubmenu () {
             <li key={index}>
               <Link href={item.href}>
                 <a className="item">
-                  <div className={`icon ${item.icon.type}`}>
+                  <div className={`icon`}>
                     <ion-icon name={item.icon.name}></ion-icon>
                   </div>
                   { item.title }

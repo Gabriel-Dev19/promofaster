@@ -11,7 +11,7 @@ export default function BannerCategory({
   slidersPerSwiper,
   filterCategory = [''],
   configsBg = 'no-repeat center center/cover',
-  opacityBackdrop = '0.3',
+  colorBakcdrop = '0, 0, 0, 0.3',
   tagTitle = 'h2',
   infos = {
     title: 'Title',
@@ -20,7 +20,7 @@ export default function BannerCategory({
   }
 }) {
   return(
-    <section className="banner-category" style={{ background: `linear-gradient(0deg, rgba(0, 0, 0, ${opacityBackdrop}), rgba(0, 0, 0, ${opacityBackdrop})), url(${image}) ${configsBg}` }}>
+    <section className="banner-category" style={{ background: `linear-gradient(0deg, rgba(${colorBakcdrop}), rgba(${colorBakcdrop})), url(${image}) ${configsBg}` }}>
       <div className="container">
         <div className="infos">
           { tagTitle === 'h1' ? (<h1>{parse(infos.title)}</h1>) : (<h2>{parse(infos.title)}</h2>) }

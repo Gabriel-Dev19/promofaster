@@ -11,7 +11,7 @@ export default function Index({ response }) {
         <BannerCategory
           image={'/img/bg-tech-2.jpg'}
           configsBg={'no-repeat bottom center/cover'}
-          opacityBackdrop={'0.6'}
+          colorBakcdrop={'0, 0, 0, 0.4'}
           tagTitle={'h1'}
           slidersPerSwiper={10}
           products={response}
@@ -26,19 +26,19 @@ export default function Index({ response }) {
           paddingTop={70}
           header={{
             title: 'Melhores ofertas',
-            color: 'color-melhores-ofertas',
-            icon: 'star',
+            icon: 'star-outline',
             hrefVerMais: '/melhores-ofertas'
           }}
         />
         <SliderProducts
           products={response}
-          paddingTop={100}
+          paddingTop={80}
+          filterCategory={[ categories.audio.tag ]}
           header={{
-            title: 'Cosméticos',
-            color: 'color-moda',
-            icon: 'flower-outline',
-            hrefVerMais: '/moda'
+            title: 'Áudio',
+            color: 'color-audio',
+            icon: 'headset-outline',
+            hrefVerMais: '/audio'
           }}
         />
         <section style={{height: '200vh'}}></section>

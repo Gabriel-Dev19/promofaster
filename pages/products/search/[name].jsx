@@ -6,7 +6,7 @@ import Product from '../../../components/parts/Product'
 import axios from 'axios'
 import Skeleton from '../../../components/parts/Skeleton'
 
-export default function SearchPage({ response = [] }) {
+export default function SearchPage({ response }) {
   const [dataBase, setDataBase] = useState([])
   const router = useRouter()
   const routerQueryName = router.query.name
@@ -106,8 +106,14 @@ export default function SearchPage({ response = [] }) {
                 ) &&
                 (
                   queryName.includes(' ') ?
-                  item.name.toLowerCase().indexOf(queryName.toLowerCase().slice(item.name.indexOf(' ') + 1)) !== -1 :
-                  item.name.toLowerCase().indexOf(queryName.toLowerCase()) !== -1
+                  (
+                    item.name.toLowerCase().indexOf(queryName.toLowerCase().slice(item.name.indexOf(' ') + 1)) !== -1 ||
+                    item.categorySearch.toLowerCase().indexOf(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) !== -1
+                  ) :
+                  (
+                    item.name.toLowerCase().indexOf(queryName.toLowerCase()) !== -1 ||
+                    item.categorySearch.toLowerCase().indexOf(queryName.toLowerCase()) !== -1
+                  )
                   // item.name.toLowerCase().replace(' ', '').includes(queryName.toLowerCase().replace(' ', ''))
                   // item.categorySearch.toLowerCase().includes(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) ||
                   // item.description.toLowerCase().includes(queryName.toLowerCase().slice(item.description.indexOf(' ') + 1)) ||
