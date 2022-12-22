@@ -11,20 +11,22 @@ export default function BannerCategory({
   slidersPerSwiper,
   filterCategory = [''],
   configsBg = 'no-repeat center center/cover',
-  colorBakcdrop = '0, 0, 0, 0.3',
+  configBackdrop = '0, 0, 0, 0.3',
   tagTitle = 'h2',
+  colorTitle = '#ffffff',
   infos = {
     title: 'Title',
-    description: 'description',
-    hrefBtnAction: '/'
+    description: 'description'
   }
 }) {
   return(
-    <section className="banner-category" style={{ background: `linear-gradient(0deg, rgba(${colorBakcdrop}), rgba(${colorBakcdrop})), url(${image}) ${configsBg}` }}>
+    <section className="banner-category" style={{ background: `linear-gradient(${configBackdrop}), url(${image}) ${configsBg}` }}>
       <div className="container">
         <div className="infos">
-          { tagTitle === 'h1' ? (<h1>{parse(infos.title)}</h1>) : (<h2>{parse(infos.title)}</h2>) }
-          { infos.description != '' && (<p>{parse(infos.description)}</p>)}
+          { infos.title && (
+            tagTitle === 'h1' ? (<h1 style={{ color: colorTitle }}>{parse(infos.title)}</h1>) : (<h2 style={{ color: colorTitle }}>{parse(infos.title)}</h2>)
+          ) }
+          { infos.description && (<p style={{ color: colorTitle }}>{parse(infos.description)}</p>)}
         </div>
         <Swiper
           spaceBetween={15}
@@ -34,10 +36,10 @@ export default function BannerCategory({
             469.95:  { slidesPerView: 1.6 },
             499.95:  { slidesPerView: 1.8 },
             575.95:  { slidesPerView: 1.7 },
-            767.95:  { slidesPerView: 1 },
-            991.95:  { slidesPerView: 2 },
-            1199.95: { slidesPerView: 2.8 },
-            1349.95: { slidesPerView: 3 }
+            767.95:  { slidesPerView: 2.3 },
+            991.95:  { slidesPerView: 3 },
+            1199.95: { slidesPerView: 3.6 },
+            1349.95: { slidesPerView: 4 }
           }}
           autoplay={{
             delay: 2000,

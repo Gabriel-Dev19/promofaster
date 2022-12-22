@@ -9,16 +9,16 @@ export default function Index({ response }) {
     <>
       <LayoutDefault>
         <BannerCategory
-          image={'/img/bg-tech-2.jpg'}
-          configsBg={'no-repeat bottom center/cover'}
-          colorBakcdrop={'0, 0, 0, 0.4'}
+          image={'https://i.imgur.com/GOTvD3d.jpg'}
+          configsBg={'no-repeat center center/cover'}
+          configBackdrop={'180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75) 60%'}
           tagTitle={'h1'}
           slidersPerSwiper={10}
           products={response}
           filterCategory={[categories.notebooks.tag, categories.smartphones.tag]}
           infos={{
-            title: `Melhores promoções em ${categories.smartphones.title.toLowerCase()} e ${categories.notebooks.title.toLowerCase()}!`,
-            description: 'Procurando um celular ou notebook? Aqui você encontra as melhores ofertas.'
+            title: `Melhores <em>promoções</em> em <em>${categories.smartphones.title.toLowerCase()}</em> e ${categories.notebooks.title.toLowerCase()}!`,
+            description: `As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em ${categories.smartphones.title} e ${categories.notebooks.title}!`
           }}
         />
         <SliderProducts

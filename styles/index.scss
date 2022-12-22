@@ -70,6 +70,10 @@
   }
 }
 
+@media (max-width: $md) {
+  br{ display: none; }
+}
+
 img{
   height: auto;
   width: auto;
@@ -77,17 +81,13 @@ img{
   max-height: 100%;
 }
 
+em{
+  font-style: normal;
+}
+
 body{
   overflow-x: hidden;
   overflow-y: visible;
-  
-  &.padding-header{
-    padding-top: 85px;
-
-    @media (max-width: $xl) {
-      padding-top: 64px;
-    }
-  }
 }
 
 html{

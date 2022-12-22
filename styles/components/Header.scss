@@ -21,24 +21,31 @@
   }
 
   nav{
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: $blue;
+    padding: 15px 0;
+    transition: all .3s;
+
+    @media (max-width: $xl) {
+      padding: 25px 0 !important;
+    }
+
+    &.on-scroll{
+      background-color: $blue;
+      padding: 0 !important;
+
+      @media (max-width: $xl) {
+        padding: 12px 0 !important;
+      }
+    }
 
     @media (max-width: $xl) {
       max-height: 100vh;
       overflow: auto;
     }
 
-    @media (min-width: $xl) {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
     .container{
       .brand-logo{
         img{
-          width: 145px;
+          width: 125px;
 
           @media (max-width: $xl) {
             width: 105px;
@@ -321,6 +328,10 @@
           margin: 0;
           display: flex;
           flex-wrap: wrap;
+
+          @media (min-width: $xl) {
+            margin-left: 20px;
+          }
 
           a{
             color: white;

@@ -13,7 +13,7 @@ import urls from '../helpers/url'
 
 export default function Header (props) {
   const [stateCollapse, setStateCollapse] = useState(false)
-  const [onShadow, setOnShadow] = useState(false)
+  const [onScroll, setOnScroll] = useState(false)
   const breakpointDesktop = 1199.95
   const router = useRouter()
   const state = useSelector(state => state)
@@ -21,13 +21,7 @@ export default function Header (props) {
 
   // Methods
   function setShadowInHeader() {
-    if (window.innerWidth > breakpointDesktop && window.scrollY > 10 ) {
-      setOnShadow(true)
-    } else if (window.innerWidth < breakpointDesktop && (window.scrollY > 10 || stateCollapse)) {
-      setOnShadow(true)
-    } else {
-      setOnShadow(false)
-    }
+    window.scrollY > 10 ? setOnScroll(true) : setOnScroll(false)
   }
 
   function closeCollapseInMobile() {
@@ -49,11 +43,9 @@ export default function Header (props) {
   // UseEffect repeat
   useEffect(() => {
     if (stateCollapse && window.innerWidth < breakpointDesktop) {
-      document.body.classList.add('overflow-hidden')
-      document.querySelector('html').classList.add('overflow-hidden')
-    } else {
-      document.body.classList.remove('overflow-hidden')
-      document.querySelector('html').classList.remove('overflow-hidden')
+      setOnScroll(true)
+    } else if (!stateCollapse && window.innerWidth < breakpointDesktop && window.scrollY < 10) {
+      setOnScroll(false)
     }
   })
 
@@ -76,7 +68,7 @@ export default function Header (props) {
 
   return(
     <>
-      <header id='headerComponent' className={classNames({ 'shadow': onShadow, 'fixed-top': true })}>
+      <header id='headerComponent' className={classNames({ 'shadow': onScroll, 'fixed-top': true })}>
         <CSSTransition
           in={state.backdrop.setBackdrop}
           timeout={300}
@@ -85,7 +77,7 @@ export default function Header (props) {
         >
           <div className="backdrop-mask" />
         </CSSTransition>
-        <nav className="navbar nav">
+        <nav className={`navbar nav ${ onScroll && 'on-scroll'}`}>
           <div className="container">
             <Link href={String(urls.home)}>
               <a className='brand-logo'>
