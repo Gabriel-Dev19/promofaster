@@ -11,7 +11,7 @@ import { backdropFalse } from '../redux/backDropMask'
 import Link from 'next/link'
 import urls from '../helpers/url'
 
-export default function Header (props) {
+export default function Header ({ modelScroll = false }) {
   const [stateCollapse, setStateCollapse] = useState(false)
   const [onScroll, setOnScroll] = useState(false)
   const breakpointDesktop = 1199.95
@@ -77,7 +77,7 @@ export default function Header (props) {
         >
           <div className="backdrop-mask" />
         </CSSTransition>
-        <nav className={`navbar nav ${ onScroll && 'on-scroll'}`}>
+        <nav className={`navbar nav ${ onScroll && 'on-scroll'} ${ modelScroll && 'on-scroll-static'}`}>
           <div className="container">
             <Link href={String(urls.home)}>
               <a className='brand-logo'>

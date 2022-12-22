@@ -4,25 +4,26 @@ import SliderProducts from "../components/SliderProducts";
 import BannerCategory from "../components/parts/BannerCategory";
 import categories from "../helpers/categories";
 
-export default function Index({ response }) {
+export default function Index({ listProducts, infosHome }) {
   return (
     <>
       <LayoutDefault>
         <BannerCategory
-          image={'https://i.imgur.com/GOTvD3d.jpg'}
+          image={infosHome.banner.backgroundBanner}
           configsBg={'no-repeat center center/cover'}
           configBackdrop={'180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75) 60%'}
           tagTitle={'h1'}
-          slidersPerSwiper={10}
-          products={response}
-          filterCategory={[categories.notebooks.tag, categories.smartphones.tag]}
+          slidersPerSwiper={infosHome.banner.numberOfSlides}
+          bestOffert={infosHome.banner.bestOffert}
+          products={listProducts}
+          filterCategory={infosHome.banner.categoriesOfSlides}
           infos={{
-            title: `Melhores <em>promoções</em> em <em>${categories.smartphones.title.toLowerCase()}</em> e ${categories.notebooks.title.toLowerCase()}!`,
-            description: `As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em ${categories.smartphones.title} e ${categories.notebooks.title}!`
+            title: `Melhores <em>promoções</em> em <br> <em>${categories.smartphones.title.toLowerCase()}</em> e ${categories.notebooks.title.toLowerCase()}!`,
+            description: infosHome.banner.descriptionBanner
           }}
         />
         <SliderProducts
-          products={response}
+          products={listProducts}
           paddingTop={70}
           header={{
             title: 'Melhores ofertas',
@@ -31,7 +32,7 @@ export default function Index({ response }) {
           }}
         />
         <SliderProducts
-          products={response}
+          products={listProducts}
           paddingTop={80}
           filterCategory={[ categories.audio.tag ]}
           header={{
@@ -48,11 +49,12 @@ export default function Index({ response }) {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`https://promofaster.com.br/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
-  const response = data;
+  const listProducts = (await axios.get(`https://promofaster.com.br/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`)).data;
+  const infosHome = (await axios.get(`https://promofaster.com.br/api/pages/home`)).data;
   return {
     props: {
-      response,
+      listProducts,
+      infosHome
     },
   };
 };

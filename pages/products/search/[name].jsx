@@ -55,7 +55,7 @@ export default function SearchPage({ response }) {
   }, [routerQueryName])
 
   return (
-    <LayoutDefault title={routerQueryName}>
+    <LayoutDefault title={routerQueryName} modelScroll={true}>
       <section id="page-search">
         {
           showSkeleton ?

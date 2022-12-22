@@ -11,13 +11,13 @@ export default function CategorySubmenu () {
     },
     {
       href: '/',
-      title: 'Casa e Móveis',
+      title: 'Móveis e decoração',
       icon: {
         name: 'home-outline',
       }
     },
     {
-      href: '/',
+      href: '/categorias/cama-mesa-e-banho',
       title: 'Cama mesa e banho',
       icon: {
         name: 'bed-outline',

@@ -28,7 +28,7 @@
       padding: 25px 0 !important;
     }
 
-    &.on-scroll{
+    &.on-scroll, &.on-scroll-static{
       background-color: $blue;
       padding: 0 !important;
 

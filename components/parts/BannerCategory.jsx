@@ -30,6 +30,7 @@ export default function BannerCategory({
         </div>
         <Swiper
           spaceBetween={15}
+          slidesPerView={'auto'}
           breakpoints={{
             0:       { slidesPerView: 1.3 },
             399:     { slidesPerView: 1.4 },
@@ -39,10 +40,12 @@ export default function BannerCategory({
             767.95:  { slidesPerView: 2.3 },
             991.95:  { slidesPerView: 3 },
             1199.95: { slidesPerView: 3.6 },
-            1349.95: { slidesPerView: 4 }
+            1349.95: { slidesPerView: 3.8 }
           }}
+          centeredSlides={true}
+          loop={true}
           autoplay={{
-            delay: 2000,
+            delay: 3700,
             pauseOnMouseEnter: true,
             disableOnInteraction: false
           }}
