@@ -4,13 +4,24 @@ import Link from "next/link";
 import {Swiper, SwiperSlide} from 'swiper/react'
 import { Navigation } from 'swiper'
 import 'swiper/css'
+import { useEffect, useState } from "react";
+import {  } from "react";
 
 export default function Product({
-  linkProduct, nameProduct, images, precoAntigo,
-  porcentagemDesconto, realPrice, verifyTextGreen,
+  linkProduct, nameProduct, images, precoAntigo, realPrice, verifyTextGreen,
   numeroParcelas, priceParcelas, popularity, lojaVendedora
 }) {
   const uniqueId = Date.now()
+
+  const [porcentagemDesconto, setPorcentagemDesconto] = useState(0);
+
+  useEffect(() => {
+    var decreaseValue = precoAntigo - realPrice
+    if (precoAntigo != '' && realPrice != '') {
+      const result = decreaseValue / precoAntigo * 100
+      setPorcentagemDesconto(result.toFixed(0))
+    }
+  }, [])
 
   return (
     <div
@@ -75,10 +86,20 @@ export default function Product({
 }
 
 export function ProductExtended({
-  linkProduct, nameProduct, images, precoAntigo,
-  porcentagemDesconto, realPrice, verifyTextGreen,
+  linkProduct, nameProduct, images, precoAntigo, realPrice, verifyTextGreen,
   numeroParcelas, priceParcelas
 }) {
+
+
+  const [porcentagemDesconto, setPorcentagemDesconto] = useState(0);
+
+  useEffect(() => {
+    var decreaseValue = precoAntigo - realPrice
+    if (precoAntigo != '' && realPrice != '') {
+      const result = decreaseValue / precoAntigo * 100
+      setPorcentagemDesconto(result.toFixed(0))
+    }
+  }, [])
 
   return(
     <div className="product-extended">

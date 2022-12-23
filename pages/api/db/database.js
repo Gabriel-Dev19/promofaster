@@ -13,7 +13,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -47,7 +46,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -77,7 +75,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -111,7 +108,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -145,7 +141,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -175,7 +170,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -205,7 +199,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -235,7 +228,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -265,7 +257,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -295,7 +286,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -325,7 +315,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -355,7 +344,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -385,7 +373,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -415,7 +402,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -445,7 +431,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -475,7 +460,6 @@ export default function database() {
 
       precoAntigo:         '1800',
       preco:               '1500',
-      porcentagemDesconto: '20',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
