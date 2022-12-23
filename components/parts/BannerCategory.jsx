@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import { ProductExtended } from './Product'
+import { useEffect, useState } from 'react'
 
 export default function BannerCategory({
   image,
@@ -19,6 +20,12 @@ export default function BannerCategory({
     description: 'description'
   }
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    window.innerWidth <= 576.95 ? setIsMobile(true) : setIsMobile(false)
+  })
+
   return(
     <section className="banner-category" style={{ background: `linear-gradient(${configBackdrop}), url(${image}) ${configsBg}` }}>
       <div className="container">
@@ -32,17 +39,16 @@ export default function BannerCategory({
           spaceBetween={15}
           slidesPerView={'auto'}
           breakpoints={{
-            0:       { slidesPerView: 1.3 },
-            399:     { slidesPerView: 1.4 },
-            469.95:  { slidesPerView: 1.6 },
-            499.95:  { slidesPerView: 1.8 },
-            575.95:  { slidesPerView: 1.7 },
-            767.95:  { slidesPerView: 2.3 },
-            991.95:  { slidesPerView: 3 },
-            1199.95: { slidesPerView: 3.6 },
-            1349.95: { slidesPerView: 3.8 }
+            0:       { slidesPerView: 1.3, centeredSlides: false },
+            399:     { slidesPerView: 1.4, centeredSlides: false },
+            469.95:  { slidesPerView: 1.6, centeredSlides: false },
+            499.95:  { slidesPerView: 1.8, centeredSlides: false },
+            575.95:  { slidesPerView: 1.7, centeredSlides: true },
+            767.95:  { slidesPerView: 2.3, centeredSlides: true },
+            991.95:  { slidesPerView: 3, centeredSlides: true },
+            1199.95: { slidesPerView: 3.6, centeredSlides: true },
+            1349.95: { slidesPerView: 3.8, centeredSlides: true }
           }}
-          centeredSlides={true}
           loop={true}
           autoplay={{
             delay: 3700,

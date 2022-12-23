@@ -115,12 +115,14 @@
         }
 
         &.swiper-slide-active{
-          transform: translateY(-10px);
-          z-index: 5;
+          @media (min-width: $sm) {
+            transform: translateY(-10px);
+            z-index: 5;
 
-          &::after{
-            opacity: .7;
-            width: 100%;
+            &::after{
+              opacity: .7;
+              width: 100%;
+            }
           }
         }
       }

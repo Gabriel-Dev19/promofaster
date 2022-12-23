@@ -35,6 +35,14 @@
       @media (max-width: $xl) {
         padding: 12px 0 !important;
       }
+
+      img{
+        width: 140px !important;
+
+        @media (max-width: $xl) {
+          width: 105px;
+        }
+      }
     }
 
     @media (max-width: $xl) {
@@ -46,6 +54,7 @@
       .brand-logo{
         img{
           width: 125px;
+          transition: all .3s;
 
           @media (max-width: $xl) {
             width: 105px;
