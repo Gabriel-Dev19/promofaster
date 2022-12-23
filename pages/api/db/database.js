@@ -29,6 +29,10 @@ export default function database() {
         {
           url: 'https://i.imgur.com/r2NGbBe.jpg',
           alt: 'Alt da imagem'
+        },
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
         }
       ]
     },
@@ -89,6 +93,10 @@ export default function database() {
         {
           url: 'https://i.imgur.com/r2NGbBe.jpg',
           alt: 'Alt da imagem'
+        },
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
         }
       ]
     },
@@ -112,6 +120,10 @@ export default function database() {
       semJuros:            true,
 
       images: [
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        },
         {
           url: 'https://i.imgur.com/r2NGbBe.jpg',
           alt: 'Alt da imagem'
@@ -420,6 +432,70 @@ export default function database() {
           url: 'https://i.imgur.com/r2NGbBe.jpg',
           alt: 'Alt da imagem'
         }
+      ]
+    },
+    {
+      id:                  15,
+      name:                'Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM',
+      slug:                formattedURL('Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM'),
+      description:         'Descrição do produto',
+      popularity:          '95',
+      categorySearch:      'smartphones',
+      link:                'https://aaaa',
+
+      precoAntigo:         '1800',
+      preco:               '1500',
+      porcentagemDesconto: '20',
+
+      numeroParcelas:      '12',
+      precoParcelas:       '115',
+      loja:                'Americanas',
+
+      semJuros:            true,
+
+      images: [
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        },
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        }
+      ]
+    },
+    {
+      id:                  16,
+      name:                'Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM',
+      slug:                formattedURL('Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM'),
+      description:         'Descrição do produto',
+      popularity:          '95',
+      categorySearch:      'smartphones',
+      link:                'https://aaaa',
+
+      precoAntigo:         '1800',
+      preco:               '1500',
+      porcentagemDesconto: '20',
+
+      numeroParcelas:      '12',
+      precoParcelas:       '115',
+      loja:                'Americanas',
+
+      semJuros:            true,
+
+      images: [
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        },
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        },
+        {
+          url: 'https://i.imgur.com/r2NGbBe.jpg',
+          alt: 'Alt da imagem'
+        },
       ]
     },
   ]

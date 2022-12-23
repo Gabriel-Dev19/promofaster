@@ -14,7 +14,7 @@ export default function ViewPage ({ response }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(`https://promofaster.com.br/api/products/${params.slug}?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/${params.slug}?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
   const response = data;
   return {
     props: {
@@ -24,7 +24,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get(`https://promofaster.com.br/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
   const paths = data.map((product) => ({ params: { slug: String(product.slug) } }));
   return {
     paths,
