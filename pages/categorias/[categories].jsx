@@ -5,7 +5,7 @@ import BannerCategory from "../../components/parts/BannerCategory";
 
 export default function CamaMesaEBanho({ infosCategory = [], listProducts = [] }) {
   return(
-    <LayoutDefault title={infosCategory.title}>
+    {/* <LayoutDefault title={infosCategory.title}>
       <BannerCategory
         image={infosCategory.bannerInitial.backgroundBanner}
         configsBg={'no-repeat center center/cover'}
@@ -20,7 +20,7 @@ export default function CamaMesaEBanho({ infosCategory = [], listProducts = [] }
           description: infosCategory.bannerInitial.descriptionBanner
         }}
       />
-    </LayoutDefault>
+      </LayoutDefault> */}
   )
 }
 
