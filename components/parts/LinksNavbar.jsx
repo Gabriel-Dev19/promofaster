@@ -14,12 +14,12 @@ export default function LinksNavbar() {
 
   const [linksCategory, setLinksCategory] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)
-  //     .then((response) => {
-  //       setLinksCategory(response.data)
-  //     })
-  // }, [])
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)
+      .then((response) => {
+        setLinksCategory(response.data)
+      })
+  }, [])
 
   useEffect(() => { window.addEventListener('resize', () => setShowCategory(false)) })
 
