@@ -18,7 +18,7 @@ export default function Index({ listProducts, infosHome }) {
           products={listProducts}
           filterCategory={infosHome.banner.categoriesOfSlides}
           infos={{
-            title: `Melhores <em>promoções</em> em <br> <em>${categories.smartphones.title.toLowerCase()}</em> e ${categories.notebooks.title.toLowerCase()}!`,
+            title: infosHome.banner.titleBanner,
             description: infosHome.banner.descriptionBanner
           }}
         />

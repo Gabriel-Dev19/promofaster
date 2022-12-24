@@ -2,6 +2,7 @@ import { formattedURL } from "../../../helpers/formattedURL"
 
 export default function database() {
   return [
+    // Product 1
     {
       id:                  1,
       name:                'Celular motorola',
@@ -35,6 +36,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 2 
     {
       id:                  2,
       name:                'Micro-ondas Electrolux MEO44 branco 34L 220V',
@@ -64,6 +67,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 3 
     {
       id:                  3,
       name:                'Micro-ondas Brastemp BMS46AB branco e cinza 32L 220V',
@@ -97,6 +102,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 4 
     {
       id:                  4,
       name:                'Smart TV Philco PTV42G52RCF LED Full HD 42 110V-220V',
@@ -130,6 +137,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 5 
     {
       id:                  5,
       name:                'Smart Tv Aiwa 43 Full Hd Hdr10 Dolby Áudio Aws-tv-43-bl-01',
@@ -159,6 +168,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 6 
     {
       id:                  6,
       name:                'Alto-falante JBL Flip 6 portátil com bluetooth cinzento',
@@ -188,6 +199,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 7 
     {
       id:                  7,
       name:                'Alto-falante JBL Xtreme 3 portátil com bluetooth black',
@@ -217,6 +230,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 8 
     {
       id:                  8,
       name:                'Samsung Galaxy Z Flip4 5G 128 GB violeta 8 GB RAM',
@@ -246,6 +261,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 9 
     {
       id:                  9,
       name:                'Apple iPhone 11 (128 GB) - Preto',
@@ -275,6 +292,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 10 
     {
       id:                  10,
       name:                'Samsung Galaxy S20 FE 5G Dual SIM 128 GB cloud lavender 6 GB RAM',
@@ -304,6 +323,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 11 
     {
       id:                  11,
       name:                'Xiaomi Redmi Note 11 (Snapdragon) Dual SIM 128 GB graphite gray 6 GB RAM',
@@ -333,6 +354,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 12 
     {
       id:                  12,
       name:                'Xiaomi Redmi 10C Dual SIM 128 GB cinza 4 GB RAM',
@@ -362,6 +385,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 13 
     {
       id:                  13,
       name:                'Moto G22 Dual SIM 128 GB cosmic black 4 GB RAM',
@@ -391,6 +416,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 14 
     {
       id:                  14,
       name:                'Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM',
@@ -420,6 +447,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 15 
     {
       id:                  15,
       name:                'Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM',
@@ -449,6 +478,8 @@ export default function database() {
         }
       ]
     },
+
+    // Product 16 
     {
       id:                  16,
       name:                'Samsung Galaxy A22 Dual SIM 128 GB preto 4 GB RAM',
@@ -482,5 +513,7 @@ export default function database() {
         },
       ]
     },
+
+    //  }Product 
   ]
 }

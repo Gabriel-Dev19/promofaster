@@ -4,12 +4,22 @@ import CategorySubmenu from './CategorySubmenu'
 import { CSSTransition } from 'react-transition-group'
 import { useDispatch } from 'react-redux'
 import { backdropFalse, backdropTrue } from '../../redux/backDropMask'
+import axios from 'axios'
 
 
 export default function LinksNavbar() {
   const [showCategory, setShowCategory] = useState(false)
   const dispath = useDispatch()
   var timeoutEnterCategory = undefined
+
+  const [linksCategory, setLinksCategory] = useState([]);
+
+  // useEffect(() => {
+  //   axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)
+  //     .then((response) => {
+  //       setLinksCategory(response.data)
+  //     })
+  // }, [])
 
   useEffect(() => { window.addEventListener('resize', () => setShowCategory(false)) })
 
@@ -40,7 +50,7 @@ export default function LinksNavbar() {
             }}
             unmountOnExit
           >
-            <CategorySubmenu />
+            <CategorySubmenu links={linksCategory} />
           </CSSTransition>
         </div>
       </li>
