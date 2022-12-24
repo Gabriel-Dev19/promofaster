@@ -1,10 +1,10 @@
 import LayoutDefault from "../../../layouts/LayoutDefault";
 import axios from 'axios'
 
-export default function ViewPage ({ response }) {
+export default function ViewPage ({ response, linksCategory }) {
 
   return(
-    <LayoutDefault title={response.name} noHeader={true}>
+    <LayoutDefault title={response.name} noHeader={true} linksCategory={linksCategory}>
       <div>About us: {response.name} </div>
       <div>About us: {response.id} </div>
       <div>About us: {response.description} </div>
@@ -14,11 +14,13 @@ export default function ViewPage ({ response }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/${params.slug}?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
+  const data = await (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/${params.slug}?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`)).data;
   const response = data;
+  const linksCategory = await (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)).data;
   return {
     props: {
       response,
+      linksCategory
     },
   };
 };

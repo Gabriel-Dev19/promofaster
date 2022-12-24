@@ -11,7 +11,7 @@ import { backdropFalse } from '../redux/backDropMask'
 import Link from 'next/link'
 import urls from '../helpers/url'
 
-export default function Header ({ modelScroll = false }) {
+export default function Header ({ modelScroll = false, linksCategory }) {
   const [stateCollapse, setStateCollapse] = useState(false)
   const [onScroll, setOnScroll] = useState(false)
   const breakpointDesktop = 1199.95
@@ -30,8 +30,8 @@ export default function Header ({ modelScroll = false }) {
 
   function submitFormSearch() {
     router.push({
-      pathname: '/products/search/[name]',
-      query: { name: document.querySelector('#headerComponent #search-header-input').value }
+      pathname: '/products/search',
+      query: { parameter: document.querySelector('#headerComponent #search-header-input').value }
     })
     closeCollapseInMobile()
   }
@@ -100,7 +100,7 @@ export default function Header ({ modelScroll = false }) {
               <div className='content-nav'>
                 <div className='mx-xl-auto col-12 col-xl-auto p-0'>
                   <FormSearch submitEvent={(e) => {e.preventDefault(), submitFormSearch()}} />
-                  <LinksNavbar />
+                  <LinksNavbar linksCategory={linksCategory} />
                 </div>
                 <hr className='col-12 mt-3 d-xl-none mb-4' />
                 <AreaLogin />

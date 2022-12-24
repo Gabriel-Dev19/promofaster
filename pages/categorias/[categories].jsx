@@ -2,9 +2,9 @@ import LayoutDefault from "../../layouts/LayoutDefault";
 import axios from 'axios'
 import BannerCategory from "../../components/parts/BannerCategory";
 
-export default function CamaMesaEBanho({ infosCategory = [], listProducts = [] }) {
+export default function CamaMesaEBanho({ infosCategory, listProducts, linksCategory }) {
   return(
-    <LayoutDefault title={infosCategory.title}>
+    <LayoutDefault title={infosCategory.title} linksCategory={linksCategory}>
       <BannerCategory
         image={infosCategory.bannerInitial.backgroundBanner}
         configsBg={'no-repeat center center/cover'}
@@ -26,10 +26,12 @@ export default function CamaMesaEBanho({ infosCategory = [], listProducts = [] }
 export const getStaticProps = async ({ params }) => {
   const listProducts = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`)).data;
   const infosCategory = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories/${params.categories}`)).data;
+  const linksCategory = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)).data;
   return {
     props: {
       listProducts,
-      infosCategory
+      infosCategory,
+      linksCategory
     },
   };
 };

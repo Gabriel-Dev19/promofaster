@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import LayoutDefault from '../../../layouts/LayoutDefault'
-import Product from '../../../components/parts/Product'
+import LayoutDefault from '../../layouts/LayoutDefault'
+import Product from '../../components/parts/Product'
 import axios from 'axios'
-import Skeleton from '../../../components/parts/Skeleton'
+import Skeleton from '../../components/parts/Skeleton'
 
-export default function SearchPage({ response }) {
+export default function SearchPage({ response, linksCategory }) {
   const [dataBase, setDataBase] = useState([])
   const router = useRouter()
-  const routerQueryName = router.query.name
+  const routerQueryName = router.query.parameter
   const [queryName, setQueryName] = useState('')
   const [orderLabel, setOrderLabel] = useState('')
   const [showOptionsOrder, setShowOptionsOrder] = useState(false)
@@ -55,7 +55,7 @@ export default function SearchPage({ response }) {
   }, [routerQueryName])
 
   return (
-    <LayoutDefault title={routerQueryName} modelScroll={true}>
+    <LayoutDefault title={routerQueryName} modelScroll={true} linksCategory={linksCategory}>
       <section id="page-search">
         {
           showSkeleton ?
@@ -148,12 +148,14 @@ export default function SearchPage({ response }) {
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`);
+export const getStaticProps = async () => {
+  const data = await ( await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`)).data;
   const response = data;
+  const linksCategory = await (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)).data;
   return {
     props: {
       response,
+      linksCategory
     },
   };
 };

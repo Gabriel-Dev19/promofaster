@@ -4,10 +4,10 @@ import SliderProducts from "../components/SliderProducts";
 import BannerCategory from "../components/parts/BannerCategory";
 import categories from "../helpers/categories";
 
-export default function Index({ listProducts, infosHome }) {
+export default function Index({ listProducts, infosHome, linksCategory }) {
   return (
     <>
-      <LayoutDefault>
+      <LayoutDefault linksCategory={linksCategory}>
         <BannerCategory
           image={infosHome.banner.backgroundBanner}
           configsBg={'no-repeat center center/cover'}
@@ -48,13 +48,15 @@ export default function Index({ listProducts, infosHome }) {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const listProducts = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/products/get?NEXT_PUBLIC_API_KEY_METHOD_GET=${process.env.NEXT_PUBLIC_API_KEY_METHOD_GET}`)).data;
   const infosHome = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/home`)).data;
+  const linksCategory = (await axios.get(`${process.env.NEXT_PUBLIC_URL_PROD}/api/pages/categories`)).data;
   return {
     props: {
       listProducts,
-      infosHome
+      infosHome,
+      linksCategory
     },
   };
 };
