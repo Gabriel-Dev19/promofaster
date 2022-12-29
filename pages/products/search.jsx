@@ -5,18 +5,18 @@ import LayoutDefault from '../../layouts/LayoutDefault'
 import Product from '../../components/parts/Product'
 import axios from 'axios'
 import Skeleton from '../../components/parts/Skeleton'
+import MiniSearch from 'minisearch'
 
 export default function SearchPage({ response, linksCategory }) {
-  const [dataBase, setDataBase] = useState([])
+  const [dataBaseFiltered, setDataBaseFiltered] = useState([])
   const router = useRouter()
   const routerQueryName = router.query.parameter
-  const [queryName, setQueryName] = useState('')
   const [orderLabel, setOrderLabel] = useState('')
   const [showOptionsOrder, setShowOptionsOrder] = useState(false)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
   function orderByMinusPrice() {
-    setDataBase(oldArray => [...oldArray].sort((x, y) => {
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
       return x.preco - y.preco
     }))
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.add('active')
@@ -26,7 +26,7 @@ export default function SearchPage({ response, linksCategory }) {
   }
 
   function orderByBigPrice() {
-    setDataBase(oldArray => [...oldArray].sort((x, y) => {
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
       return y.preco - x.preco
     }))
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
@@ -36,7 +36,7 @@ export default function SearchPage({ response, linksCategory }) {
   }
 
   function orderByRelevance() {
-    setDataBase(oldArray => [...oldArray].sort((x, y) => {
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
       return y.popularity - x.popularity
     }))
     document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
@@ -46,13 +46,23 @@ export default function SearchPage({ response, linksCategory }) {
   }
 
   useEffect(() => {
-    if (response != []) {
-      setShowSkeleton(false)
-      setDataBase(response)
-      orderByRelevance()
-    }
-    setQueryName(String(routerQueryName))
-  }, [routerQueryName])
+    // Hide skeleton
+    setShowSkeleton(false)
+
+    // Search
+    const miniSearch = new MiniSearch({
+      fields: ['name', 'categorySearch'],
+      storeFields: ['name', 'linkProduct', 'categorySearch', 'images', 'precoAntigo', 'preco', 'verifyTextGreen', 'numeroParcelas', 'precoParcelas', 'popularity', 'loja', 'slug']
+    })
+    miniSearch.addAll(response)
+    setDataBaseFiltered(miniSearch.search(String(routerQueryName), {
+      fuzzy: 0.2,
+      // filter: item => String(item.categorySearch).includes('smartphones')
+    }))
+
+    // Order to relevance
+    orderByRelevance()
+  }, [response, routerQueryName])
 
   return (
     <LayoutDefault title={routerQueryName} modelScroll={true} linksCategory={linksCategory}>
@@ -61,7 +71,7 @@ export default function SearchPage({ response, linksCategory }) {
           showSkeleton ?
           <div className="container">
             <Skeleton colunms={1} heightEls={30} elements={1} />
-            <Skeleton colunms={4} heightEls={350} elements={8} />
+            <Skeleton colunms={4} heightEls={350} elements={16} />
           </div> :
           null
         }
@@ -100,27 +110,7 @@ export default function SearchPage({ response, linksCategory }) {
           </div>
           <ul className="mt-4 list-products">
             {
-              dataBase.filter((item) => {
-                return (
-                  item.categorySearch.includes('')
-                ) &&
-                (
-                  queryName.includes(' ') ?
-                  (
-                    item.name.toLowerCase().indexOf(queryName.toLowerCase().slice(item.name.indexOf(' ') + 1)) !== -1 ||
-                    item.categorySearch.toLowerCase().indexOf(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) !== -1
-                  ) :
-                  (
-                    item.name.toLowerCase().indexOf(queryName.toLowerCase()) !== -1 ||
-                    item.categorySearch.toLowerCase().indexOf(queryName.toLowerCase()) !== -1
-                  )
-                  // item.name.toLowerCase().replace(' ', '').includes(queryName.toLowerCase().replace(' ', ''))
-                  // item.categorySearch.toLowerCase().includes(queryName.toLowerCase().slice(item.categorySearch.indexOf(' ') + 1)) ||
-                  // item.description.toLowerCase().includes(queryName.toLowerCase().slice(item.description.indexOf(' ') + 1)) ||
-                  // item.id.toString().toLowerCase().includes(queryName.toLowerCase())
-                  // item.name.toLowerCase().includes(campoInput.toLowerCase().substr(0, 4))
-                )
-              }).map((item, index) => {
+              dataBaseFiltered.map((item, index) => {
                 return(
                   <li key={index}>
                     <Product
@@ -129,7 +119,6 @@ export default function SearchPage({ response, linksCategory }) {
                       images={item.images}
                       nameProduct={item.name}
                       precoAntigo={item.precoAntigo}
-                      porcentagemDesconto={item.porcentagemDesconto}
                       realPrice={item.preco}
                       verifyTextGreen={item.semJuros}
                       numeroParcelas={item.numeroParcelas}
@@ -140,6 +129,17 @@ export default function SearchPage({ response, linksCategory }) {
                   </li>
                 )
               })
+            }
+            {
+              dataBaseFiltered.length === 0 && (
+                <div className="not-found">
+                  <img src={'/img/icons/alert-circle.svg'} loading={'lazy'} height={100} width={100} alt={'Ícone de alerta'} />
+                  <h3>Sem resultados</h3>
+                  <p>
+                    Não conseguimos encontrar resultados para {`"`}{ routerQueryName }{`"`}, verifique a ortografia ou navegue em uma categoria.
+                  </p>
+                </div>
+              )
             }
           </ul>
         </div>

@@ -65,11 +65,11 @@ export default function BannerCategory({
           {
             products
             .sort((x, y) => {
-              return y.porcentagemDesconto - x.porcentagemDesconto
+              return ((y.precoAntigo - y.preco) / y.precoAntigo * 100) - ((x.precoAntigo - x.preco) / x.precoAntigo * 100)
             })
             .filter((item) => {
               if (bestOffert) {
-                return item.porcentagemDesconto > 30
+                return ((item.precoAntigo - item.preco) / item.precoAntigo * 100) > 30
               } else {
                 return item
               }
@@ -87,7 +87,6 @@ export default function BannerCategory({
                     images={item.images}
                     nameProduct={item.name}
                     precoAntigo={item.precoAntigo}
-                    porcentagemDesconto={item.porcentagemDesconto}
                     realPrice={item.preco}
                     verifyTextGreen={item.semJuros}
                     numeroParcelas={item.numeroParcelas}

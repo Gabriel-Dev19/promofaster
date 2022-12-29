@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "network": "npx next dev -H 192.168.100.54"
   },
   "dependencies": {
     "@prisma/client": "^4.0.0",
@@ -19,7 +20,9 @@
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.1",
+    "flexsearch": "^0.7.31",
     "html-react-parser": "^3.0.4",
+    "minisearch": "^6.0.0",
     "mongodb": "^4.6.0",
     "next": "12.1.4",
     "next-auth": "^4.10.3",
@@ -28,6 +31,7 @@
     "react-dom": "18.0.0",
     "react-redux": "^8.0.2",
     "react-transition-group": "^4.4.2",
+    "react-use-flexsearch": "^0.1.1",
     "reactstrap": "^9.0.1",
     "redux": "^4.2.0",
     "sass": "^1.49.11",

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import {  } from "react";
 
 export default function Product({
-  linkProduct, nameProduct, images, precoAntigo, realPrice, verifyTextGreen,
+  linkProduct, nameProduct, images = [], precoAntigo, realPrice, verifyTextGreen,
   numeroParcelas, priceParcelas, popularity, lojaVendedora
 }) {
   const uniqueId = Date.now()
@@ -21,7 +21,7 @@ export default function Product({
       const result = decreaseValue / precoAntigo * 100
       setPorcentagemDesconto(result.toFixed(0))
     }
-  }, [])
+  }, [precoAntigo, realPrice])
 
   return (
     <div
@@ -99,7 +99,7 @@ export function ProductExtended({
       const result = decreaseValue / precoAntigo * 100
       setPorcentagemDesconto(result.toFixed(0))
     }
-  }, [])
+  }, [precoAntigo, realPrice])
 
   return(
     <div className="product-extended">

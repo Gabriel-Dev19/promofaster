@@ -48,7 +48,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1200',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -79,7 +79,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1300',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -114,7 +114,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1550',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -149,7 +149,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '958',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -180,7 +180,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1510',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -211,7 +211,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1230',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -242,7 +242,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1120',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -273,7 +273,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1190',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -397,7 +397,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1100',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -428,7 +428,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1700',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -459,7 +459,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1200',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
@@ -490,7 +490,7 @@ export default function database() {
       link:                'https://aaaa',
 
       precoAntigo:         '1800',
-      preco:               '1500',
+      preco:               '1780',
 
       numeroParcelas:      '12',
       precoParcelas:       '115',
