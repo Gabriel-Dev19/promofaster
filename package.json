@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export",
-    "network": "npx next dev -H 192.168.100.54"
+    "network": "npx next dev -H 192.168.0.105"
   },
   "dependencies": {
     "@prisma/client": "^4.0.0",

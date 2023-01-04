@@ -22,18 +22,9 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -57,14 +48,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -88,18 +73,9 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -123,18 +99,9 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -158,14 +125,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -189,14 +150,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -220,14 +175,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -251,14 +200,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -282,14 +225,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -313,14 +250,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -344,14 +275,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -375,14 +300,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -406,14 +325,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -437,14 +350,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -468,14 +375,8 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        }
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', }
       ]
     },
 
@@ -499,18 +400,9 @@ export default function database() {
       semJuros:            true,
 
       images: [
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
-        {
-          url: 'https://i.imgur.com/r2NGbBe.jpg',
-          alt: 'Alt da imagem'
-        },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
+        { url: 'https://i.imgur.com/r2NGbBe.jpg', },
       ]
     },
 

@@ -1,12 +1,13 @@
 import parse from 'html-react-parser'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
+import { Autoplay, Pagination, EffectFade } from 'swiper'
 import 'swiper/css'
-import { ProductExtended } from './Product'
+import { ProductExtended } from '../Product/Product'
 import { useEffect, useState } from 'react'
+import styles from './BannerCategory.module.scss'
 
 export default function BannerCategory({
-  image,
+  images = [],
   products,
   bestOffert,
   slidersPerSwiper,
@@ -27,9 +28,37 @@ export default function BannerCategory({
   })
 
   return(
-    <section className="banner-category" style={{ background: `linear-gradient(${configBackdrop}), url(${image}) ${configsBg}` }}>
-      <div className="container">
-        <div className="infos">
+    <section className={`${styles.banner_category} banner_category`}>
+      {
+        images.length <= 1
+          ? (
+            <div className={styles.banner} style={{ background: `linear-gradient(${configBackdrop}), url(${images[0]}) ${configsBg}` }}></div>
+          ) : (
+            <>
+              <div className={styles.mask_backdrop}></div>
+              <Swiper
+                slidesPerView={'auto'}
+                effect={'fade'}
+                allowTouchMove={false}
+                loop={true}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false
+                }}
+                modules={[Autoplay, EffectFade]}
+                className={`${styles.swiper_background} swiper_background`}
+              >
+                {images.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={item} loading="lazy" height={700} width={1500} alt="Imagem de background" />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </>
+          )
+      }
+      <div className={`${styles.container} container`}>
+        <div className={styles.infos}>
           { infos.title && (
             tagTitle === 'h1' ? (<h1 style={{ color: colorTitle }}>{parse(infos.title)}</h1>) : (<h2 style={{ color: colorTitle }}>{parse(infos.title)}</h2>)
           ) }
@@ -54,10 +83,6 @@ export default function BannerCategory({
             delay: 3700,
             pauseOnMouseEnter: true,
             disableOnInteraction: false
-          }}
-          navigation={{
-            prevEl: 'ele',
-            nextEl: 'ele'
           }}
           pagination={{clickable: true}}
           modules={[Autoplay, Pagination]}

@@ -1,0 +1,48 @@
+@import '../../../styles/variables.scss';
+
+form.form_search{
+  width: 100%;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.735);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: $xl) {
+    margin-top: 30px;
+  }
+
+  &.bg_white{
+    background-color: rgba(255, 255, 255, 0.908) !important;
+  }
+
+  input{
+    border: none;
+    padding-left: 15px;
+    padding-right: 20px;
+    background-color: transparent !important;
+
+    &:focus{
+      box-shadow: none;
+    }
+
+    &::placeholder{
+      color: $softBlack;
+      font-weight: 400;
+      font-size: 15px;
+      letter-spacing: .5px;
+      opacity: .9;
+    }
+  }
+
+  button{
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+
+    ion-icon{
+      font-size: 20px;
+      padding: 0 5px;
+    }
+  }
+}

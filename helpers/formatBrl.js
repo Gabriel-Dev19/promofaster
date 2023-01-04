@@ -1,3 +1,3 @@
-export default function FormatBrl(number) {
+export default function formatBrl(number) {
   return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(number)
 }

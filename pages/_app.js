@@ -20,12 +20,6 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
     document.body.setAttribute('onselectstart', 'return false')
   }, [router.events])
 
-  useEffect(() => {
-    document.querySelector('header nav.on-scroll-static')
-      ? (document.body.style.paddingTop = '85px')
-      : (document.body.style.paddingTop = '0')
-  })
-
   return(
     <>
       { isLoading && <LoadingScreen /> }

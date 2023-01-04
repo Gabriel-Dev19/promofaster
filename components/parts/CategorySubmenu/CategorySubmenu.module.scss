@@ -1,0 +1,113 @@
+@import '../../../styles/variables.scss';
+
+ul.box_categories{
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5px;
+  border-radius: 5px;
+  list-style: none;
+  padding: 8px;
+  min-width: 160px;
+  margin: 0;
+  
+  @media (min-width: $xl) {
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0 5px 5px 0;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(175, 175, 175);
+    border-radius: 20px;
+    border: 2px solid rgb(255, 255, 255);
+  }
+
+  @media (max-width: $xl) {
+    position: static;
+    margin-top: 10px;
+  }
+  
+  .item{
+    padding: 6px 20px 6px 6px;
+    position: relative;
+    color: $black !important;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .7px;
+    text-align: left;
+    border-radius: 5px;
+    white-space: nowrap;
+    text-decoration: none !important;
+
+    &:hover, &.active{
+      background-color: $graySky3;
+    }
+
+    &:focus{
+      box-shadow: none !important;
+    }
+
+    .icon{
+      position: relative;
+      height: 27px;
+      width: 27px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      margin-right: 8px;
+      color: $blue;
+      background-color: $blueOpac;
+
+      ion-icon{
+        font-size: 16px;
+        min-width: 16px;
+      }
+    }
+  }
+
+  .subitem{
+    color: $black !important;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: .7px;
+    text-align: left;
+    position: relative;
+    padding-left: 13px;
+    margin-left: 5px;
+    margin-top: 8px;
+
+    &::before{
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 1px;
+      border-radius: 50%;
+      height: 4px;
+      width: 4px;
+      background-color: $blue;
+    }
+
+    &:hover{
+      text-decoration: underline !important;
+    }
+  }
+}

@@ -1,12 +1,12 @@
 import LayoutDefault from "../../layouts/LayoutDefault";
 import axios from 'axios'
-import BannerCategory from "../../components/parts/BannerCategory";
+import BannerCategory from "../../components/parts/BannerCategory/BannerCategory";
 
 export default function CamaMesaEBanho({ infosCategory, listProducts, linksCategory }) {
   return(
     <LayoutDefault title={infosCategory.title} linksCategory={linksCategory}>
       <BannerCategory
-        image={infosCategory.bannerInitial.backgroundBanner}
+        images={infosCategory.bannerInitial.backgroundBanner}
         configsBg={'no-repeat center center/cover'}
         configBackdrop={'180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75) 60%'}
         tagTitle={'h1'}

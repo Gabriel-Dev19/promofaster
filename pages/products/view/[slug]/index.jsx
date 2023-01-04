@@ -1,4 +1,4 @@
-import LayoutDefault from "../../../layouts/LayoutDefault";
+import LayoutDefault from "../../../../layouts/LayoutDefault";
 import axios from 'axios'
 
 export default function ViewPage ({ response, linksCategory }) {

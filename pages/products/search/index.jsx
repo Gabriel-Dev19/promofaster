@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import classNames from 'classnames'
-import LayoutDefault from '../../layouts/LayoutDefault'
-import Product from '../../components/parts/Product'
+import LayoutDefault from '../../../layouts/LayoutDefault'
+import Product from '../../../components/parts/Product/Product'
 import axios from 'axios'
-import Skeleton from '../../components/parts/Skeleton'
+import Skeleton from '../../../components/parts/Skeleton'
 import MiniSearch from 'minisearch'
+import styles from './PageSearch.module.scss'
+import Link from 'next/link'
 
 export default function SearchPage({ response, linksCategory }) {
   const [dataBaseFiltered, setDataBaseFiltered] = useState([])
@@ -16,32 +17,26 @@ export default function SearchPage({ response, linksCategory }) {
   const [showSkeleton, setShowSkeleton] = useState(true)
 
   function orderByMinusPrice() {
-    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
-      return x.preco - y.preco
-    }))
-    document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.add('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => { return x.preco - y.preco }))
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(1)`).classList.add(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(2)`).classList.remove(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(3)`).classList.remove(styles.active)
     setOrderLabel('menor preço')
   }
 
   function orderByBigPrice() {
-    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
-      return y.preco - x.preco
-    }))
-    document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.add('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.remove('active')
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => { return y.preco - x.preco }))
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(1)`).classList.remove(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(2)`).classList.add(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(3)`).classList.remove(styles.active)
     setOrderLabel('maior preço')
   }
 
   function orderByRelevance() {
-    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => {
-      return y.popularity - x.popularity
-    }))
-    document.querySelector('#page-search .order-by .box-options button:nth-child(1)').classList.remove('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(2)').classList.remove('active')
-    document.querySelector('#page-search .order-by .box-options button:nth-child(3)').classList.add('active')
+    setDataBaseFiltered(oldArray => [...oldArray].sort((x, y) => { return y.popularity - x.popularity }))
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(1)`).classList.remove(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(2)`).classList.remove(styles.active)
+    document.querySelector(`.${styles.page_search} .${styles.box_options} button:nth-child(3)`).classList.add(styles.active)
     setOrderLabel('maior relevância')
   }
 
@@ -66,7 +61,7 @@ export default function SearchPage({ response, linksCategory }) {
 
   return (
     <LayoutDefault title={routerQueryName} modelScroll={true} linksCategory={linksCategory}>
-      <section id="page-search">
+      <section className={styles.page_search}>
         {
           showSkeleton ?
           <div className="container">
@@ -82,11 +77,11 @@ export default function SearchPage({ response, linksCategory }) {
                 Exibindo resultados para:
               </span> <br /> &ldquo;{routerQueryName}&ldquo;
             </h5>
-            <div className="order-by mt-3 mt-lg-0 px-0 w-auto">
+            <div className={`${styles.order_by} mt-3 mt-lg-0 px-0 w-auto`}>
               <button
                 onFocus={() => setShowOptionsOrder(true)}
                 onBlur={() => setTimeout(() => setShowOptionsOrder(false), 10)}
-                className="button-action"
+                className={styles.button_action}
                 title='Ordenar lista de produtos'
                 aria-label='Ordenar lista de produtos'
               >
@@ -95,7 +90,7 @@ export default function SearchPage({ response, linksCategory }) {
                 </span>
                 <ion-icon name="chevron-down-outline"></ion-icon>
               </button>
-              <div className={classNames({'box-options border shadow': true, 'd-none': !showOptionsOrder})}>
+              <div className={ `border shadow ${styles.box_options} ${!showOptionsOrder && 'd-none'} `}>
                 <button onFocus={ () => orderByMinusPrice() } title="menor preço" aria-label='menor preço'>
                   menor preço
                 </button>
@@ -108,40 +103,41 @@ export default function SearchPage({ response, linksCategory }) {
               </div>
             </div>
           </div>
-          <ul className="mt-4 list-products">
-            {
-              dataBaseFiltered.map((item, index) => {
-                return(
-                  <li key={index}>
-                    <Product
-                      numberId={index + 1}
-                      linkProduct={{pathname: '/products/view/[slug]', query: { slug: item.slug}}}
-                      images={item.images}
-                      nameProduct={item.name}
-                      precoAntigo={item.precoAntigo}
-                      realPrice={item.preco}
-                      verifyTextGreen={item.semJuros}
-                      numeroParcelas={item.numeroParcelas}
-                      priceParcelas={item.precoParcelas}
-                      popularity={item.popularity}
-                      lojaVendedora={item.loja}
-                    />
-                  </li>
-                )
-              })
-            }
-            {
-              dataBaseFiltered.length === 0 && (
-                <div className="not-found">
-                  <img src={'/img/icons/alert-circle.svg'} loading={'lazy'} height={100} width={100} alt={'Ícone de alerta'} />
-                  <h3>Sem resultados</h3>
-                  <p>
-                    Não conseguimos encontrar resultados para {`"`}{ routerQueryName }{`"`}, verifique a ortografia ou navegue em uma categoria.
-                  </p>
-                </div>
-              )
-            }
+          <ul className={styles.list_products}>
+            {dataBaseFiltered.map((item, index) => (
+              <li key={index}>
+                <Product
+                  numberId={index + 1}
+                  linkProduct={{pathname: '/products/view/[slug]', query: { slug: item.slug}}}
+                  images={item.images}
+                  nameProduct={item.name}
+                  precoAntigo={item.precoAntigo}
+                  realPrice={item.preco}
+                  verifyTextGreen={item.semJuros}
+                  numeroParcelas={item.numeroParcelas}
+                  priceParcelas={item.precoParcelas}
+                  popularity={item.popularity}
+                  lojaVendedora={item.loja}
+                />
+              </li>
+            ))}
           </ul>
+          {dataBaseFiltered.length === 0 && (
+            <div className={styles.not_found}>
+              <img src={'/img/icons/alert-circle.svg'} loading={'lazy'} height={100} width={100} alt={'Ícone de alerta'} />
+              <h3>Sem resultados</h3>
+              <p>Não conseguimos encontrar resultados para {`"`}{ routerQueryName }{`"`}, verifique a ortografia ou navegue por uma categoria abaixo.</p>
+              <ul>
+                {linksCategory.map((item, index) => (
+                  <li key={index}>
+                    <Link href={'/categorias/' + item.slug}>
+                      <a title={item.title}>{item.title}</a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
     </LayoutDefault>

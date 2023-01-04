@@ -1,7 +1,7 @@
 import LayoutDefault from "../layouts/LayoutDefault";
 import axios from 'axios'
-import SliderProducts from "../components/SliderProducts";
-import BannerCategory from "../components/parts/BannerCategory";
+import SliderProducts from "../components/SliderProducts/SliderProducts";
+import BannerCategory from "../components/parts/BannerCategory/BannerCategory";
 import categories from "../helpers/categories";
 
 export default function Index({ listProducts, infosHome, linksCategory }) {
@@ -9,7 +9,7 @@ export default function Index({ listProducts, infosHome, linksCategory }) {
     <>
       <LayoutDefault linksCategory={linksCategory}>
         <BannerCategory
-          image={infosHome.banner.backgroundBanner}
+          images={infosHome.banner.backgroundBanner}
           configsBg={'no-repeat center center/cover'}
           configBackdrop={'180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75) 60%'}
           tagTitle={'h1'}
@@ -34,7 +34,7 @@ export default function Index({ listProducts, infosHome, linksCategory }) {
         <SliderProducts
           products={listProducts}
           paddingTop={80}
-          filterCategory={[ categories.audio.tag ]}
+          filterCategory={[ categories.audio.slug ]}
           header={{
             title: 'Áudio',
             color: 'color-audio',

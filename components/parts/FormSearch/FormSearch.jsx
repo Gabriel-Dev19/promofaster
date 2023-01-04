@@ -1,7 +1,13 @@
+import { useState } from "react"
+import styles from './FormSearch.module.scss'
+
 export default function FormSearch({ submitEvent }) {
+
+  const [bgWhite, setBgWhite] = useState(false);
+
   return(
     <form
-      className='form-search'
+      className={`${styles.form_search} ${bgWhite && styles.bg_white}`}
       onSubmit={submitEvent}
       autoComplete={'off'}
     >
@@ -11,8 +17,8 @@ export default function FormSearch({ submitEvent }) {
         className='form-control'
         required
         placeholder='Busque por algo...'
-        onFocus={() => {document.querySelector('#headerComponent .form-search').classList.add('bg-white')}}
-        onBlur={() => {document.querySelector('#headerComponent .form-search').classList.remove('bg-white')}}
+        onFocus={() => setBgWhite(true)}
+        onBlur={() => setBgWhite(false)}
       />
       <button type='submit' title='Buscar' aria-label='Buscar'>
         <ion-icon name="search-outline"></ion-icon>

@@ -39,7 +39,7 @@ a, button{
   border-radius: 100px !important;
   padding: 6px 20px !important;
   font-size: 15px;
-  transition: all .1s;
+  transition: all ease .2s;
   width: auto;
   display: flex;
   align-items: center;
@@ -85,7 +85,7 @@ a, button{
     color: $white !important;
     
     &::before{
-      opacity: 1;
+      opacity: .9;
     }
   }
   

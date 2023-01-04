@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .product{
   border-radius: 7px;
   overflow: hidden;
@@ -11,16 +13,16 @@
   position: relative;
   min-height: 100%;
 
-  .btn-prev:focus, .btn-next:focus{
+  .btn_prev:focus, .btn_next:focus{
     box-shadow: none !important;
     border-radius: 0;
   }
 
   &:hover{
-    .btn-prev, .btn-next{
+    .btn_prev, .btn_next{
       opacity: 1 !important;
     }
-    .btn-prev:disabled, .btn-next:disabled{
+    .btn_prev:disabled, .btn_next:disabled{
       opacity: .5 !important;
     }
   }
@@ -41,12 +43,12 @@
     }
 
     @media (max-width: $xl) {
-      .btn-prev, .btn-next{
+      .btn_prev, .btn_next{
         display: none !important;
       }
     }
 
-    .btn-prev, .btn-next{
+    .btn_prev, .btn_next{
       position: absolute;
       bottom: 10px;
       z-index: 2;
@@ -79,10 +81,10 @@
       }
     }
 
-    .btn-prev{
+    .btn_prev{
       right: 40px;
     }
-    .btn-next{
+    .btn_next{
       right: 10px;
     }
 
@@ -116,7 +118,7 @@
         font-size: 11px;
       }
 
-      .loja-vendedora{
+      .loja_vendedora{
         display: -webkit-box !important;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -154,7 +156,7 @@
       }
     }
     
-    .format-price{
+    .format_price{
       font-size: 18px;
       font-weight: 600;
 
@@ -182,23 +184,7 @@
   }
 }
 
-//Verificação para produtos dentro do slider
-.swiper-slide{
-  .product{
-    .img{
-      @media (max-width: 479.95px) {
-        height: 50vw;
-      }
-    }
-    a{
-      @media (max-width: $sm) {
-        font-size: 13px;
-      }
-    }
-  }
-}
-
-.product-extended{
+.product_extended{
   display: flex;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.892);
@@ -244,7 +230,7 @@
         font-size: 11px;
       }
 
-      .loja-vendedora{
+      .loja_vendedora{
         display: -webkit-box !important;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -282,7 +268,7 @@
       }
     }
     
-    .format-price{
+    .format_price{
       font-size: 17px;
       font-weight: 600;
 

@@ -7,12 +7,12 @@ export default function categoriesDatabase() {
     // Category 1
     {
       title: 'Melhores ofertas',
-      slug: formattedURL('melhores ofertas'),
+      slug: formattedURL('Melhores Ofertas'),
       icon: 'star-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
-        titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
-        descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
+        backgroundBanner: ['https://i.imgur.com/YVkxTrm.jpg', 'https://i.imgur.com/GOTvD3d.jpg', 'https://i.imgur.com/YVkxTrm.jpg', 'https://i.imgur.com/GOTvD3d.jpg'],
+        titleBanner: 'Seleção das nossas <br> <em>melhores ofertas</em>',
+        descriptionBanner: 'Essa é a seleção geral das melhores ofertas e lojas. Confira nossas promoções em <br> Eletrodomésticos, Cama mesa e banho, Móveis e decoração, Eletrônicos e muito mais',
         numberOfSlides: 10,
         bestOffert: false,
         categoriesOfSlides: ['smartphones', 'notebooks']
@@ -25,7 +25,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('móveis e decoração'),
       icon: 'home-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -40,7 +40,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('cama mesa e banho'),
       icon: 'bed-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -55,7 +55,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('smartphones'),
       icon: 'phone-portrait-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -70,7 +70,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('eletrodomésticos'),
       icon: 'desktop-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -85,7 +85,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('eletrônicos'),
       icon: 'hardware-chip-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -100,7 +100,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('áudio'),
       icon: 'headset-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -115,7 +115,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('notebooks'),
       icon: 'laptop-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -130,7 +130,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('moda'),
       icon: 'shirt-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -145,7 +145,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('cosméticos'),
       icon: 'flower-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,
@@ -160,7 +160,7 @@ export default function categoriesDatabase() {
       slug: formattedURL('fitness e esportes'),
       icon: 'barbell-outline',
       bannerInitial: {
-        backgroundBanner: 'https://i.imgur.com/GOTvD3d.jpg',
+        backgroundBanner: ['https://i.imgur.com/GOTvD3d.jpg'],
         titleBanner: 'Melhores <em>promoções</em> em <em>smartphones</em> e notebooks!',
         descriptionBanner: 'As melhores lojas com promoções incríveis para você aproveitar, <br> confira as melhores seleções da Promofaster em smartphones e notebooks!',
         numberOfSlides: 10,

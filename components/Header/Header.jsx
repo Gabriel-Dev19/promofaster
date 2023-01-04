@@ -3,13 +3,14 @@ import classNames from 'classnames'
 import { Collapse } from 'reactstrap'
 import { useRouter } from 'next/router'
 import { CSSTransition } from 'react-transition-group'
-import FormSearch from './parts/FormSearch'
-import LinksNavbar from './parts/LinksNavbar'
-import AreaLogin from './parts/AreaLogin'
+import FormSearch from '../parts/FormSearch/FormSearch'
+import LinksNavbar from '../parts/LinksNavbar/LinksNavbar'
+import AreaLogin from '../parts/AreaLogin/AreaLogin'
 import { useDispatch, useSelector } from 'react-redux'
-import { backdropFalse } from '../redux/backDropMask'
+import { backdropFalse } from '../../redux/backDropMask'
 import Link from 'next/link'
-import urls from '../helpers/url'
+import urls from '../../helpers/url'
+import styles from './Header.module.scss'
 
 export default function Header ({ modelScroll = false, linksCategory }) {
   const [stateCollapse, setStateCollapse] = useState(false)
@@ -51,7 +52,6 @@ export default function Header ({ modelScroll = false, linksCategory }) {
 
   // UseEffect no repeat
   useEffect(() => {
-    document.body.classList.add('padding-header')
     setCollapseIfWindowWidth()
     setShadowInHeader()
     // Resize event
@@ -66,21 +66,27 @@ export default function Header ({ modelScroll = false, linksCategory }) {
     window.addEventListener('scroll', () => setShadowInHeader())
   }, [])
 
+  useEffect(() => {
+    modelScroll
+      ? (document.body.style.paddingTop = '85px')
+      : (document.body.style.paddingTop = '0')
+  })
+
   return(
     <>
-      <header id='headerComponent' className={classNames({ 'shadow': onScroll, 'fixed-top': true })}>
+      <header id='headerComponent' className={`${styles.header_component} ${onScroll && 'shadow'} fixed-top`}>
         <CSSTransition
           in={state.backdrop.setBackdrop}
           timeout={300}
           classNames={{ enter: 'fade-opac-enter', enterActive: 'fade-opac-enter-active', exit: 'fade-opac-exit', exitActive: 'fade-opac-exit-active' }}
           unmountOnExit
         >
-          <div className="backdrop-mask" />
+          <div className={styles.backdrop_mask} />
         </CSSTransition>
-        <nav className={`navbar nav ${ onScroll && 'on-scroll'} ${ modelScroll && 'on-scroll-static'}`}>
+        <nav className={`navbar nav ${ onScroll && styles.on_scroll} ${ modelScroll && styles.on_scroll_static}`}>
           <div className="container">
             <Link href={String(urls.home)}>
-              <a className='brand-logo'>
+              <a className={styles.brand_logo}>
                 <img src="/img/logo.webp" width={200} height={100} loading="lazy" alt="Logo" />
               </a>
             </Link>
@@ -89,7 +95,7 @@ export default function Header ({ modelScroll = false, linksCategory }) {
                 setStateCollapse(!stateCollapse)
                 dispatch(backdropFalse())
               }}
-              className='btn toggle-nav d-flex d-xl-none p-0'
+              className={`${styles.toggle_nav} btn d-flex d-xl-none p-0`}
               title={ stateCollapse ? 'Fechar barra de navegação' : 'Abrir barra de navegação' }
               aria-label={ stateCollapse ? 'Fechar barra de navegação' : 'Abrir barra de navegação' }
             >
@@ -97,7 +103,7 @@ export default function Header ({ modelScroll = false, linksCategory }) {
               <ion-icon name={stateCollapse ? 'close-outline' : 'menu-outline'} />
             </button>
             <Collapse isOpen={stateCollapse} className="col-12 px-0 col-xl">
-              <div className='content-nav'>
+              <div className={styles.content_nav}>
                 <div className='mx-xl-auto col-12 col-xl-auto p-0'>
                   <FormSearch submitEvent={(e) => {e.preventDefault(), submitFormSearch()}} />
                   <LinksNavbar linksCategory={linksCategory} />

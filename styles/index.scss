@@ -5,13 +5,7 @@
 @import './swiperConfig.scss';
 @import './animations.scss';
 @import './colors.scss';
-@import './components/Hero.scss';
-@import './components/Header.scss';
-@import './components/Product.scss';
-@import './components/PageSearch.scss';
-@import './components/Skeleton.scss';
-@import './components/SliderProducts.scss';
-@import './components/BannerCategory.scss';
+@import './skeleton.scss';
 
 ::-webkit-scrollbar {
   width: 14px;

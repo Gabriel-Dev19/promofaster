@@ -1,10 +1,11 @@
 import {Swiper, SwiperSlide} from 'swiper/react'
 import { Pagination } from 'swiper'
 import 'swiper/css'
-import Product from './parts/Product'
+import Product from '../parts/Product/Product'
 import { useState, useEffect, useRef } from "react";
-import Skeleton from './parts/Skeleton'
+import Skeleton from '../parts/Skeleton'
 import Link from 'next/link'
+import styles from './SliderProducts.module.scss'
 
 export default function SliderProducts({
   products,
@@ -39,7 +40,7 @@ export default function SliderProducts({
   }, [products])
 
   return(
-    <section className='slider-product' style={{ paddingTop: `${verificationWindow == sizes.desktop ? paddingTop : paddingTop / 1.5}px` }}>
+    <section className={`${styles.slider_product} slider_product`} style={{ paddingTop: `${verificationWindow == sizes.desktop ? paddingTop : paddingTop / 1.5}px` }}>
       {
         showSkeleton ?
         <div className="container">
@@ -52,9 +53,9 @@ export default function SliderProducts({
         <div className="container">
           {
             header !== '' &&
-            <div className="title">
-              <div className="icon-text">
-                <div className={`icon`}>
+            <div className={styles.title}>
+              <div className={styles.icon_text}>
+                <div className={styles.icon}>
                   <ion-icon name={header.icon} />
                 </div>
                 <h2>
@@ -83,7 +84,7 @@ export default function SliderProducts({
               991.95:  { slidesPerView: 3.8, spaceBetween: 18 },
               1199.95: { slidesPerView: 5, spaceBetween: 18 }
             }}
-            className="swiper-products"
+            className={styles.swiper_products}
           >
             {
               products
@@ -104,7 +105,7 @@ export default function SliderProducts({
               })
               .map((item, index) => {
                 return(
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={index} className={styles.swiper_slide}>
                     <Product
                       linkProduct={{pathname: '/products/view/[slug]', query: { slug: item.slug }}}
                       images={item.images}

@@ -39,3 +39,117 @@
     }
   }
 }
+
+.banner_category{
+  .swiper_background{
+    .swiper-slide{
+      opacity: 0 !important;
+      transition: opacity .3s;
+
+      img{
+        transition: transform .3s;
+      }
+
+      &.swiper-slide-prev{
+        img{
+          transform: scale3d(1.2, 1.2, 1.2);
+        }
+      }
+
+      &.swiper-slide-next{
+        img{
+          transform: scale3d(1, 1, 1);
+        }
+      }
+
+      &.swiper-slide-active{
+        opacity: 1 !important;
+        
+        img{
+          transition: transform linear 5.4s;
+          transform: scale3d(1.1, 1.1, 1.1);
+        }
+      }
+    }
+  }
+  .container{
+    .swiper{
+      width: 100%;
+      padding-top: 60px;
+      padding-bottom: 45px;
+      margin-bottom: -10px;
+      overflow: visible;
+    
+      @media (max-width: $sm) {
+        padding: 35px 15px 40px;
+      }
+    
+      .swiper-slide{
+        height: auto;
+        transition: all .3s;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        &::after{
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          height: 3px;
+          width: 0%;
+          transition: width .3s, opacity .2s;
+          transition-delay: .1s;
+          border-radius: 100px;
+          background-color: $blueLight;
+          opacity: 0;
+          transform: translateY(3px);
+        }
+    
+        &.swiper-slide-active{
+          @media (min-width: $sm) {
+            transform: translateY(-10px);
+            z-index: 5;
+    
+            &::after{
+              opacity: .7;
+              width: 100%;
+            }
+          }
+        }
+      }
+    
+      .swiper-pagination{
+        bottom: 0;
+    
+        @media (max-width: $sm) {
+          justify-content: flex-start;
+        }
+    
+        .swiper-pagination-bullet {
+          background-color: $white;
+        }
+    
+        .swiper-pagination-bullet-active {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+}
+
+//Verificação para produtos dentro do slider
+.swiper-slide{
+  .product{
+    .img{
+      @media (max-width: 479.95px) {
+        height: 50vw;
+      }
+    }
+    a{
+      @media (max-width: $sm) {
+        font-size: 13px;
+      }
+    }
+  }
+}
